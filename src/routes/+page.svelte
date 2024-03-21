@@ -2,7 +2,7 @@
   import { type FormStore, type Feedback, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import {
     FieldCheckboxList, FieldCombobox, FieldDate, FieldDateTime, FieldMore, FieldMultiselect, FieldNumber,
-    FieldRadio, FieldRadioTile, FieldSelect, FieldTextInput, FieldTime, FieldToggle, Form
+    FieldRadio, FieldRadioTile, FieldSelect, FieldTextArea, FieldTextInput, FieldTime, FieldToggle, Form
   } from '$lib/index.js'
 
   import 'carbon-components-svelte/css/white.css'
@@ -64,8 +64,9 @@
     <FieldTime path="time" labelText="Time only" use12hourclock includeTz />
   </div>
   <FieldDateTime path="datetime" labelText="Date and Time" />
+  <FieldTextArea path="textarea" labelText="Text Area" />
   <br>
-  TODO: FieldDateRange, FieldDateTimeRange, FieldTextArea, FieldPassword,
+  TODO: FieldDateRange, FieldDateTimeRange, FieldPassword,
   FieldUpload, FieldDropdown, FieldCKEditor, FieldCode
   <br>
   <pre>

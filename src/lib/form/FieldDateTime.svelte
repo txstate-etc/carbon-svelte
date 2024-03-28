@@ -33,7 +33,7 @@
 
   export let path: string
   export let conditional = true
-  export let defaultValue: Date | undefined = undefined
+  export let defaultValue: Date | string | undefined = undefined
 
   export let labelText: string
   export let helperText: string | undefined = undefined
@@ -81,7 +81,7 @@
   function serialize (val: any): any {
     const ret: { dateStr: string, timeStr: string, ampmStr: 'am' | 'pm' } = { dateStr: '', timeStr: '', ampmStr: 'am' }
     if (val == null) return ret
-    let dt = DateTime.fromJSDate(val)
+    let dt = typeof val === 'string' ? DateTime.fromISO(val) : DateTime.fromJSDate(val)
     if (!dt.isValid) return ret
     dt = dt.setZone(timeZone ?? 'local')
     ret.dateStr = dt.toFormat('MM/dd/yyyy')

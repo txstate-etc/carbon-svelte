@@ -5,7 +5,8 @@ export function feedbackTypeToKind (type: any) {
     error: 'error' as const,
     warning: 'warning' as const,
     success: 'success' as const,
-    system: 'error' as const
+    system: 'error' as const,
+    info: 'info' as const
   }[type as string] ?? 'error'
 }
 

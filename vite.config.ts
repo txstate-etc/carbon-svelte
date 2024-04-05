@@ -6,6 +6,6 @@ export default defineConfig({
   build: { sourcemap: true },
   css: { devSourcemap: true },
   optimizeDeps: {
-    exclude: [/* '@iconify-icons/ph' */] // exclude iconify libraries to preserve HMR
+    noDiscovery: true
   }
 });

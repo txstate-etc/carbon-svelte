@@ -5,8 +5,6 @@
     FieldRadio, FieldRadioTile, FieldSelect, FieldTextArea, FieldTextInput, FieldTime, FieldToggle, Form
   } from '$lib/index.js'
 
-  import 'carbon-components-svelte/css/white.css'
-
   let store: FormStore
 
   interface FormData {

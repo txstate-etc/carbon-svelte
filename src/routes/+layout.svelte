@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { Toasts } from '$lib/index.js'
+  import { LayoutBase } from '$lib/index.js'
 </script>
 
-<Toasts />
-<slot/>
+<LayoutBase>
+  <slot/>
+</LayoutBase>

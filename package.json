@@ -1,6 +1,6 @@
 {
 	"name": "@txstate-mws/carbon-svelte",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -15,19 +15,19 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
 		},
 		"./tailwind": {
 			"types": "./dist/tailwind.d.ts",
-			"import": "./dist/tailwind.js"
+			"svelte": "./dist/tailwind.js",
+			"default": "./dist/tailwind.js"
 		}
 	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*",
-		"postcss.config.js",
-		"tailwind.config.js"
+		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
 		"svelte": "^4.0.0"
@@ -37,7 +37,7 @@
 		"@txstate-mws/svelte-forms": "^1.4.0",
 		"@txstate-mws/svelte-store": "^1.0.8",
 		"autoprefixer": "^10.4.19",
-		"carbon-components-svelte": "^0.84.0",
+		"carbon-components-svelte": ">=0.84.0",
 		"carbon-icons-svelte": "^12.6.0",
 		"luxon": "^3.4.4",
 		"tailwindcss": "^3.4.3",

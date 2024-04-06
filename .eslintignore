@@ -9,6 +9,7 @@ node_modules
 *.config.js
 *.config.ts
 *.d.ts
+*.js
 .eslintrc.cjs
 
 # Ignore files for PNPM, NPM and YARN

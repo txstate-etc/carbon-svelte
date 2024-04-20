@@ -1,3 +1,4 @@
+export { default as PanelFormDialog } from './PanelFormDialog.svelte'
 export { default as FieldCheckbox } from './FieldCheckbox.svelte'
 export { default as FieldCheckboxList } from './FieldCheckboxList.svelte'
 export { default as FieldCombobox } from './FieldCombobox.svelte'

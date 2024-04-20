@@ -39,9 +39,10 @@
   export let name: string | undefined = undefined
   export let preload: T | undefined = undefined
   export let submitText = 'Submit'
+  export let hideFallbackMessage = false
 </script>
 
-<Form bind:store class="{className} dialog-form" {submit} {validate} {autocomplete} {name} {preload} on:saved let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+<Form bind:store class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
   <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
   {@const errorMessages = messages.filter(m => m.type === 'error' || m.type === 'system')}
   {@const warningMessages = messages.filter(m => m.type === 'warning')}
@@ -50,7 +51,7 @@
     {#each messages as message}
       <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
     {/each}
-    {#if showingInlineErrors && !errorMessages.length}
+    {#if !hideFallbackMessage && showingInlineErrors && !errorMessages.length}
       <InlineNotification kind="error" subtitle="This form contains validation errors. See inline messages for details." hideCloseButton />
     {/if}
   {/if}

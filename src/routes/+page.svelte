@@ -1,11 +1,13 @@
 <script lang="ts">
   import { type FormStore, type Feedback, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import {
-    FieldCheckboxList, FieldCombobox, FieldDate, FieldDateTime, FieldMore, FieldMultiselect, FieldNumber,
+    PanelFormDialog, FieldCheckboxList, FieldCombobox, FieldDate, FieldDateTime, FieldMore, FieldMultiselect, FieldNumber,
     FieldRadio, FieldRadioTile, FieldSelect, FieldTextArea, FieldTextInput, FieldTime, FieldToggle, Form
   } from '$lib/index.js'
+  import { Button } from 'carbon-components-svelte'
 
   let store: FormStore
+  let dialogOpen = false
 
   interface FormData {
     selectInput?: string
@@ -72,7 +74,11 @@
 {JSON.stringify(data, null, 2)}
   </pre>
 </Form>
-
+<Button on:click={() => { dialogOpen = true }}>Open Dialog</Button>
+<PanelFormDialog open={dialogOpen} on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async data => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]}>
+  <FieldTextInput path="textinput" labelText="Text Input in Dialog" />
+  <FieldTextInput path="anotherinput" labelText="Another Input in Dialog" />
+</PanelFormDialog>
 <style>
   .sidebyside {
     display: flex;

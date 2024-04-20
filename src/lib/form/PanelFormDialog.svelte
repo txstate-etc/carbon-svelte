@@ -47,7 +47,7 @@
   let errorText: string | undefined
   function setErrorText (showingInlineErrors: boolean) {
     if (showingInlineErrors) errorText = 'This form contains validation errors. See inline messages for details.'
-    else errorText = undefined
+    else errorText = ''
     return ''
   }
 </script>

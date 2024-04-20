@@ -2,6 +2,7 @@
   import { Button } from 'carbon-components-svelte'
   import Close from 'carbon-icons-svelte/lib/Close.svelte'
   import { createEventDispatcher } from 'svelte'
+  import { randomid } from 'txstate-utils'
 
   export let title: string
   export let open = false
@@ -10,6 +11,7 @@
   export let errorText = ''
 
   let dialogelement: HTMLDialogElement | undefined
+  let closebutton: HTMLButtonElement | undefined
   let closing = false
   const dispatch = createEventDispatcher()
 
@@ -18,6 +20,12 @@
   }
   function submit () {
     dispatch('submit')
+  }
+  function onKeyDown (e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      e.preventDefault()
+      cancel()
+    }
   }
 
   function openModal () {
@@ -38,24 +46,30 @@
     )
   }
 
+  const titleId = randomid()
+  const errorId = randomid()
   $: if (dialogelement) open ? openModal() : closeModal()
 </script>
 
-<dialog bind:this={dialogelement} class:closing class="tcbs-dialog shadow bg-neutral-200-background fixed m-0 ml-auto top-0 right-0 h-full transition-transform transform-none">
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<dialog bind:this={dialogelement} class:closing
+  class="tcbs-dialog shadow bg-neutral-200-background fixed m-0 ml-auto top-0 right-0 h-full transition-transform transform-none"
+  on:keydown={onKeyDown}
+>
   {#if open}
-    <section>
-      <header class="flex items-center justify-between pl-4">
-        <div class="font-bold mr-auto">{title}</div>
-        <Button on:click={cancel} iconDescription="Close Dialog" icon={Close} tooltipPosition="left"></Button>
+    <section aria-labelledby={titleId}>
+      <header class="flex items-center justify-between py-2 px-4">
+        <div id={titleId} class="font-bold mr-auto">{title}</div>
+        <Button bind:ref={closebutton} on:click={cancel} kind="secondary" iconDescription="Close Dialog" icon={Close} tooltipPosition="left" aria-describedby={titleId} size="small" />
       </header>
       <div class="content p-4 flow">
         <slot />
       </div>
       <footer class="flex justify-end items-center p-2">
-        <div class="error-text flex-grow">{errorText}</div>
+        <div id={errorId} class="error-text flex-grow">{errorText}</div>
         <slot name="buttons">
-          <Button kind="secondary" size="field" class="ml-2" on:click={cancel}>{cancelText}</Button>
-          <Button size="field" class="ml-2" on:click={submit}>{submitText}</Button>
+          <Button kind="secondary" size="small" class="ml-2" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
+          <Button size="small" class="ml-2" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
         </slot>
       </footer>
     </section>

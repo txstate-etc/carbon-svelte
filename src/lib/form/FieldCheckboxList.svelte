@@ -59,8 +59,8 @@
   const inheritedPath = getContext<string>(FORM_INHERITED_PATH)
   const finalPath = [inheritedPath, path].filter(isNotBlank).join('.')
   const valStore = store.getField<any[]>(finalPath)
-  let finalDeserialize: (value: string) => any
-  let finalSerialize: (value: string) => any
+  let finalDeserialize: ((value: string) => any) | undefined
+  let finalSerialize: ((value: string) => any) | undefined
   function init (dsrl: any, srl: any) {
     if (dsrl !== finalDeserialize) finalDeserialize = dsrl
     if (srl !== finalSerialize) finalSerialize = srl
@@ -95,17 +95,17 @@
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault()
       e.stopPropagation()
-      const i = findIndex(items, itm => finalSerialize(itm.value) === activeCheckbox)
+      const i = findIndex(items, itm => finalSerialize!(itm.value) === activeCheckbox)
       if (i) {
-        activeCheckbox = finalSerialize(items[i - 1].value)
+        activeCheckbox = finalSerialize!(items[i - 1].value)
         checkboxelements[i - 1].focus()
       }
     } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault()
       e.stopPropagation()
-      const i = findIndex(items, itm => finalSerialize(itm.value) === activeCheckbox)
+      const i = findIndex(items, itm => finalSerialize!(itm.value) === activeCheckbox)
       if (i != null && i < (items.length - 1)) {
-        activeCheckbox = finalSerialize(items[i + 1].value)
+        activeCheckbox = finalSerialize!(items[i + 1].value)
         checkboxelements[i + 1].focus()
       }
     }
@@ -119,13 +119,13 @@
 
   // this has to happen before reactToItems so that selected will be filled
   // when reactToItems intersects `selected` and `items` on first run
-  $: selected = new Set(finalSerialize ? $valStore.map(finalSerialize) : [])
+  $: selected = new Set(finalSerialize && $valStore ? $valStore.map(finalSerialize) : [])
 
   async function reactToItems (..._: any[]) {
     if (!finalSerialize) return
-    const allItems = new Set(items?.map(itm => finalSerialize(itm.value)) ?? [])
+    const allItems = new Set(items?.map(itm => finalSerialize!(itm.value)) ?? [])
     selected = new Set(Array.from(selected).filter(v => allItems.has(v)))
-    await store.setField(finalPath, Array.from(selected).map(v => finalDeserialize(v)))
+    await store.setField(finalPath, Array.from(selected).map(v => finalDeserialize!(v)))
     if (!activeCheckbox || !allItems.has(activeCheckbox)) {
       activeCheckbox = Array.from(allItems)[0]
       checkboxelements[0]?.focus()

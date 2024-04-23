@@ -33,7 +33,7 @@
 
   let className = ''
   export { className as class }
-  export let store: FormStore<T> = undefined as any
+  export let store: FormStore<T> | undefined = undefined
   export let submit: ((state: T) => Promise<SubmitResponse<T>>) | undefined = undefined
   export let validate: ((state: T) => Promise<Feedback[]>) | undefined = undefined
   export let autocomplete: string | undefined = undefined
@@ -50,6 +50,8 @@
     else errorText = ''
     return ''
   }
+
+  $: if (!open) store = undefined
 </script>
 
 <PanelDialog {open} {title} {cancelText} {submitText} {errorText} on:cancel>

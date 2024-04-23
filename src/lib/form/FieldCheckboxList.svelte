@@ -72,6 +72,7 @@
   let selected = new Set<string>()
   let activeCheckbox: string
   const checkboxelements: HTMLInputElement[] = []
+  let fieldsetelement: HTMLFieldSetElement
 
   const itemStore = new Store(items)
   $: itemStore.set(items)
@@ -128,7 +129,6 @@
     await store.setField(finalPath, Array.from(selected).map(v => finalDeserialize!(v)))
     if (!activeCheckbox || !allItems.has(activeCheckbox)) {
       activeCheckbox = Array.from(allItems)[0]
-      checkboxelements[0]?.focus()
     }
   }
   $: reactToItems($itemStore, finalSerialize).catch(console.error)
@@ -144,6 +144,7 @@
 <Field {path} {conditional} {defaultValue} {number} {serialize} {deserialize} let:invalid let:messages let:onBlur let:setVal let:serialize={fSerialize} let:deserialize={fDeserialize} let:path={fullpath}>
   {init(fDeserialize, fSerialize)}
   <fieldset
+    bind:this={fieldsetelement}
     data-invalid={invalid}
     class:bx--fieldset={true} class:bx--fieldset--no-margin={true}
     aria-labelledby={resolvedLegendId}

@@ -75,9 +75,10 @@
   </pre>
 </Form>
 <Button on:click={() => { dialogOpen = true }}>Open Dialog</Button>
-<PanelFormDialog open={dialogOpen} on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async data => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]}>
+<PanelFormDialog open={dialogOpen} on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async (data) => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]}>
   <FieldTextInput path="textinput" labelText="Text Input in Dialog" />
   <FieldTextInput path="anotherinput" labelText="Another Input in Dialog" />
+  <FieldCheckboxList path="checklist" items={[{ value: 'apple' }, { value: 'orange' }, { value: 'banana' }]} />
 </PanelFormDialog>
 <style>
   .sidebyside {

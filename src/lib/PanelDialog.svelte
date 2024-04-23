@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from 'carbon-components-svelte'
   import Close from 'carbon-icons-svelte/lib/Close.svelte'
-  import { createEventDispatcher, tick } from 'svelte'
+  import { createEventDispatcher } from 'svelte'
   import { randomid } from 'txstate-utils'
 
   export let title: string
@@ -29,11 +29,7 @@
   }
 
   function openModal () {
-    if (!dialogelement!.open) {
-      void tick().then(() => {
-        dialogelement!.showModal()
-      })
-    }
+    if (!dialogelement!.open) dialogelement!.showModal()
   }
 
   function closeModal () {

@@ -25,17 +25,13 @@
   $: inputelement?.setAttribute('aria-describedby', id)
 </script>
 
-<!--
-  TODO: forward on:focus when carbon adds it
-  https://github.com/carbon-design-system/carbon-components-svelte/pull/1937
--->
 <Field {path} {conditional} {defaultValue} let:messages let:value let:setVal let:onBlur let:path={fullpath}>
   <Checkbox {...$$restProps} {id} bind:ref={inputelement} name={fullpath} checked={value}
     on:check={(e) => {
       const val = e.detail
       setVal(val)
       dispatch('check', val)
-    }} on:change on:blur={() => { onBlur(); dispatch('blur') }}
+    }} on:change on:blur={() => { onBlur(); dispatch('blur') }} on:focus
   />
   {#if helperText}<div id="{id}-helper" class="bx--form__helper-text">{helperText}</div>{/if}
   {#each messages as message}

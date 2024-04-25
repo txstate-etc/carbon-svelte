@@ -3,7 +3,7 @@
   import { Button, InlineNotification } from 'carbon-components-svelte'
   import { feedbackTypeToKind } from './util.js'
 
-  type T = $$Generic<any>
+  type T = $$Generic<Record<string, any>>
   interface $$Events {
     saved: CustomEvent<T>
   }

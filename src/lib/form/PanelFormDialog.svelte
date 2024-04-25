@@ -3,7 +3,7 @@
   import Form from './Form.svelte'
   import PanelDialog from '../PanelDialog.svelte'
 
-  type T = $$Generic<any>
+  type T = $$Generic<Record<string, any>>
   interface $$Events {
     saved: CustomEvent<T>
     cancel: CustomEvent<void>

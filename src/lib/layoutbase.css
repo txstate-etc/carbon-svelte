@@ -10,3 +10,7 @@
 body {
   @apply font-sans;
 }
+
+.bx--header {
+  background-color: #501214;
+}

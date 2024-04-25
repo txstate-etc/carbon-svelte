@@ -29,7 +29,11 @@
   'quotation-01-font-family': '"Roboto Serif", serif',
   'quotation-02-font-family': '"Roboto Serif", serif',
   'fluid-quotation-01-font-family': '"Roboto Serif", serif',
-  'fluid-quotation-02-font-family': '"Roboto Serif", serif'
+  'fluid-quotation-02-font-family': '"Roboto Serif", serif',
+  'interactive-01': '#501214',
+  'hover-primary': '#622a2c',
+  'interactive-03': '#501214',
+  'hover-tertiary': '#501214'
 }}/>
 <Toasts />
 <slot/>

@@ -69,7 +69,7 @@
         <div id={errorId} class="error-text flex-grow">{errorText}</div>
         <slot name="buttons">
           <Button kind="secondary" size="small" class="ml-2" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
-          <Button size="small" class="ml-2" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
+          <Button type="submit" size="small" class="ml-2" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
         </slot>
       </footer>
     </section>

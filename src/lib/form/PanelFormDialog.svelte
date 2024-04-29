@@ -1,5 +1,6 @@
 <script lang="ts">
   import { type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
+  import { createEventDispatcher } from 'svelte'
   import Form from './Form.svelte'
   import PanelDialog from '../PanelDialog.svelte'
 
@@ -51,10 +52,17 @@
     return ''
   }
 
+  const dispatch = createEventDispatcher()
+  async function onSubmit () {
+    if (!store) return
+    const resp = await store.submit()
+    if (resp.success) dispatch('saved', resp.data)
+  }
+
   $: if (!open) store = undefined
 </script>
 
-<PanelDialog {open} {title} {cancelText} {submitText} {errorText} on:cancel>
+<PanelDialog {open} {title} {cancelText} {submitText} {errorText} on:cancel on:submit={onSubmit}>
   <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}
     <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />

@@ -61,6 +61,7 @@
     <FieldToggle path="show" helperText="Toggle helper" />
   </FieldMore>
   <FieldCheckboxList orientation="horizontal" path="fruits" items={[{ value: 'apple' }, { value: 'orange' }, { value: 'banana' }]} legendText="Fruits" />
+  <FieldCheckboxList selectAll orientation="horizontal" path="fruitsSelectAll" items={[{ value: 'apple' }, { value: 'orange' }, { value: 'banana' }]} legendText="Fruits" />
   <FieldCombobox path="combobox" allowFreeEntry />
   <FieldMultiselect path="multiselect" allowFreeEntry />
   <FieldRadioTile path="radiotile" items={[{ value: 'apple' }, { value: 'orange' }, { value: 'banana' }]} legendText="Fruits in Tiles" />

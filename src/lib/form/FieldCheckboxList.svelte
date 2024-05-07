@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { findIndex, isNotNull, randomid } from 'txstate-utils'
+  import { randomid } from 'txstate-utils'
   export interface CheckboxListItem {
     value: any
     label?: string
@@ -14,7 +14,7 @@
   import { Store } from '@txstate-mws/svelte-store'
   import { InlineNotification } from 'carbon-components-svelte'
   import { createEventDispatcher, getContext } from 'svelte'
-  import { groupby, isNotBlank } from 'txstate-utils'
+  import { findIndex, groupby, isNotBlank, isNotNull } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
 
   const dispatch = createEventDispatcher()
@@ -30,6 +30,7 @@
     legendText?: string
     helperText?: string
     orientation?: 'horizontal' | 'vertical'
+    selectAll?: boolean
     /**
      * This field returns an array, but each checkbox has its own value, which needs
      * to be serialized/deserialized independently.
@@ -52,6 +53,7 @@
   export let legendText: string | undefined = undefined
   export let helperText: string | undefined = undefined
   export let orientation = 'vertical'
+  export let selectAll = false
   export let serialize: ((value: any) => string) | undefined = undefined
   export let deserialize: ((value: string) => any) | undefined = undefined
 
@@ -66,6 +68,9 @@
     if (srl !== finalSerialize) finalSerialize = srl
     return ''
   }
+
+  let selectallelement: HTMLInputElement | undefined
+  const selectallid = randomid()
 
   const legendId = randomid()
   $: resolvedLegendId = isNotBlank(legendText) ? legendId : undefined
@@ -96,16 +101,19 @@
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault()
       e.stopPropagation()
-      const i = findIndex(items, itm => finalSerialize!(itm.value) === activeCheckbox)
-      if (i) {
+      const i = findIndex(items, itm => finalSerialize!(itm.value) === activeCheckbox) ?? -1
+      if (i > 0) {
         activeCheckbox = finalSerialize!(items[i - 1].value)
         checkboxelements[i - 1].focus()
+      } else if (selectallelement) {
+        activeCheckbox = '__selectall'
+        selectallelement.focus()
       }
     } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault()
       e.stopPropagation()
-      const i = findIndex(items, itm => finalSerialize!(itm.value) === activeCheckbox)
-      if (i != null && i < (items.length - 1)) {
+      const i = findIndex(items, itm => finalSerialize!(itm.value) === activeCheckbox) ?? -1
+      if (i < (items.length - 1)) {
         activeCheckbox = finalSerialize!(items[i + 1].value)
         checkboxelements[i + 1].focus()
       }
@@ -124,14 +132,21 @@
 
   async function reactToItems (..._: any[]) {
     if (!finalSerialize) return
-    const allItems = new Set(items?.map(itm => finalSerialize!(itm.value)) ?? [])
+    const allItems = new Set(items?.filter(itm => !itm.disabled).map(itm => finalSerialize!(itm.value)) ?? [])
     selected = new Set(Array.from(selected).filter(v => allItems.has(v)))
     await store.setField(finalPath, Array.from(selected).map(v => finalDeserialize!(v)))
-    if (!activeCheckbox || !allItems.has(activeCheckbox)) {
+    if (!activeCheckbox || (!allItems.has(activeCheckbox) && (activeCheckbox !== '__selectall' || !selectallelement))) {
       activeCheckbox = Array.from(allItems)[0]
     }
   }
   $: reactToItems($itemStore, finalSerialize).catch(console.error)
+
+  $: selectallchecked = finalSerialize ? items.every(itm => itm.disabled || selected.has(finalSerialize!(itm.value))) : false
+  $: selectallindeterminate = selected.size > 0 && !selectallchecked
+
+  function selectAllChanged () {
+    void store.setField(finalPath, selectallchecked ? [] : items.filter(itm => !itm.disabled).map(itm => finalSerialize!(itm.value)))
+  }
 </script>
 <!--
   @component
@@ -156,6 +171,17 @@
     <div role="listbox" class:horizontal={orientation === 'horizontal'}
       aria-multiselectable={true}
       on:focusout={() => { onBlur(); dispatch('blur') }} on:focusin={() => dispatch('focus')}>
+      {#if selectAll && !readonly}
+        <div class:bx--form-item={true} class:bx--checkbox-wrapper={true}>
+          <input id={selectallid} bind:this={selectallelement} type="checkbox"
+            class:bx--checkbox={true}
+            bind:indeterminate={selectallindeterminate} checked={selectallchecked}
+            on:change={selectAllChanged} on:keydown={onKeydown}
+            tabindex={activeCheckbox === '__selectall' ? 0 : -1} aria-describedby={resolvedLegendId}
+          >
+          <label for={selectallid} class:bx--checkbox-label={true}><span class:bx--checkbox-label-text={true}>Select All</span></label>
+        </div>
+      {/if}
       {#each Object.entries(grouped) as [groupname, groupitems]}
         {#if groupname !== defaultGroup}
           <div class:bx--label={true}>{groupname}</div>

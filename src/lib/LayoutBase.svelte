@@ -24,8 +24,8 @@
 </script>
 
 <Theme tokens={{
-  'code-01-font-family': '"Roboto Mono", sans-serif',
-  'code-02-font-family': '"Roboto Mono", sans-serif',
+  'code-01-font-family': '"Roboto Mono", monospace',
+  'code-02-font-family': '"Roboto Mono", monospace',
   'quotation-01-font-family': '"Roboto Serif", serif',
   'quotation-02-font-family': '"Roboto Serif", serif',
   'fluid-quotation-01-font-family': '"Roboto Serif", serif',

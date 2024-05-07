@@ -92,6 +92,7 @@
 </script>
 
 <Field {path} {conditional} {defaultValue} {serialize} {deserialize} let:invalid let:messages let:value let:setVal let:onBlur let:path={fullpath}>
+  {(() => { ampmelement?.setAttribute('aria-invalid', invalid ? 'true' : 'false'); return '' })()}
   {@const firstError = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1).join('\n')}
   {@const firstWarn = firstError ? '' : messages.filter(m => m.type === 'warning').map(m => m.message).slice(0, 1).join('\n')}
   {@const restMsgs = messages.filter(m => m.message !== firstError && m.message !== firstWarn)}
@@ -104,7 +105,7 @@
         bind:ref={dateinputelement}
         {invalid} invalidText={firstError}
         warn={!!firstWarn} warnText={firstWarn}
-        placeholder="mm/dd/yyyy" {disabled} {hideLabel}
+        placeholder="mm/dd/yyyy" {disabled} {hideLabel} aria-invalid={invalid}
         on:blur={() => { onBlur(); dispatch('blur') }}
       />
     </DatePicker>
@@ -134,10 +135,13 @@
 <style>
   div {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: flex-start;
   }
   div > :global(*) {
     flex-grow: 0;
+  }
+  div :global(.bx--time-picker) {
+    margin-top: 1.5rem;
   }
 </style>

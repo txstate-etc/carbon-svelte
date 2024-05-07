@@ -9,8 +9,8 @@
   export let cancelText = 'Cancel'
   export let submitText = 'Submit'
   export let errorText = ''
+  export let dialogelement: HTMLDialogElement | undefined = undefined
 
-  let dialogelement: HTMLDialogElement | undefined
   let closebutton: HTMLButtonElement | undefined
   let closing = false
   const dispatch = createEventDispatcher()

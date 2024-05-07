@@ -31,7 +31,7 @@
 <Field {path} {notNull} {conditional} {defaultValue} let:invalid let:messages let:value let:setVal let:deserialize={fDeserialize} let:onBlur let:path={fullpath}>
   {@const firstError = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1).join('\n')}
   {@const restMsgs = messages.filter(m => m.message !== firstError)}
-  <TextArea {...$$restProps} name={fullpath} {value} {invalid} invalidText={firstError}
+  <TextArea {...$$restProps} name={fullpath} {value} {invalid} invalidText={firstError} aria-invalid={invalid}
     on:input={onInput(setVal, fDeserialize)} on:change on:focus on:blur={() => { onBlur(); dispatch('blur') }}
   />
   {#each restMsgs as message}

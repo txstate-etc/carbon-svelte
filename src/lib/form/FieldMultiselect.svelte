@@ -89,6 +89,7 @@
   <MultiSelect {...$$restProps} filterable={$$restProps.filterable ?? allowFreeEntry} {placeholder} name={fullpath} {invalid} invalidText={firstMsg}
     selectedIds={value}
     items={transformedItems}
+    aria-invalid={invalid}
     bind:value={inputvalue}
     on:select={onUpdate(setVal)}
     on:clear={onClear(setVal)}

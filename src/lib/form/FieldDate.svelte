@@ -95,7 +95,7 @@
     <DatePickerInput name={fullpath} {labelText} {helperText} {size}
       {invalid} invalidText={firstError}
       warn={!!firstWarn} warnText={firstWarn}
-      {placeholder} {disabled} {hideLabel}
+      {placeholder} {disabled} {hideLabel} aria-invalid={invalid}
       on:blur={() => { onBlur(); dispatch('blur') }}
     />
   </DatePicker>

@@ -25,8 +25,8 @@
   $: inputelement?.setAttribute('aria-describedby', id)
 </script>
 
-<Field {path} {conditional} {defaultValue} let:messages let:value let:setVal let:onBlur let:path={fullpath}>
-  <Checkbox {...$$restProps} {id} bind:ref={inputelement} name={fullpath} checked={value}
+<Field {path} {conditional} {defaultValue} let:messages let:value let:invalid let:setVal let:onBlur let:path={fullpath}>
+  <Checkbox {...$$restProps} {id} bind:ref={inputelement} name={fullpath} checked={value} aria-invalid={invalid}
     on:check={(e) => {
       const val = e.detail
       setVal(val)

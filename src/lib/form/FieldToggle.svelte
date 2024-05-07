@@ -29,7 +29,8 @@
   })
 </script>
 
-<Field {path} {conditional} {defaultValue} let:messages let:value let:setVal let:onBlur let:path={fullpath}>
+<Field {path} {conditional} {defaultValue} let:messages let:value let:invalid let:setVal let:onBlur let:path={fullpath}>
+  {(() => { inputelement?.setAttribute('aria-invalid', invalid ? 'true' : 'false'); return '' })()}
   <Toggle {...$$restProps} {id} name={fullpath} toggled={!!value}
     on:toggle={(e) => {
       const val = e.detail?.toggled ?? false

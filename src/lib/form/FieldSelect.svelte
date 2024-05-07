@@ -85,6 +85,7 @@
   {@const firstMsg = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1)[0]}
   {@const restMsgs = messages.filter(m => m.message !== firstMsg)}
   <Select {...$$restProps} name={fullpath} {invalid} invalidText={firstMsg} selected={value}
+    aria-invalid={invalid}
     on:update={onUpdate(setVal, fDeserialize)}
     on:blur={() => { onBlur(); dispatch('blur') }}
     on:change on:input on:focus

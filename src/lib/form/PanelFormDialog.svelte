@@ -8,6 +8,7 @@
   interface $$Events {
     saved: CustomEvent<T>
     cancel: CustomEvent<void>
+    validationfail: CustomEvent
   }
   interface $$Slots {
     default: {
@@ -45,6 +46,8 @@
   export let title: string
   export let open = false
 
+  let dialogelement: HTMLDialogElement
+
   let errorText: string | undefined
   function setErrorText (showingInlineErrors: boolean) {
     if (showingInlineErrors) errorText = 'This form contains validation errors. See inline messages for details.'
@@ -57,13 +60,17 @@
     if (!store) return
     const resp = await store.submit()
     if (resp.success) dispatch('saved', resp.data)
+    else {
+      dialogelement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
+      dispatch('validationfail')
+    }
   }
 
   $: if (!open) store = undefined
 </script>
 
-<PanelDialog {open} {title} {cancelText} {submitText} {errorText} on:cancel on:submit={onSubmit}>
-  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+<PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel on:submit={onSubmit}>
+  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}
     <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
     <svelte:fragment slot="submit">&nbsp;</svelte:fragment>

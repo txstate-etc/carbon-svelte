@@ -25,7 +25,7 @@
   {@const firstError = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1).join('\n')}
   {@const firstWarn = firstError ? '' : messages.filter(m => m.type === 'warning').map(m => m.message).slice(0, 1).join('\n')}
   {@const restMsgs = messages.filter(m => m.message !== firstError && m.message !== firstWarn)}
-  <NumberInput {...$$restProps} label={labelText ?? $$restProps.label} name={fullpath} {value} {invalid} invalidText={firstError} warn={!!firstWarn} warnText={firstWarn}
+  <NumberInput {...$$restProps} label={labelText ?? $$restProps.label} name={fullpath} {value} {invalid} aria-invalid={true} invalidText={firstError} warn={!!firstWarn} warnText={firstWarn}
     on:input={(e) => {
       const val = e.detail ?? undefined
       setVal(val)

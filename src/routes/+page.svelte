@@ -39,6 +39,10 @@
     { value: 'three', label: 'Three' },
     { value: 'four', label: 'Four', disabled: true }
   ]} />
+  <FieldRadio path="radioBoolean" legendText="Does this start undefined?" boolean items={[
+    { value: true, label: 'Yes' },
+    { value: false, label: 'No' }
+  ]} />
   <FieldRadio path="selectInputNumber" conditional={data.selectInput === 'three'} legendText="Actual Number" number items={[
     { value: 1, label: 'One' },
     { value: 2, label: 'Two' },
@@ -75,7 +79,7 @@
   </pre>
 </Form>
 <Button on:click={() => { dialogOpen = true }}>Open Dialog</Button>
-<PanelFormDialog open={dialogOpen} on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async (data) => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]}>
+<PanelFormDialog open={dialogOpen} on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async (data) => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]} submit={async data => ({ success: false, messages: [{ type: 'error', path: 'textinput', message: 'Testing errors.' }], data })}>
   <FieldTextInput path="textinput" labelText="Text Input in Dialog" />
   <FieldTextInput path="anotherinput" labelText="Another Input in Dialog" />
   <FieldCheckboxList path="checklist" items={[{ value: 'apple' }, { value: 'orange' }, { value: 'banana' }]} />

@@ -21,7 +21,7 @@
 
 <Field {path} {notNull} {conditional} {defaultValue} let:invalid let:messages let:value let:setVal let:deserialize let:onBlur let:path={fullpath}>
   <div on:focusin={() => dispatch('focus')} on:focusout={() => { onBlur(); dispatch('blur') }}>
-    <Slider {...$$restProps} name={fullpath} {value} {invalid}
+    <Slider {...$$restProps} name={fullpath} {value} {invalid} aria-invalid={invalid}
       on:input={(e) => {
         const val = e.detail ?? undefined
         setVal(val)

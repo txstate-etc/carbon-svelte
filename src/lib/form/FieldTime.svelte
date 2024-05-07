@@ -87,12 +87,13 @@
 </script>
 
 <Field {path} {conditional} {defaultValue} {serialize} {deserialize} let:invalid let:messages let:value let:setVal let:onBlur let:path={fullpath}>
+  {(() => { ampmelement?.setAttribute('aria-invalid', invalid ? 'true' : 'false'); return '' })()}
   {@const firstError = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1).join('\n')}
   {@const restMsgs = messages.filter(m => m.message !== firstError)}
   <div on:focusin={() => { dispatch('focus') }} on:focusout={() => { onBlur(); dispatch('blur') }} on:change={onChange(setVal)}>
     <TimePicker {...$$restProps} bind:ref={inputelement}
       value={value?.time ?? ''} name={fullpath}
-      {invalid} invalidText={firstError}
+      {invalid} invalidText={firstError} aria-invalid={invalid}
       on:input={onChange(setVal)}
       on:blur={() => { syncTimeInputWithValue(value) }}
     >

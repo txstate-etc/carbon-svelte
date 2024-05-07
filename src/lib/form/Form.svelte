@@ -6,6 +6,7 @@
   type T = $$Generic<Record<string, any>>
   interface $$Events {
     saved: CustomEvent<T>
+    validationfail: CustomEvent
   }
   interface $$Slots {
     default: {
@@ -40,9 +41,14 @@
   export let preload: T | undefined = undefined
   export let submitText = 'Submit'
   export let hideFallbackMessage = false
+
+  let formelement: HTMLFormElement
+  function validationFail () {
+    formelement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
+  }
 </script>
 
-<Form bind:store class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
   <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
   {@const errorMessages = messages.filter(m => m.type === 'error' || m.type === 'system')}
   {@const warningMessages = messages.filter(m => m.type === 'warning')}

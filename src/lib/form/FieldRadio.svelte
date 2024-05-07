@@ -23,7 +23,7 @@
     boolean?: boolean
     notNull?: boolean
     conditional?: boolean
-    defaultValue?: string | number
+    defaultValue?: string | number | boolean
     serialize?: ((value: any) => string)
     deserialize?: ((value: string) => any)
   }
@@ -81,7 +81,7 @@
   place this field inside an `{#if}` block until they are ready. Otherwise, the preload state will be
   overwritten with the default value because it ensures the value is always in the available items.
 -->
-<Field {path} {notNull} {conditional} {defaultValue} {boolean} {number} {serialize} {deserialize} let:messages let:value let:onBlur let:setVal let:serialize={fSerialize} let:deserialize={fDeserialize} let:path={fullpath}>
+<Field {path} {notNull} {conditional} {defaultValue} {boolean} {number} {serialize} {deserialize} let:messages let:value let:invalid let:onBlur let:setVal let:serialize={fSerialize} let:deserialize={fDeserialize} let:path={fullpath}>
   {init(fDeserialize)}
   <div on:focusin={() => dispatch('focus')} on:focusout={() => { onBlur(); dispatch('blur') }}>
     <RadioButtonGroup {...$$restProps} name={fullpath}
@@ -90,7 +90,7 @@
     >
       {#each $itemStore as item (item.value)}
         {@const srlzd = fSerialize(item.value)}
-        <RadioButton value={srlzd} labelText={item.label ?? srlzd} disabled={!!item.disabled} />
+        <RadioButton value={srlzd} labelText={item.label ?? srlzd} disabled={!!item.disabled} aria-invalid={invalid} />
       {/each}
     </RadioButtonGroup>
   </div>

@@ -93,7 +93,7 @@
   {init(fDeserialize, fSerialize)}
   {@const firstMsg = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1)[0]}
   {@const restMsgs = messages.filter(m => m.message !== firstMsg)}
-  <ComboBox {...$$restProps} {placeholder} name={fullpath} {invalid} invalidText={firstMsg} selectedId={value}
+  <ComboBox {...$$restProps} {placeholder} name={fullpath} {invalid} invalidText={firstMsg} selectedId={value} aria-invalid={invalid}
     items={transformedItems}
     shouldFilterItem={$$restProps.shouldFilterItem ?? ((item, ipt) => item.text.toLocaleLowerCase().includes(ipt.toLocaleLowerCase()))}
     bind:value={inputvalue}

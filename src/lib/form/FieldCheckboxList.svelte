@@ -177,6 +177,7 @@
               aria-required={required}
               class="bx--checkbox"
               aria-describedby={[resolvedLegendId, `${legendId}-helper`].filter(isNotNull).join(' ')}
+              aria-invalid={invalid}
               on:change={onChange(setVal, fDeserialize)}
               on:keydown={onKeydown}
             />

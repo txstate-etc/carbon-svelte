@@ -19,6 +19,7 @@
   export let notNull = false
   export let conditional = true
   export let defaultValue: string | undefined = notNull ? '' : undefined
+  export let required = false
 
   let harmfulUpdateTimer = 0
   let clearValue: string | undefined
@@ -28,7 +29,7 @@
   {@const firstError = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1).join('\n')}
   {@const firstWarn = firstError ? '' : messages.filter(m => m.type === 'warning').map(m => m.message).slice(0, 1).join('\n')}
   {@const restMsgs = messages.filter(m => m.message !== firstError && m.message !== firstWarn)}
-  <TextInput {...$$restProps} name={fullpath} value={clearValue ?? value} {invalid} invalidText={firstError} warn={!!firstWarn} warnText={firstWarn}
+  <TextInput {...$$restProps} name={fullpath} value={clearValue ?? value} {invalid} invalidText={firstError} warn={!!firstWarn} warnText={firstWarn} aria-required={required}
     on:input={(e) => {
       clearTimeout(harmfulUpdateTimer)
       const val = String(e.detail ?? '')

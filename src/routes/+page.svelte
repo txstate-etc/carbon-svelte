@@ -5,6 +5,7 @@
     FieldRadio, FieldRadioTile, FieldSelect, FieldTextArea, FieldTextInput, FieldTime, FieldToggle, Form
   } from '$lib/index.js'
   import { Button } from 'carbon-components-svelte'
+    import { Pause } from 'carbon-icons-svelte'
 
   let store: FormStore
   let dialogOpen = false

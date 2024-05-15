@@ -2,6 +2,7 @@
   import { Form, type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import { Button, InlineNotification } from 'carbon-components-svelte'
   import { feedbackTypeToKind } from './util.js'
+  import { Save } from 'carbon-icons-svelte'
 
   type T = $$Generic<Record<string, any>>
   interface $$Events {
@@ -41,6 +42,7 @@
   export let preload: T | undefined = undefined
   export let submitText = 'Submit'
   export let hideFallbackMessage = false
+  export let submitIcon: typeof import("svelte").SvelteComponent<any> = Save
 
   let formelement: HTMLFormElement
   function validationFail () {
@@ -73,7 +75,7 @@
   {/if}
   <slot name="submit" {saved} {validating} {submitting} {valid} {invalid} {allMessages} {showingInlineErrors}>
     <div class='form-submit'>
-      <Button type="submit">{submitText}</Button>
+      <Button icon={submitIcon} type="submit">{submitText}</Button>
     </div>
   </slot>
 </Form>

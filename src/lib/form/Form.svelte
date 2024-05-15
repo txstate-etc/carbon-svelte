@@ -3,6 +3,7 @@
   import { Button, InlineNotification } from 'carbon-components-svelte'
   import { feedbackTypeToKind } from './util.js'
   import { Save } from 'carbon-icons-svelte'
+  import type { SvelteComponent } from 'svelte'
 
   type T = $$Generic<Record<string, any>>
   interface $$Events {
@@ -42,7 +43,7 @@
   export let preload: T | undefined = undefined
   export let submitText = 'Submit'
   export let hideFallbackMessage = false
-  export let submitIcon: typeof import("svelte").SvelteComponent<any> = Save
+  export let submitIcon: typeof SvelteComponent<any> = Save
 
   let formelement: HTMLFormElement
   function validationFail () {

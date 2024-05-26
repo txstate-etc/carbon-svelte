@@ -1,23 +1,27 @@
 <script lang="ts">
-  import { Button, Tab, TabContent, Tabs } from 'carbon-components-svelte'
-  import { type SvelteComponent } from 'svelte'
+  import { eq } from '@txstate-mws/svelte-components'
+  import { Store } from '@txstate-mws/svelte-store'
+  import { Tab, TabContent, Tabs } from 'carbon-components-svelte'
   import { randomid } from 'txstate-utils'
-  import { BadgeNumber } from './index.js'
+  import { ActionSet, BadgeNumber, type ActionItem } from './index.js'
 
   export let title: string
-  export let actions: { label: string, icon?: typeof SvelteComponent<any> }[] = []
+  export let actions: ActionItem[] = []
+  export let noPrimaryAction = false
   export let countDisplayed: number | undefined = undefined
   export let countAll: number | undefined = undefined
   export let tabs: { label?: string, value: string, disabled?: boolean, badge?: number }[] = []
   export let tabsContainer = false
   export let selectedTab: number | undefined = tabs.length > 1 ? 0 : undefined
 
-  $: reverseActions = actions.slice().reverse()
+  const store = new Store({ width: 1000 })
+  $: maxButtons = Math.ceil($store.width / 400.0)
+  $: console.log(maxButtons)
 
   const titleId = randomid()
 </script>
 
-<section class="panel shadow [ mx-auto ]" aria-labelledby={titleId}>
+<section use:eq={{ store }} class="panel shadow [ mx-auto ]" aria-labelledby={titleId}>
   <header class="panel-header [ flex justify-between gap-0.5 ]">
     <div class="panel-header-left [ flex-grow bg-neutral-700 flex gap-4 items-center px-4 py-2 text-base ] ">
       <span id={titleId} class="panel-title [ text-white font-bold ]">
@@ -26,9 +30,7 @@
       {#if countDisplayed}<span class="panel-count [ text-white font-normal pl-2 ]">Viewing {countDisplayed}{#if countAll} of {countAll}{/if}</span>{/if}
     </div>
 
-    {#each reverseActions as action, i (action.label)}
-      <Button type="button" icon={action.icon} kind={i !== reverseActions.length - 1 ? 'secondary' : 'primary'} on:click>{action.label}</Button>
-    {/each}
+    <ActionSet includeLabels large {actions} {noPrimaryAction} describedById={titleId} {maxButtons} />
   </header>
   {#if tabs.length > 1}
     <Tabs bind:selected={selectedTab} type={tabsContainer ? 'container' : undefined} autoWidth class="panel-tabs">
@@ -52,7 +54,7 @@
 
 <style>
   .panel {
-    width: min(calc(100dvw - 16px), 1200px);
+    width: min(calc(100dvw - 16px), 1400px);
   }
   .panel :global(.bx--tabs) {
     min-height: 3rem;

@@ -14,3 +14,23 @@ body {
 .bx--header {
   background-color: #501214;
 }
+
+.bx--btn--secondary {
+  border-color: #501214;
+  color: #501214;
+}
+.bx--btn--secondary:focus {
+  background-color: var(--cds-hover-secondary, #501214);
+}
+
+.bx--btn--field {
+  padding-right: 50px;
+}
+
+.bx--overflow-menu-options__option--disabled .bx--overflow-menu-options__btn:focus {
+  outline: 2px solid var(--cds-focus, #0f62fe)
+}
+
+.bx--tag--interactive {
+  border: 1px solid currentColor;
+}

@@ -3,6 +3,10 @@
   import '../app.css'
 </script>
 
+<svelte:head>
+  <title>Component Library</title>
+</svelte:head>
+
 <LayoutBase>
   <slot/>
 </LayoutBase>

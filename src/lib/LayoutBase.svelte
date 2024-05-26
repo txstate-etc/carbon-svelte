@@ -33,7 +33,9 @@
   'interactive-01': '#501214',
   'hover-primary': '#622a2c',
   'interactive-03': '#501214',
-  'hover-tertiary': '#501214'
+  'hover-tertiary': '#501214',
+  'interactive-02': '#ffffff',
+  'hover-secondary': '#501214'
 }}/>
 <Toasts />
 <slot/>

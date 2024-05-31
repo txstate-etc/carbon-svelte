@@ -16,7 +16,6 @@
 
   const store = new Store({ width: 1000 })
   $: maxButtons = Math.ceil($store.width / 400.0)
-  $: console.log(maxButtons)
 
   const titleId = randomid()
 </script>
@@ -53,9 +52,6 @@
 </section>
 
 <style>
-  .panel {
-    width: min(calc(100dvw - 16px), 1400px);
-  }
   .panel :global(.bx--tabs) {
     min-height: 3rem;
     padding-inline: var(--space-xs, 1rem);

@@ -1,12 +1,21 @@
 <script lang="ts">
-  import { LayoutBase } from '$lib/index.js'
+  import { UIShell } from '$lib/index.js'
   import '../app.css'
 </script>
 
-<svelte:head>
-  <title>Component Library</title>
-</svelte:head>
-
-<LayoutBase>
+<UIShell appName="Component Library" navRoot={{
+  title: 'Carbon Components',
+  routeId: '/',
+  children: [
+    {
+      title: 'Panel Demo',
+      routeId: '/panel',
+      children: [
+        { routeId: '/panel/[id]', title: $page => $page.params.id, children: [] }
+      ]
+    },
+    { title: 'Another', routeId: '/another', children: [], group: 'Group' }
+  ]
+}} profilelinks={[{ label: 'Logout', href: '#' }]}>
   <slot/>
-</LayoutBase>
+</UIShell>

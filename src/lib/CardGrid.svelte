@@ -8,7 +8,7 @@
   $: columns = Math.round($store.clientWidth! / cardSize)
 </script>
 
-<div use:resize={{ store }} class="[ flex flex-wrap gap-1 ]"
+<div use:resize={{ store }} role="list" aria-label="cards" class="[ flex flex-wrap gap-1 ]"
   class:col-2={columns === 2} class:col-3={columns === 3}
   class:col-4={columns === 4} class:col-5={columns === 5}
   class:col-6={columns === 6}

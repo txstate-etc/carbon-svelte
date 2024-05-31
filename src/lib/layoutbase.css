@@ -34,3 +34,10 @@ body {
 .bx--tag--interactive {
   border: 1px solid currentColor;
 }
+
+.bx--header__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2px;
+}

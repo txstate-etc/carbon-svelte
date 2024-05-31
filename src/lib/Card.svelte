@@ -118,7 +118,7 @@
   const titleId = randomid()
 </script>
 
-<section use:eq={{ store }} class="card shadow [ flex flex-col ]" aria-labelledby={titleId}>
+<article role="listitem" use:eq={{ store }} class="card shadow [ flex flex-col ]" aria-labelledby={titleId}>
   <header class="card-header [ flex items-start justify-between p-2 ]">
     <div class="card-header-left [ flex-grow flex-shrink ]">
       <div id={titleId} class="card-title [ text-lg font-bold ]" class:emphasizeTitle>{title}</div>
@@ -137,14 +137,13 @@
     </div>
   {/if}
   <div class="card-content [ p-2 flex-grow ]">
-    {overflowOnly}
     <slot />
   </div>
   <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
-  <footer class="card-footer [ flex flex-wrap flex-row-reverse gap-1 ]" class:singular={navigations.length === 1} role="menubar">
+  <footer class="card-footer [ flex flex-wrap flex-row-reverse ]" class:singular={navigations.length === 1} role="menubar">
     {#each navigations as nav, i}
       <Button bind:ref={navelements[i]} href={nav.href} size="field"
-        role="menuitem" aria-disabled={nav.disabled}
+        role="menuitem" aria-disabled={nav.disabled} aria-describedby={titleId}
         tabindex={i === activeNav ? '0' : '-1'}
         icon={nav.icon ?? ChevronRight} kind={noPrimaryNavigation || i > 0 ? 'secondary' : 'primary'}
         class="navigation [ w-full ] {nav.disabled ? 'bx--btn--disabled' : ''}"
@@ -152,7 +151,7 @@
       >{nav.label}</Button>
     {/each}
   </footer>
-</section>
+</article>
 
 <style>
   .card {
@@ -183,14 +182,14 @@
     background-color: #e7e5e4;
   }
 
-  .card footer > :global(*) {
+  .card .card-footer > :global(*) {
     max-width: 100%;
     width: calc(50% - 0.25rem / 2);
   }
-  .card footer.singular > :global(*) {
+  .card .card-footer.singular > :global(*) {
     width: 100%;
   }
-  .card:global([data-eq~="250px"]) footer > :global(*) {
+  .card:global([data-eq~="300px"]) .card-footer > :global(*) {
     width: 100%;
   }
 </style>

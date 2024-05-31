@@ -22,3 +22,7 @@ export interface NavigationItem {
   icon?: typeof SvelteComponent<any>
   disabled?: boolean
 }
+
+export interface ShellItem extends NavigationItem {
+  group?: string
+}

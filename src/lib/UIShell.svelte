@@ -103,7 +103,8 @@
 
 <style>
   main.bx--content {
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
     max-width: 1400px;
   }
 </style>

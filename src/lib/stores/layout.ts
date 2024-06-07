@@ -32,7 +32,7 @@ function accumulateNodes (root: LayoutStructureNode) {
     const matches = c.routeId.matchAll(/\[([^\]]+)\]/g)
     const paramList = Array.from(matches).map(m => m[1])
     c.titleCacheKey ??= $page => pick($page.params, ...paramList)
-    c.href = $page => c.routeId.replace(/\[([^\]]+)\]/g, (m) => $page.params[m])
+    c.href = $page => c.routeId.replace(/\[([^\]]+)\]/g, (m, $1) => $page.params[$1])
     ret.push(...accumulateNodes(c))
   }
   return ret

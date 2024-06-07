@@ -1,6 +1,6 @@
 {
 	"name": "@txstate-mws/carbon-svelte",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -30,6 +30,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
+		"@sveltejs/kit": "^2.0.0",
 		"svelte": "^4.0.0 || ^5.0.0"
 	},
 	"dependencies": {
@@ -44,12 +45,11 @@
 		"carbon-icons-svelte": "^12.6.0",
 		"luxon": "^3.4.4",
 		"tailwindcss": "^3.4.3",
-		"txstate-utils": "^1.8.15"
+		"txstate-utils": "^1.9.8"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/luxon": "^3.4.2",

@@ -1,10 +1,11 @@
 <script lang="ts">
   import { type FormStore, type Feedback, type SubmitResponse } from '@txstate-mws/svelte-forms'
+  import { Button } from 'carbon-components-svelte'
+  import { base } from '$app/paths'
   import {
     PanelFormDialog, FieldCheckboxList, FieldCombobox, FieldDate, FieldDateTime, FieldMore, FieldMultiselect, FieldNumber,
     FieldRadio, FieldRadioTile, FieldSelect, FieldTextArea, FieldTextInput, FieldTime, FieldToggle, Form
   } from '$lib/index.js'
-  import { Button } from 'carbon-components-svelte'
 
   let store: FormStore
   let dialogOpen = false
@@ -80,10 +81,11 @@
   </pre>
 </Form>
 <Button on:click={() => { dialogOpen = true }}>Open Dialog</Button>
-<PanelFormDialog open={dialogOpen} on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async (data) => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]} submit={async data => ({ success: false, messages: [{ type: 'error', path: 'textinput', message: 'Testing errors.' }], data })}>
-  <FieldTextInput path="textinput" labelText="Text Input in Dialog" />
+<PanelFormDialog open={dialogOpen} unsavedWarning on:cancel={() => { dialogOpen = false }} title="Test Dialog" validate={async (data) => [{ type: 'error', path: 'textinput', message: 'Testing errors.' }]} submit={async data => ({ success: false, messages: [{ type: 'error', path: 'textinput', message: 'Testing errors.' }], data })}>
+  <FieldTextInput path="textinput" labelText="Text Input in Dialog" defaultValue="test" />
   <FieldTextInput path="anotherinput" labelText="Another Input in Dialog" />
   <FieldCheckboxList path="checklist" items={[{ value: 'apple' }, { value: 'orange' }, { value: 'banana' }]} />
+  <a href="{base}/panel">go to panel</a>
 </PanelFormDialog>
 <style>
   .sidebyside {

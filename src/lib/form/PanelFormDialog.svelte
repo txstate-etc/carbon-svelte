@@ -1,6 +1,10 @@
 <script lang="ts">
+  import type { NavigationTarget } from '@sveltejs/kit'
   import { type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
-  import { createEventDispatcher } from 'svelte'
+  import { Modal } from 'carbon-components-svelte'
+  import { createEventDispatcher, tick } from 'svelte'
+  import { clone, equal } from 'txstate-utils'
+  import { beforeNavigate, goto } from '$app/navigation'
   import Form from './Form.svelte'
   import PanelDialog from '../PanelDialog.svelte'
 
@@ -45,6 +49,7 @@
   export let cancelText = 'Cancel'
   export let title: string
   export let open = false
+  export let unsavedWarning = false
 
   let dialogelement: HTMLDialogElement
 
@@ -59,20 +64,67 @@
   async function onSubmit () {
     if (!store) return
     const resp = await store.submit()
-    if (resp.success) dispatch('saved', resp.data)
-    else {
+    if (resp.success) {
+      lastSavedState = clone(resp.data)
+      dispatch('saved', resp.data)
+    } else {
       dialogelement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
       dispatch('validationfail')
     }
   }
 
+  let unsavedDialogOpen = false
+  let lastSavedState: Partial<T>
+  function onSaved (e: CustomEvent<T>) {
+    lastSavedState = clone(e.detail)
+  }
+
+  function onCancel () {
+    if (unsavedWarning && !equal(lastSavedState, $store?.data)) unsavedDialogOpen = true
+    else dispatch('cancel')
+  }
+
+  function onConfirmUnsaved () {
+    unsavedDialogOpen = false
+    if (pendingNavigate) {
+      allowNavigate = true
+      void goto(pendingNavigate.url)
+    } else dispatch('cancel')
+  }
+
+  function cancelUnsaved () {
+    unsavedDialogOpen = false
+  }
+
+  async function reactToStore (..._: any[]) {
+    if (typeof document === 'undefined' || !store) return
+    await tick() // wait a tick to let the form preload or get default values
+    lastSavedState = clone($store!.data)
+  }
+  $: void reactToStore(store)
+
+  let pendingNavigate: NavigationTarget | undefined
+  let allowNavigate = false
+  beforeNavigate(({ cancel, type, to }) => {
+    if (unsavedWarning && !equal(lastSavedState, $store?.data)) {
+      if (type !== 'leave' && to != null) {
+        unsavedDialogOpen = true
+        pendingNavigate = to
+      }
+      if (!allowNavigate) cancel()
+    }
+  })
+
   $: if (!open) store = undefined
 </script>
 
-<PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel on:submit={onSubmit}>
-  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+<PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>
+  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved={onSaved} on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}
     <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
     <svelte:fragment slot="submit">&nbsp;</svelte:fragment>
   </Form>
+  <Modal bind:open={unsavedDialogOpen} on:click:button--primary={onConfirmUnsaved} on:click:button--secondary={cancelUnsaved} modalHeading="Unsaved Changes" primaryButtonText="Leave" secondaryButtonText="Stay">
+    You have unsaved changes. Are you sure you want to leave?
+  </Modal>
 </PanelDialog>

@@ -24,8 +24,7 @@
     idx?: number
   }
 
-  $: longTitle = title.length * 400 / $store.width > 20 || (subhead?.length ?? 0) * 400 / $store.width > 35
-  $: overflowOnly = longTitle || forceOverflow
+  $: maxButtons = Math.min(3, Math.ceil($store.width / 400.0))
   $: tagsWithIdx = tags as TagItemWithIdx[]
   $: {
     let idx = 0
@@ -124,7 +123,7 @@
       <div id={titleId} class="card-title [ text-lg font-bold ]" class:emphasizeTitle>{title}</div>
       {#if subhead}<div class="card-subhead">{subhead}</div>{/if}
     </div>
-    <ActionSet {actions} {noPrimaryAction} forceOverflow={overflowOnly} describedById={titleId} />
+    <ActionSet {actions} {noPrimaryAction} {maxButtons} {forceOverflow} describedById={titleId} />
   </header>
   {#if tags.length}
     <div bind:this={tagcontainer} class="card-tags" class:hasbg={!tagsInBody} role="list" aria-label="tags">

@@ -45,7 +45,7 @@
       </svelte:fragment>
     </Tabs>
   {:else}
-    <div class="panel-content flow p-4">
+    <div class="panel-content flow">
       <slot tab={undefined} />
     </div>
   {/if}
@@ -62,5 +62,8 @@
   .panel :global(.bx--pagination) {
     margin: -1rem 0 0 -1rem;
     width: calc(100% + 2rem);
+  }
+  .panel-content {
+    padding: 16px;
   }
 </style>

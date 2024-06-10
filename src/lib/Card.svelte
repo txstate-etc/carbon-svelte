@@ -183,7 +183,7 @@
 
   .card .card-footer > :global(*) {
     max-width: 100%;
-    width: calc(50% - 0.25rem / 2);
+    width: calc(50%);
   }
   .card .card-footer.singular > :global(*) {
     width: 100%;

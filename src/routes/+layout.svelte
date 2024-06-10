@@ -10,6 +10,7 @@
     {
       title: 'Panel Demo',
       routeId: '/panel',
+      // preloadParams: async () => api.getStuff() [{ id: 'blah', catId: 'blah' }],
       children: [
         { routeId: '/panel/[id]', title: $page => $page.params.id, children: [] }
       ]

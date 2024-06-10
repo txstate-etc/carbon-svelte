@@ -70,7 +70,9 @@
       <Breadcrumb>
         {#each $layoutInfo.breadcrumbs as bc}
           {#await bc.title then title}
-            <BreadcrumbItem href={bc.href}>{title}</BreadcrumbItem>
+            {#await bc.href then href}
+              <BreadcrumbItem {href}>{title}</BreadcrumbItem>
+            {/await}
           {/await}
         {/each}
       </Breadcrumb>

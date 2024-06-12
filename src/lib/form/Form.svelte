@@ -61,7 +61,7 @@
       <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
     {/each}
     {#if !hideFallbackMessage && showingInlineErrors && !errorMessages.length}
-      <InlineNotification kind="error" subtitle="This form contains validation errors. See inline messages for details." hideCloseButton />
+      <InlineNotification kind="error" subtitle="This form contains errors. See inline messages for details." hideCloseButton />
     {/if}
   {/if}
   {#if warningMessages.length}

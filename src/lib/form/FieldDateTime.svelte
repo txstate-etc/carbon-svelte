@@ -138,10 +138,16 @@
     align-items: flex-start;
     justify-content: flex-start;
   }
+  :global([data-eq~="450px"]) div {
+    flex-wrap: wrap;
+  }
   div > :global(*) {
     flex-grow: 0;
   }
   div :global(.bx--time-picker) {
     margin-top: 1.5rem;
+  }
+  :global([data-eq~="450px"]) div :global(.bx--time-picker) {
+    margin-top: 0;
   }
 </style>

@@ -10,7 +10,7 @@
 </script>
 
 {#if value != null}
-  <span {...$$restProps} class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold rounded-full align-text-bottom {$$restProps.class}"><ScreenReaderOnly>count </ScreenReaderOnly>{value}</span>
+  <span {...$$restProps} class="inline-flex items-center justify-center px-1 h-4 ms-2 text-xs font-semibold rounded-full align-text-bottom {$$restProps.class}"><ScreenReaderOnly>count </ScreenReaderOnly>{value}</span>
 {/if}
 
 <style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button } from 'carbon-components-svelte'
+  import { Button, InlineNotification } from 'carbon-components-svelte'
   import Close from 'carbon-icons-svelte/lib/Close.svelte'
   import { createEventDispatcher } from 'svelte'
   import { randomid } from 'txstate-utils'
@@ -58,18 +58,20 @@
 >
   {#if open}
     <section aria-labelledby={titleId}>
-      <header class="flex items-center justify-between py-2 px-4">
-        <div id={titleId} class="font-bold mr-auto">{title}</div>
+      <header class="[ flex items-center justify-between py-[8px] px-[16px] ]">
+        <div id={titleId} class="[ font-bold mr-auto ]">{title}</div>
         <Button bind:ref={closebutton} on:click={cancel} kind="secondary" iconDescription="Close Dialog" icon={Close} tooltipPosition="left" aria-describedby={titleId} size="small" />
       </header>
-      <div class="content p-4 flow">
+      <div class="content [ p-[16px] flow ]" class:has-error={!!errorText}>
         <slot />
       </div>
-      <footer class="flex justify-end items-center p-2">
-        <div id={errorId} class="error-text flex-grow">{errorText}</div>
+      {#if errorText}
+        <div id={errorId} class="error-text [ p-[8px] ]"><InlineNotification subtitle={errorText} lowContrast hideCloseButton /></div>
+      {/if}
+      <footer class="[ flex flex-wrap justify-end items-center ]">
         <slot name="buttons">
-          <Button kind="secondary" size="small" class="ml-2" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
-          <Button size="small" class="ml-2" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
+          <Button kind="secondary" size="small" class="ml-[8px]" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
+          <Button size="small" class="ml-[8px]" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
         </slot>
       </footer>
     </section>
@@ -90,6 +92,9 @@
   section .content {
     overflow-y: auto;
     flex-grow: 1;
+  }
+  section .content.has-error {
+    padding-bottom: calc(2.5rem + 1.5 * var(--cds-body-short-01-font-size, 0.875rem));
   }
   dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
@@ -153,7 +158,19 @@
     background-color: var(--cds-layer-accent);
   }
   .error-text {
+    position: absolute;
+    right: 0;
+    bottom: calc(2rem + 16px);
     color: var(--cds-text-error);
+    opacity: 0.8;
+  }
+  .error-text :global(.bx--inline-notification) {
+    margin: 0;
+    max-width: 100%;
+  }
+
+  footer {
+    padding: 8px;
   }
 
   :global(body:has(dialog.tcbs-dialog[open])) {

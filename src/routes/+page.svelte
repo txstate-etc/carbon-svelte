@@ -24,8 +24,12 @@
     ]
   }
 
-  async function onSubmit (data: FormData) {
-    return {} as unknown as SubmitResponse<FormData>
+  async function onSubmit (data: FormData): Promise<SubmitResponse<FormData>> {
+    return {
+      success: false,
+      messages: [{ path: 'textInput', message: 'That is invalid.', type: 'error' }],
+      data
+    }
   }
 </script>
 

@@ -55,7 +55,7 @@
 
   let errorText: string | undefined
   function setErrorText (showingInlineErrors: boolean) {
-    if (showingInlineErrors) errorText = 'This form contains validation errors. See inline messages for details.'
+    if (showingInlineErrors) errorText = 'At least one field is missing or incorrect.'
     else errorText = ''
     return ''
   }

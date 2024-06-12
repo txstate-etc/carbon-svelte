@@ -24,6 +24,8 @@
     idx?: number
   }
 
+  $: navToActions = $store.width >= 800
+  $: resolvedActions = navToActions ? actions.concat(navigations as ActionItem[]) : actions
   $: maxButtons = Math.min(3, Math.ceil($store.width / 400.0))
   $: tagsWithIdx = tags as TagItemWithIdx[]
   $: {
@@ -118,12 +120,12 @@
 </script>
 
 <article role="listitem" use:eq={{ store }} class="card shadow [ flex flex-col ]" aria-labelledby={titleId}>
-  <header class="card-header [ flex items-start justify-between p-2 ]">
+  <header class="card-header [ flex items-start justify-between p-[8px] ]">
     <div class="card-header-left [ flex-grow flex-shrink ]">
       <div id={titleId} class="card-title [ text-lg font-bold ]" class:emphasizeTitle>{title}</div>
       {#if subhead}<div class="card-subhead">{subhead}</div>{/if}
     </div>
-    <ActionSet {actions} {noPrimaryAction} {maxButtons} {forceOverflow} describedById={titleId} />
+    <ActionSet actions={resolvedActions} {noPrimaryAction} {maxButtons} {forceOverflow} describedById={titleId} />
   </header>
   {#if tags.length}
     <div bind:this={tagcontainer} class="card-tags" class:hasbg={!tagsInBody} role="list" aria-label="tags">
@@ -135,21 +137,23 @@
       {/each}
     </div>
   {/if}
-  <div class="card-content [ p-2 flex-grow ]">
+  <div class="card-content [ p-[8px] flex-grow ]">
     <slot />
   </div>
-  <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
-  <footer class="card-footer [ flex flex-wrap flex-row-reverse ]" class:singular={navigations.length === 1} role="menubar">
-    {#each navigations as nav, i}
-      <Button bind:ref={navelements[i]} href={nav.href} size="field"
-        role="menuitem" aria-disabled={nav.disabled} aria-describedby={titleId}
-        tabindex={i === activeNav ? '0' : '-1'}
-        icon={nav.icon ?? ChevronRight} kind={noPrimaryNavigation || i > 0 ? 'secondary' : 'primary'}
-        class="navigation [ w-full ] {nav.disabled ? 'bx--btn--disabled' : ''}"
-        on:click={navClick(nav)}
-      >{nav.label}</Button>
-    {/each}
-  </footer>
+  {#if !navToActions}
+    <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
+    <footer class="card-footer [ flex flex-wrap flex-row-reverse ]" class:singular={navigations.length === 1} role="menubar">
+      {#each navigations as nav, i}
+        <Button bind:ref={navelements[i]} href={nav.href} size="field"
+          role="menuitem" aria-disabled={nav.disabled} aria-describedby={titleId}
+          tabindex={i === activeNav ? '0' : '-1'}
+          icon={nav.icon ?? ChevronRight} kind={noPrimaryNavigation || i > 0 ? 'secondary' : 'primary'}
+          class="navigation [ w-full ] {nav.disabled ? 'bx--btn--disabled' : ''}"
+          on:click={navClick(nav)}
+        >{nav.label}</Button>
+      {/each}
+    </footer>
+  {/if}
 </article>
 
 <style>
@@ -165,14 +169,14 @@
   }
   .card-title.emphasizeTitle {
     background-color: #D8D0CF;
-    padding: 0 0.5rem;
+    padding: 0 8px;
   }
   .card-tags {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
     margin-top: 0;
-    padding: 0.125rem 0;
+    padding: 2px 0;
   }
   .card-tags > :global(*) {
     max-width: 50%;

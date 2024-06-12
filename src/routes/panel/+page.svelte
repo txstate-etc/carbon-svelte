@@ -3,7 +3,7 @@
   import { Add, Edit, TrashCan, User, View } from 'carbon-icons-svelte'
 </script>
 
-<Panel title="Test Panel" tabs={[{ value: 'Enabled' }, { value: 'Disabled', badge: 4 }]} actions={[{ label: 'Add Item', icon: Add }, { label: 'Other Action' }]} let:tab>
+<Panel title="Test Panel" tabs={[{ value: 'Enabled' }, { value: 'Disabled', badge: 400 }]} actions={[{ label: 'Add Item', icon: Add }, { label: 'Other Action' }]} let:tab>
   {#if tab === 0}
     <Pagination totalItems={134} chooseSize />
     <CardGrid>

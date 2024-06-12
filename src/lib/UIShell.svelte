@@ -11,7 +11,7 @@
   export let navRoot: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNode>>
   export let profilelinks: ShellItem[] = []
 
-  const { layoutInfo } = new LayoutStore({ root: navRoot })
+  const { layoutInfo, nav } = new LayoutStore({ root: navRoot })
   let isOpen = false
   let rootnavelement: HTMLAnchorElement
   function hamburgerClick () {
@@ -22,7 +22,7 @@
     }
   }
 
-  $: navGroups = mapgroupby(navRoot.children?.filter(c => isNotBlank(c.group)), 'group')
+  $: navGroups = mapgroupby($nav?.filter(c => isNotBlank(c.group)), 'group')
   $: groupedlinks = groupby(profilelinks, l => l.group ?? 'undefined')
   $: groupedlinkentries = Object.entries(groupedlinks)
 </script>
@@ -56,7 +56,7 @@
                   href={nav.href}
                 >
                   {#if nav.icon}
-                    <svelte:component this={nav.icon} class="inline align-text-bottom mr-1" />
+                    <svelte:component this={nav.icon} class="inline align-text-bottom mr-[16px]" />
                   {/if}
                   {nav.label}
                 </HeaderPanelLink>
@@ -66,7 +66,7 @@
         </HeaderAction>
       </HeaderUtilities>
     {/if}
-    <div class="breadcrumbs [ w-full bg-stone-300 py-1 px-4 ]">
+    <div class="breadcrumbs [ w-full bg-stone-300 py-[4px] px-[16px] ]">
       <Breadcrumb>
         {#each $layoutInfo.breadcrumbs as bc}
           {#await bc.title then title}
@@ -84,14 +84,21 @@
   <div style:display={isOpen ? 'block' : 'none'}>
     <SideNav {isOpen} class={!isOpen ? 'sideNavHidden' : ''}>
       <SideNavItems>
-        <SideNavLink bind:ref={rootnavelement} text={navRoot.title} href="{base}" />
-        {#each navRoot.children ?? [] as pg}
-          {#if isBlank(pg.group)}<SideNavLink text={pg.title} href="{base}{pg.routeId}" />{/if}
+        {#each ($nav ?? []).filter(n => n.group == null) as pg}
+          {#await pg.title then title}
+            {#await pg.href then href}
+              {#if isBlank(pg.group)}<SideNavLink text={title} href="{base}{href}" />{/if}
+            {/await}
+          {/await}
         {/each}
         {#each navGroups.entries() as [name, pgs] (name)}
           <SideNavMenu text={name} expanded={true}>
             {#each pgs as pg}
-              <SideNavMenuItem text={pg.title} href="{base}{pg.routeId}" />
+              {#await pg.title then title}
+                {#await pg.href then href}
+                  <SideNavMenuItem text={title} href="{base}{href}" />
+                {/await}
+              {/await}
             {/each}
           </SideNavMenu>
         {/each}
@@ -104,9 +111,16 @@
 </LayoutBase>
 
 <style>
+  .bx--header {
+    position: relative;
+    height: auto;
+  }
+
   main.bx--content {
     margin-left: auto;
     margin-right: auto;
     max-width: 1400px;
+    margin-top: 0;
+    padding: 16px 0;
   }
 </style>

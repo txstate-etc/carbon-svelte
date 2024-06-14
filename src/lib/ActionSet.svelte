@@ -12,11 +12,13 @@
   export let maxButtons = 2
   export let light = false
   export let includeLabels = false
+  export let small = false
   export let large = false
   export let describedById: string
 
   const hasOutside = new Store(false)
 
+  $: buttonSize = (small ? 'small' : (large ? undefined : 'field')) as 'small' | 'field' | undefined
   $: indexedActions = actions.map((a, i) => ({ ...a, idx: i }))
   $: outsideActions = forceOverflow ? [] : (actions.length > maxButtons ? indexedActions.filter(a => !a.disabled).slice(0, maxButtons - 1) : indexedActions)
   $: $hasOutside = outsideActions.length > 0
@@ -106,9 +108,9 @@
   <div role="menu" class="[ flex gap-0.5 align-center flex-row-reverse ]" on:focusout={focusOut}>
     {#each outsideActions as action}
       {#if action.icon && !includeLabels}
-        <Button size={large ? undefined : 'field'} tabindex={activeAction === action.idx ? '0' : '-1'} aria-disabled={action.disabled} class={action.disabled ? 'bx--btn--disabled' : ''} bind:ref={actionelements[action.idx]} role="menuitem" aria-posinset={action.idx + 1} aria-setsize={actions.length} iconDescription={action.label} icon={action.icon} kind={action.idx === 0 && !noPrimaryAction ? 'primary' : 'secondary'} href={action.href} on:click={actionClick(action)} aria-describedby={describedById} />
+        <Button size={buttonSize} tabindex={activeAction === action.idx ? '0' : '-1'} aria-disabled={action.disabled} class={action.disabled ? 'bx--btn--disabled' : ''} bind:ref={actionelements[action.idx]} role="menuitem" aria-posinset={action.idx + 1} aria-setsize={actions.length} iconDescription={action.label} icon={action.icon} kind={action.idx === 0 && !noPrimaryAction ? 'primary' : 'secondary'} href={action.href} on:click={actionClick(action)} aria-describedby={describedById} />
       {:else}
-        <Button size={large ? undefined : 'field'} tabindex={activeAction === action.idx ? '0' : '-1'} aria-disabled={action.disabled} class="{action.icon ? '' : 'pr-4'} {action.disabled ? 'bx--btn--disabled' : ''}" bind:ref={actionelements[action.idx]} role="menuitem" aria-posinset={action.idx + 1} aria-setsize={actions.length} icon={action.icon} kind={action.idx === 0 && !noPrimaryAction ? 'primary' : 'secondary'} href={action.href} on:click={actionClick(action)} aria-describedby={describedById}>{action.label}</Button>
+        <Button size={buttonSize} tabindex={activeAction === action.idx ? '0' : '-1'} aria-disabled={action.disabled} class="{action.icon ? '' : 'pr-4'} {action.disabled ? 'bx--btn--disabled' : ''}" bind:ref={actionelements[action.idx]} role="menuitem" aria-posinset={action.idx + 1} aria-setsize={actions.length} icon={action.icon} kind={action.idx === 0 && !noPrimaryAction ? 'primary' : 'secondary'} href={action.href} on:click={actionClick(action)} aria-describedby={describedById}>{action.label}</Button>
       {/if}
     {/each}
     {#if overflowActions.length}

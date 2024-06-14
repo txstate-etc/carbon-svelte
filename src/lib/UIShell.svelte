@@ -29,18 +29,18 @@
 
 <LayoutBase>
   <SkipToContent />
-  <header class="bx--header [ flex-wrap ]">
+  <header class:bx--header={true} class="[ flex-wrap ]">
     <button
       type="button"
       aria-label="Hamburger Menu"
-      class="bx--header__action bx--header__menu-trigger bx--header__menu-toggle"
+      class:bx--header__action={true} class:bx--header__menu-trigger={true} class:bx--header__menu-toggle={true}
       on:click={hamburgerClick}
     >
       <svelte:component this={isOpen ? Close : Menu} size={20} />
     </button>
-    <a href="{base}/" class="bx--header__name">
+    <a href="{base}/" class:bx--header__name={true}>
       {#if companyName}
-        <span class="bx--header__name--prefix">{companyName}&nbsp;</span>
+        <span class:bx--header__name--prefix={true}>{companyName}&nbsp;</span>
       {/if}
       {appName}
     </a>
@@ -105,7 +105,7 @@
       </SideNavItems>
     </SideNav>
   </div>
-  <main id="main-content" class="bx--content">
+  <main id="main-content" class:bx--content={true}>
     <slot />
   </main>
 </LayoutBase>

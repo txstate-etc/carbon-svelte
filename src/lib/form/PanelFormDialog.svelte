@@ -74,7 +74,7 @@
   }
 
   let unsavedDialogOpen = false
-  let lastSavedState: Partial<T>
+  let lastSavedState: Partial<T> | undefined
   function onSaved (e: CustomEvent<T>) {
     lastSavedState = clone(e.detail)
   }
@@ -97,16 +97,16 @@
   }
 
   async function reactToStore (..._: any[]) {
+    lastSavedState = undefined
     if (typeof document === 'undefined' || !store) return
     await tick() // wait a tick to let the form preload or get default values
     lastSavedState = clone($store!.data)
   }
-  $: void reactToStore(store)
 
   let pendingNavigate: NavigationTarget | undefined
   let allowNavigate = false
   beforeNavigate(({ cancel, type, to }) => {
-    if (unsavedWarning && !equal(lastSavedState, $store?.data)) {
+    if (open && unsavedWarning && !equal(lastSavedState, $store?.data)) {
       if (type !== 'leave' && to != null) {
         unsavedDialogOpen = true
         pendingNavigate = to
@@ -116,6 +116,7 @@
   })
 
   $: if (!open) store = undefined
+  $: void reactToStore(store)
 </script>
 
 <PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>

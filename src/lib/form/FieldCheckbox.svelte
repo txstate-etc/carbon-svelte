@@ -33,7 +33,7 @@
       dispatch('check', val)
     }} on:change on:blur={() => { onBlur(); dispatch('blur') }} on:focus
   />
-  {#if helperText}<div id="{id}-helper" class="bx--form__helper-text">{helperText}</div>{/if}
+  {#if helperText}<div id="{id}-helper" class:bx--form__helper-text={true}>{helperText}</div>{/if}
   {#each messages as message}
     <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
   {/each}

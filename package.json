@@ -1,6 +1,6 @@
 {
 	"name": "@txstate-mws/carbon-svelte",
-	"version": "1.0.11",
+	"version": "1.0.12",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -37,7 +37,7 @@
 		"@fontsource/roboto": "^5.0.13",
 		"@fontsource/roboto-mono": "^5.0.18",
 		"@fontsource/roboto-serif": "^5.0.13",
-		"@txstate-mws/svelte-components": "^1.5.13",
+		"@txstate-mws/svelte-components": "^1.6.4",
 		"@txstate-mws/svelte-forms": "^1.4.7",
 		"@txstate-mws/svelte-store": "^1.0.8",
 		"autoprefixer": "^10.4.19",

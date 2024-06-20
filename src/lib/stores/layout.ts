@@ -1,8 +1,7 @@
 import type { Page } from '@sveltejs/kit'
-import { Store, derivedStore } from '@txstate-mws/svelte-store'
+import { Store } from '@txstate-mws/svelte-store'
 import { Cache, keyby, pick } from 'txstate-utils'
-import { page } from '$app/stores'
-import { derived } from 'svelte/store'
+import { derived, writable, type Readable } from 'svelte/store'
 
 interface LayoutStructureNodeBase {
   routeId: string
@@ -37,7 +36,6 @@ export interface LayoutStructureNodeResolved {
 
 export interface ILayoutStore {
   root: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNode>>
-  nav?: LayoutStructureNodeResolved[]
 }
 
 function accumulateNodes (root: LayoutStructureNode | LayoutStructureNodeRoot, depth = 0) {
@@ -89,9 +87,11 @@ const hrefCache = new Cache(async (cacheKey: { routeId: string, cacheKey: any },
 })
 
 export class LayoutStore extends Store<ILayoutStore> {
-  routeById = derivedStore(this, v => keyby(accumulateNodes(v.root), 'routeId'))
+  accumulated = derived(this, v => accumulateNodes(v.root))
+  root = derived<Readable<(LayoutStructureNodeRoot<LayoutStructureNodeBase> | LayoutStructureNode)[]>, LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNodeBase>> | undefined>(this.accumulated, v => v?.[0] as LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNodeBase>> | undefined)
+  routeById = derived(this.accumulated, v => keyby(v, 'routeId'))
 
-  layoutInfo = derived([this.routeById, page], ([$routeById, $page]) => {
+  layoutInfo = (page: Readable<Page<Record<string, string>, string | null>>) => derived([this.routeById, page], ([$routeById, $page]) => {
     const node = $routeById[$page.route.id!] ?? $routeById['/']
     const title = titleCache.get({ routeId: node.routeId, cacheKey: node.__type === 'root' ? node.cacheKey?.($page.params) : (node as LayoutStructureNode).cacheKey?.($page) }, { node, $page })
     const breadcrumbs: (LayoutStructureNode | LayoutStructureNodeRoot)[] = []
@@ -109,22 +109,28 @@ export class LayoutStore extends Store<ILayoutStore> {
     }
   })
 
-  nav = derivedStore(this, 'nav')
+  nav = writable<LayoutStructureNodeResolved[]>([])
 
   constructor (initialValue: ILayoutStore) {
     super(initialValue)
-    void this.generateNav()
+    this.root.subscribe(root => { if (root != null) void this.generateNav(root) })
   }
 
-  async generateNav () {
+  async generateNav (root: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNodeBase>>) {
     const nav: LayoutStructureNodeResolved[] = []
-    for (const n of this.value.root.children ?? []) {
+    await Promise.all((root.children ?? []).map(async n => {
       if (n.preloadParams) {
         const paramsList = await n.preloadParams()
         const promisesLoaded = await Promise.all(paramsList.map(async params => ({ ...n, href: typeof n.href === 'string' ? n.href : await n.href!(params), title: typeof n.title === 'string' ? n.title : await n.title(params) })))
         nav.push(...promisesLoaded)
-      } else nav.push(n as LayoutStructureNodeResolved)
-    }
-    this.update(v => ({ ...v, nav }))
+      } else {
+        const [href, title] = await Promise.all([
+          typeof n.href === 'string' ? n.href : n.href!({}),
+          typeof n.title === 'string' ? n.title : n.title({})
+        ])
+        nav.push({ ...n, href, title })
+      }
+    }))
+    this.nav.set(nav)
   }
 }

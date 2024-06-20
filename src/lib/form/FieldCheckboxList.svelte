@@ -201,7 +201,7 @@
               name={fullpath}
               readonly={readonly}
               aria-required={required}
-              class="bx--checkbox"
+              class:bx--checkbox={true}
               aria-describedby={[resolvedLegendId, `${legendId}-helper`].filter(isNotNull).join(' ')}
               aria-invalid={invalid}
               on:change={onChange(setVal, fDeserialize)}

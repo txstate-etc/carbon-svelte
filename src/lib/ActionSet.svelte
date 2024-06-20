@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ScreenReaderOnly, glue, modifierKey } from '@txstate-mws/svelte-components'
+  import { ScreenReaderOnly, modifierKey } from '@txstate-mws/svelte-components'
   import { Store } from '@txstate-mws/svelte-store'
   import { Button } from 'carbon-components-svelte'
   import { OverflowMenuVertical } from 'carbon-icons-svelte'
@@ -92,6 +92,7 @@
       if (action.disabled) e.preventDefault()
       else {
         action.onClick?.()
+        closeMenu()
       }
     }
   }
@@ -114,31 +115,33 @@
       {/if}
     {/each}
     {#if overflowActions.length}
-      <button type="button" tabindex={$hasOutside ? -1 : activeAction === -1 ? 0 : -1} bind:this={overflowButton} class="bx--overflow-menu"
-        class:bx--overflow-menu--open={overflowOpen} class:bx--overflow-menu--light={light} aria-expanded={overflowOpen}
-        on:click={overflowClick} on:keydown={keyDown} aria-describedby={describedById} aria-haspopup="menu"
+      <button type="button" tabindex={$hasOutside ? -1 : activeAction === -1 ? 0 : -1} bind:this={overflowButton} class:bx--overflow-menu={true}
+        class:bx--overflow-menu--sm={small} class:bx--overflow-menu--xl={large}
+        class:bx--overflow-menu--light={light} class:bx--overflow-menu--open={overflowOpen}
+        aria-expanded={overflowOpen} aria-haspopup="menu"
+        on:click={overflowClick} on:keydown={keyDown} aria-describedby={describedById}
       >
         <svelte:component this={icon} aria-hidden="true" class="bx--overflow-menu__icon" />
         <ScreenReaderOnly>Show Actions</ScreenReaderOnly>
       </button>
       {#if overflowOpen}
-        <div use:glue={{ target: overflowButton, align: 'bottomright' }}
-          class="bx--overflow-menu-options"
+        <div
+          class:bx--overflow-menu-options={true}
           class:bx--overflow-menu-options--light={light}
           class:bx--overflow-menu-options--open={true}
         >
           {#each overflowActions as action, i}
-            <div class="bx--overflow-menu-options__option" class:bx--overflow-menu-options__option--disabled={action.disabled}>
+            <div class:bx--overflow-menu-options__option={true} class:bx--overflow-menu-options__option--disabled={action.disabled}>
               <svelte:element this={action.href ? 'a' : 'button'}
                 bind:this={actionelements[action.idx]}
-                class="bx--overflow-menu-options__btn"
+                class:bx--overflow-menu-options__btn={true}
                 href={action.href}
                 role="menuitem" aria-posinset={action.idx + 1} aria-setsize={actions.length}
                 aria-disabled={action.disabled} aria-describedby={describedById}
                 tabindex={activeAction === action.idx ? 0 : -1}
                 on:click={actionClick(action)}
               >
-                <div class="bx--overflow-menu-options__option-content">
+                <div class:bx--overflow-menu-options__option-content={true}>
                   {#if action.icon}
                     <svelte:component this={action.icon} class="inline align-text-bottom mr-1" />
                   {/if}
@@ -156,5 +159,6 @@
 <style>
   .bx--overflow-menu-options {
     left: unset;
+    right: 0px;
   }
 </style>

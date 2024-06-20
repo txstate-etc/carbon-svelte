@@ -5,7 +5,7 @@
   import { ChevronRight } from 'carbon-icons-svelte'
   import { afterUpdate } from 'svelte'
   import { randomid } from 'txstate-utils'
-  import { ActionSet, type ActionItem, type NavigationItem, type TagItem } from './index.js'
+  import { ActionSet, type ActionItem, type NavigationItem, type TagItem, TagSet } from './index.js'
 
   export let title: string
   export let subhead: string | undefined = undefined
@@ -20,14 +20,9 @@
 
   const store = new Store({ width: 500 })
 
-  interface TagItemWithIdx extends TagItem {
-    idx?: number
-  }
-
   $: navToActions = $store.width >= 800
   $: resolvedActions = navToActions ? actions.concat(navigations as ActionItem[]) : actions
   $: maxButtons = Math.min(3, Math.ceil($store.width / 400.0))
-  $: tagsWithIdx = tags as TagItemWithIdx[]
   $: {
     let idx = 0
     for (let i = 0; i < tags.length; i++) {
@@ -37,7 +32,6 @@
 
   let activeNav = 0
   const navelements: (HTMLButtonElement | HTMLAnchorElement)[] = []
-  let activeTag = 0
 
   function navActivate (idx: number) {
     activeNav = idx
@@ -70,46 +64,7 @@
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') navDown()
   }
 
-  let tagcontainer: HTMLDivElement
-  let tagelements: HTMLElement[] = []
-  function tagActivate (idx: number) {
-    activeTag = idx
-    tagelements[idx].focus()
-  }
-
-  function tagUp () {
-    const nextIdx = activeTag - 1
-    if (nextIdx >= 0 && nextIdx !== activeTag) tagActivate(nextIdx)
-  }
-
-  function tagDown () {
-    const nextIdx = activeTag + 1
-    if (nextIdx < tagelements.length && nextIdx !== activeTag) tagActivate(nextIdx)
-  }
-
-  function tagClick (tag: TagItem) {
-    return (e: MouseEvent) => {
-      e.preventDefault()
-      tag.onClick?.()
-    }
-  }
-
-  function tagKeyDown (e: KeyboardEvent) {
-    if (modifierKey(e)) return
-    if (e.key.startsWith('Arrow')) {
-      e.stopPropagation()
-      e.preventDefault()
-    }
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') tagUp()
-    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') tagDown()
-  }
-
   afterUpdate(() => {
-    tagelements = Array.from(tagcontainer?.querySelectorAll('.bx--tag--interactive') ?? [])
-    for (const tag of tagelements) {
-      tag?.removeEventListener('keydown', tagKeyDown)
-      tag?.addEventListener('keydown', tagKeyDown)
-    }
     for (const btn of navelements) {
       btn?.removeEventListener('keydown', navKeyDown as any)
       btn?.addEventListener('keydown', navKeyDown as any)
@@ -128,14 +83,7 @@
     <ActionSet actions={resolvedActions} {noPrimaryAction} {maxButtons} {forceOverflow} describedById={titleId} />
   </header>
   {#if tags.length}
-    <div bind:this={tagcontainer} class="card-tags" class:hasbg={!tagsInBody} role="list" aria-label="tags">
-      {#each tagsWithIdx as tag}
-        <Tag type={tag.type ?? 'cyan'} icon={tag.icon} interactive={tag.onClick != null}
-          tabindex={tag.idx === activeTag ? 0 : -1} on:click={tagClick(tag)}
-          role="listitem" aria-describedby={titleId}
-        >{tag.label}</Tag>
-      {/each}
-    </div>
+    <TagSet {tags} class="{tagsInBody ? '' : 'hasbg'}" />
   {/if}
   <div class="card-content [ p-[8px] flex-grow ]">
     <slot />
@@ -171,17 +119,13 @@
     background-color: #D8D0CF;
     padding: 0 8px;
   }
-  .card-tags {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-top: 0;
-    padding: 2px 0;
+  .card :global(.tag-set) {
+    padding: 0 8px 8px 8px;
   }
-  .card-tags > :global(*) {
-    max-width: 50%;
+  .card :global(.tag-set > *) {
+    max-width: calc(50% - 2px);
   }
-  .card-tags.hasbg {
+  .card :global(.tag-set.hasbg) {
     background-color: #e7e5e4;
   }
 

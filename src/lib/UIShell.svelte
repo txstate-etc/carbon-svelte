@@ -2,8 +2,11 @@
   import { Breadcrumb, BreadcrumbItem, HeaderAction, HeaderPanelDivider, HeaderPanelLink, HeaderPanelLinks, HeaderUtilities, SideNav, SideNavItems, SideNavLink, SideNavMenu, SideNavMenuItem, SkipToContent } from 'carbon-components-svelte'
   import { Close, Menu, UserAvatar } from 'carbon-icons-svelte'
   import { tick } from 'svelte'
+  import { writable } from 'svelte/store'
   import { groupby, isBlank, isNotBlank, mapgroupby } from 'txstate-utils'
+  import { browser } from '$app/environment'
   import { base } from '$app/paths'
+  import { page } from '$app/stores'
   import { type LayoutStructureNode, type LayoutStructureNodeRoot, LayoutBase, LayoutStore, type ShellItem } from '$lib/index.js'
 
   export let companyName = 'TXST'
@@ -11,7 +14,9 @@
   export let navRoot: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNode>>
   export let profilelinks: ShellItem[] = []
 
-  const { layoutInfo, nav } = new LayoutStore({ root: navRoot })
+  const layoutStore = new LayoutStore({ root: navRoot })
+  const nav = layoutStore.nav
+  const layoutInfo = browser ? layoutStore.layoutInfo(page) : writable({ title: '', breadcrumbs: [] })
   let isOpen = false
   let rootnavelement: HTMLAnchorElement
   function hamburgerClick () {
@@ -66,20 +71,23 @@
         </HeaderAction>
       </HeaderUtilities>
     {/if}
-    <div class="breadcrumbs [ w-full bg-stone-300 py-[4px] px-[16px] ]">
-      <Breadcrumb>
-        {#each $layoutInfo.breadcrumbs as bc}
-          {#await bc.title then title}
-            {#await bc.href then href}
-              <BreadcrumbItem {href}>{title}</BreadcrumbItem>
-            {/await}
-          {/await}
-        {/each}
-      </Breadcrumb>
-      {#await $layoutInfo.title then title}
-        <h1 class="[ text-lg ]">{title}</h1>
-      {/await}
-    </div>
+
+    {#await $layoutInfo.title then layoutTitle}
+      {#if layoutTitle}
+        <div class="breadcrumbs [ w-full bg-stone-300 py-[4px] px-[16px] ]">
+          <Breadcrumb>
+            {#each $layoutInfo.breadcrumbs as bc}
+              {#await bc.title then title}
+                {#await bc.href then href}
+                  <BreadcrumbItem {href}>{title}</BreadcrumbItem>
+                {/await}
+              {/await}
+            {/each}
+          </Breadcrumb>
+          <h1 class="[ text-lg ]">{layoutTitle}</h1>
+        </div>
+      {/if}
+    {/await}
   </header>
   <div style:display={isOpen ? 'block' : 'none'}>
     <SideNav {isOpen} class={!isOpen ? 'sideNavHidden' : ''}>

@@ -37,7 +37,7 @@
         subhead="Subhead"
         actions={[{ label: 'Edit', icon: Edit }, { label: 'Delete', icon: TrashCan, onClick: () => { alert('delete!') } }]}
         navigations={[{ label: 'See More', href: '#' }]}
-        tags={[{ label: 'Very Extremely Unnecessarily Long Tag Label' }]}
+        tags={[{ label: 'Very Extremely Unnecessarily Long Tag Label' }, { label: 'VeryExtremelyUnnecessarilyLongTagLabel' }]}
       >
         <ul>
           <li>Some</li>

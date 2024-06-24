@@ -120,12 +120,13 @@
     padding: 0 8px;
   }
   .card :global(.tag-set) {
-    padding: 0 8px 8px 8px;
+    padding: 8px;
   }
   .card :global(.tag-set > *) {
     max-width: calc(50% - 2px);
   }
   .card :global(.tag-set.hasbg) {
+    padding-top:0;
     background-color: #e7e5e4;
   }
 

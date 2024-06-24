@@ -106,7 +106,7 @@
 
 </script>
 {#if actions.length}
-  <div role="menu" class="[ flex gap-0.5 align-center flex-row-reverse ]" on:focusout={focusOut}>
+  <div role="menu" class="[ relative flex gap-0.5 align-center flex-row-reverse ]" on:focusout={focusOut}>
     {#each outsideActions as action}
       {#if action.icon && !includeLabels}
         <Button size={buttonSize} tabindex={activeAction === action.idx ? '0' : '-1'} aria-disabled={action.disabled} class={action.disabled ? 'bx--btn--disabled' : ''} bind:ref={actionelements[action.idx]} role="menuitem" aria-posinset={action.idx + 1} aria-setsize={actions.length} iconDescription={action.label} icon={action.icon} kind={action.idx === 0 && !noPrimaryAction ? 'primary' : 'secondary'} href={action.href} on:click={actionClick(action)} aria-describedby={describedById} />
@@ -160,5 +160,6 @@
   .bx--overflow-menu-options {
     left: unset;
     right: 0px;
+    top: 3em;
   }
 </style>

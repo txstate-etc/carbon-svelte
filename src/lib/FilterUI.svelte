@@ -60,7 +60,7 @@
         replaceState(url, $page.state)
       }
     }
-    dispatch('apply', merged)
+    dispatch('apply', { ...merged.t, ...merged.f, ...merged.q, search: merged.search })
   }
   async function onQuickValidate (data: Q) {
     quickData = data
@@ -108,6 +108,7 @@
       tabData = tabs[tabIndex].value
       searchStr = params.search
       void quickStore?.setData(quickData)
+      dispatch('mount', { ...tabData, ...dialogData, ...quickData, search: searchStr })
     }
   })
 </script>
@@ -128,7 +129,7 @@
     </Form>
   {/if}
   {#if $$slots.default}
-    <Button kind="primary" size="field" on:click={showDialog}>{$$slots.quickfilters && !hideQuickFilters ? 'More' : 'Show'} Filters</Button>
+    <Button kind="primary" size="field" icon={Filter} on:click={showDialog}>{$$slots.quickfilters && !hideQuickFilters ? 'More' : 'Show'} Filters</Button>
     <PanelFormDialog bind:open={dialogOpen} preload={dialogData} title="{noApply ? 'Choose' : 'Apply'} Filters" bind:store={dialogStore} submit={onDialogSubmit} validate={onDialogValidate} on:cancel={cancelDialog} cancelText={noApply ? '' : 'Cancel'} submitText={noApply ? '' : 'Apply'}>
       <svelte:fragment slot="beforeform">
         {#if hideQuickFilters}

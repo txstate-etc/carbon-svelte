@@ -35,6 +35,8 @@
       invalid: boolean
       showingInlineErrors: boolean
     }
+    beforeform: Record<string, never>
+    afterform: Record<string, never>
   }
 
   let className = ''
@@ -120,11 +122,13 @@
 </script>
 
 <PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>
+  <slot name="beforeform" />
   <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved={onSaved} on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}
     <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
     <svelte:fragment slot="submit">&nbsp;</svelte:fragment>
   </Form>
+  <slot name="afterform" />
   <Modal bind:open={unsavedDialogOpen} on:click:button--primary={onConfirmUnsaved} on:click:button--secondary={cancelUnsaved} modalHeading="Unsaved Changes" primaryButtonText="Leave" secondaryButtonText="Stay">
     You have unsaved changes. Are you sure you want to leave?
   </Modal>

@@ -1,5 +1,6 @@
 import type { Tag } from 'carbon-components-svelte'
 import type { ComponentProps, SvelteComponent } from 'svelte'
+import { fromQuery, isEmpty, isNotBlank, isNotEmpty, toQuery } from 'txstate-utils'
 
 export interface ActionItem {
   label: string
@@ -14,6 +15,13 @@ export interface TagItem {
   type?: ComponentProps<Tag>['type']
   icon?: typeof SvelteComponent<any>
   onClick?: () => void
+}
+
+export interface TabItem {
+  label: string
+  icon?: typeof SvelteComponent<any>
+  value: any
+  disabled?: boolean
 }
 
 export interface NavigationItem {
@@ -106,4 +114,39 @@ export interface ColumnDefinition<T> {
    * column header cell.
    */
   class?: string | ((row?: T) => undefined | string | string[])
+}
+
+export function deleteEmpty (payload: any): any {
+  if (typeof payload === 'object') {
+    if (Array.isArray(payload)) {
+      return payload.map(deleteEmpty).filter(isNotEmpty)
+    } else {
+      return Object.fromEntries(Object.entries(payload).map(([key, val]) => [key, deleteEmpty(val)]).filter(([key, val]) => [key, !isEmpty(val)]))
+    }
+  }
+  return payload
+}
+
+export interface FilterUIFilters {
+  f?: any
+  q?: any
+  t?: any
+  search?: string
+}
+
+export function extractFilters (url: URL) {
+  return fromQuery(url.search.substring(1)) as FilterUIFilters
+}
+
+export function extractMergedFilters (url: URL) {
+  const params = extractFilters(url)
+  return { ...params.f, ...params.q, ...params.t, search: params.search }
+}
+
+export function addFilters (url: URL, filters: FilterUIFilters) {
+  const ret = new URL(url)
+  const str = toQuery(deleteEmpty(filters))
+  const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t.') && !entry.startsWith('search='))
+  ret.search = [str, ...restofquery].join('&')
+  return ret
 }

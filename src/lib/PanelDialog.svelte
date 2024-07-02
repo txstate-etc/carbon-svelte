@@ -2,7 +2,7 @@
   import { Button, InlineNotification } from 'carbon-components-svelte'
   import Close from 'carbon-icons-svelte/lib/Close.svelte'
   import { createEventDispatcher } from 'svelte'
-  import { randomid } from 'txstate-utils'
+  import { isNotBlank, randomid } from 'txstate-utils'
 
   export let title: string
   export let open = false
@@ -68,12 +68,18 @@
       {#if errorText}
         <div id={errorId} class="error-text [ p-[8px] ]"><InlineNotification subtitle={errorText} lowContrast hideCloseButton /></div>
       {/if}
-      <footer class="[ flex flex-wrap justify-end items-center ]">
-        <slot name="buttons">
-          <Button kind="secondary" size="small" class="ml-[8px]" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
-          <Button size="small" class="ml-[8px]" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
-        </slot>
-      </footer>
+      {#if isNotBlank(cancelText) || isNotBlank(submitText) || $$slots.buttons}
+        <footer class="[ flex flex-wrap justify-end items-center ]">
+          <slot name="buttons">
+            {#if isNotBlank(cancelText)}
+              <Button kind="secondary" size="small" class="ml-[8px]" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
+            {/if}
+            {#if isNotBlank(submitText)}
+              <Button size="small" class="ml-[8px]" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
+            {/if}
+          </slot>
+        </footer>
+      {/if}
     </section>
   {/if}
 </dialog>

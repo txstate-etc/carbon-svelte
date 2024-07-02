@@ -1,8 +1,16 @@
-<script>
+<script lang="ts">
   import { Edit, TrashCan, View } from 'carbon-icons-svelte'
-  import ColumnList from '$lib/ColumnList.svelte'
+  import { ColumnList, FieldMultiselect, FieldSelect, FilterUI } from '$lib/index.js'
 </script>
 
+<FilterUI search noApply tabs={[{ label: 'Open', value: { open: true } }, { label: 'Approved', value: { approved: true } }, { label: 'Closed', value: { closed: true } }]}>
+  <FieldMultiselect path="color" label="Filter By Color" items={[
+    { value: 'Blue' }, { value: 'Green' }, { value: 'Red' }, { value: 'Yellow' }, { value: 'Purple' }, { value: 'Orange' }
+  ]} />
+  <svelte:fragment slot="quickfilters">
+    <FieldSelect path="quick" labelText="Fruit" items={[{ value: 'Apple' }, { value: 'Banana' }, { value: 'Plum' }]} />
+  </svelte:fragment>
+</FilterUI>
 <ColumnList
   title="Tests"
   columns={[

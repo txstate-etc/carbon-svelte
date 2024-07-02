@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Card, CardGrid, Pagination, Panel } from '$lib/index.js'
   import { Add, Edit, TrashCan, User, View } from 'carbon-icons-svelte'
+  import { base } from '$app/paths'
+  import { Card, CardGrid, Pagination, Panel, TabLinks } from '$lib/index.js'
 </script>
-
+<TabLinks tabs={[{ label: 'Panel 30', href: base + '/panel/30' }, { label: 'Panel 40', href: base + '/panel/40' }, { label: 'Panel 50', href: base + '/panel/50' }]} />
 <Panel title="Test Panel" tabs={[{ value: 'Enabled' }, { value: 'Disabled', badge: 400 }]} actions={[{ label: 'Add Item', icon: Add }, { label: 'Other Action' }]} let:tab>
   {#if tab === 0}
     <Pagination totalItems={134} chooseSize />

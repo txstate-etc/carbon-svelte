@@ -1,9 +1,9 @@
 <script lang="ts">
   import { modifierKey } from '@txstate-mws/svelte-components'
   import { createEventDispatcher } from 'svelte'
-  import type { TabItem } from './index.js'
+  import type { TabRadioItem } from './index.js'
 
-  export let tabs: TabItem[] = []
+  export let tabs: TabRadioItem[] = []
   export let selectedIndex = 0
   export let value: any = undefined
 
@@ -12,35 +12,41 @@
   const tabelements: HTMLElement[] = []
   const dispatch = createEventDispatcher()
 
-  function activate (idx: number) {
+  function activate (idx: number, direction?: 'left' | 'right') {
     if (idx < 0) idx = 0
     if (idx >= tabs.length) idx = tabs.length - 1
-    if (tabs[idx].disabled) idx = 0
+    if (tabs[idx].disabled) {
+      if (direction == null) return
+      while (tabs[idx]?.disabled) idx += (direction === 'left' ? -1 : 1)
+      if (idx >= tabs.length || idx < 0) return
+    }
     if (selectedIndex !== idx) {
       selectedIndex = idx
-      value = tabs[selectedIndex].value
-      dispatch('change', { value, idx })
       tabelements[selectedIndex].focus()
+      if (!tabs[idx].disabled) {
+        value = tabs[selectedIndex].value
+        dispatch('change', { value, idx })
+      }
     }
   }
 
-  function onTabClick (tab: TabItem, idx: number) {
+  function onTabClick (tab: TabRadioItem, idx: number) {
     return (e: MouseEvent) => {
       activate(idx)
     }
   }
 
-  function onTabKeyDown (tab: TabItem, idx: number) {
+  function onTabKeyDown (tab: TabRadioItem, idx: number) {
     return (e: KeyboardEvent) => {
       if (modifierKey(e)) return
       if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault()
         e.stopPropagation()
-        activate(resolvedIndex - 1)
+        activate(resolvedIndex - 1, 'left')
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault()
         e.stopPropagation()
-        activate(resolvedIndex + 1)
+        activate(resolvedIndex + 1, 'right')
       }
     }
   }
@@ -66,9 +72,22 @@
           on:click|preventDefault={onTabClick(tab, i)}
           on:keydown={onTabKeyDown(tab, i)}
         >
-          <slot>{tab.label}</slot>
+          {#if tab.icon}
+            <span class="icon">
+              <svelte:component this={tab.icon} />
+            </span>
+          {/if}
+          {tab.label}
         </a>
       </div>
     {/each}
   </div></div>
 {/if}
+
+<style>
+  .icon {
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: text-bottom;
+  }
+</style>

@@ -8,7 +8,7 @@
   import { browser } from '$app/environment'
   import { replaceState } from '$app/navigation'
   import { page } from '$app/stores'
-  import { Form, PanelFormDialog, addFilters, TabRadio, extractFilters, type TabItem } from './index.js'
+  import { Form, PanelFormDialog, addFilters, TabRadio, extractFilters, type TabRadioItem } from './index.js'
 
   type T = $$Generic<Record<string, any>>
   type Q = $$Generic<Record<string, any>>
@@ -28,7 +28,7 @@
    * two FilterUI instances on the screen at once.
    */
   export let skipUrlState = false
-  export let tabs: TabItem[] = []
+  export let tabs: TabRadioItem[] = []
 
   const dispatch = createEventDispatcher()
 

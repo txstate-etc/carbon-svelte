@@ -17,10 +17,17 @@ export interface TagItem {
   onClick?: () => void
 }
 
-export interface TabItem {
+export interface TabRadioItem {
   label: string
   icon?: typeof SvelteComponent<any>
   value: any
+  disabled?: boolean
+}
+
+export interface TabLinkItem {
+  label: string
+  icon?: typeof SvelteComponent<any>
+  href: string
   disabled?: boolean
 }
 

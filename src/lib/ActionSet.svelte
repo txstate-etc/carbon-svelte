@@ -19,7 +19,6 @@
   const hasOutside = new Store(false)
 
   $: buttonSize = (small ? 'small' : (large ? undefined : 'field')) as 'small' | 'field' | undefined
-  $: console.log(actions, buttonSize)
   $: indexedActions = actions.map((a, i) => ({ ...a, idx: i }))
   $: outsideActions = forceOverflow ? [] : (actions.length > maxButtons ? indexedActions.filter(a => !a.disabled).slice(0, maxButtons - 1) : indexedActions)
   $: $hasOutside = outsideActions.length > 0

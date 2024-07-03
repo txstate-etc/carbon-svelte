@@ -46,30 +46,41 @@
    */
   export let noSelectAll = false
   /**
+   * If some of the rows should have their selection checkbox disabled, you can provide this function
+   * to specify which ones.
+   */
+  export let selectable = (row: T) => true
+  /**
    * Optionally specify a list of actions for each row. They will be placed in a column on
    * the far right. You do not need to list the actions column in your `columns` column
    * definitions.
    */
-   export let actions: undefined | ((row: T) => ActionItem[]) = undefined
-   /**
-    * Optionally specify a list of actions to appear at the top of the table.
-    *
-    * For a bad example, a button to create a new list item could go here. However, for
-    * actions that manipulate the list, like create or import, consider using a
-    * Panel or MainPanel component instead, for better consistency with card-grid lists.
-    *
-    * A truly good use case for this would be an action that pertains to the display of the
-    * table itself, like some sort of settings functionality, or opening a dialog with a chart.
-    */
-   export let listActions: ActionItem[] = []
+  export let actions: undefined | ((row: T) => ActionItem[]) = undefined
+  /**
+   * Optionally specify a list of actions to appear at the top of the table.
+   *
+   * For a bad example, a button to create a new list item could go here. However, for
+   * actions that manipulate the list, like create or import, consider using a
+   * Panel or MainPanel component instead, for better consistency with card-grid lists.
+   *
+   * A truly good use case for this would be an action that pertains to the display of the
+   * table itself, like some sort of settings functionality, or opening a dialog with a chart.
+   */
+  export let listActions: ActionItem[] = []
 
   const store = new ResizeStore({ clientWidth: 1024 })
   const listId = randomid()
+  let filterbutton: HTMLButtonElement
+
   const expandedRows = new ActiveStore(new Set<string>())
   const selectedRows = new ActiveStore(new Set<string>())
-  $: allSelected = $selectedRows.size === rows.length
+  $: selectableRows = new Set(rows.filter(r => selectable(r)).map(r => r.id))
+  $: selectedRows.update(v => {
+    for (const id of v) if (!selectableRows.has(id)) v.delete(id)
+    return v
+  })
+  $: allSelected = $selectedRows.size === selectableRows.size
   $: someSelected = !allSelected && !!$selectedRows.size
-  let filterbutton: HTMLButtonElement
 
   function getByKey (row: any, key: any) {
     return row[key]
@@ -78,7 +89,7 @@
   function onSelectRow (row: T) {
     return (e: Event & { currentTarget: EventTarget & HTMLInputElement }) => {
       selectedRows.update(v => {
-        if (e.currentTarget.checked) v.add(row.id)
+        if (e.currentTarget.checked && selectableRows.has(row.id)) v.add(row.id)
         else v.delete(row.id)
         return v
       })
@@ -88,7 +99,10 @@
   function onSelectAll (e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
     if (!allSelected) {
       selectedRows.update(v => {
-        for (const row of rows) v.add(row.id)
+        for (const row of rows) {
+          if (selectableRows.has(row.id)) v.add(row.id)
+          else v.delete(row.id)
+        }
         return v
       })
     } else {
@@ -180,9 +194,10 @@
     <div class="column-list-row" role="listitem">
       <div class="column-list-cols [ flex items-start ]">
         {#if selectedActions}
+          {@const isSelectable = selectableRows.has(row.id)}
           <div class="column-list-col checkbox" style:flex-basis={checkboxColWidth}>
             <div class:bx--checkbox-inline={true}>
-              <input id="{listId}-select-{row.id}" type="checkbox" class:bx--checkbox={true} aria-describedby="{listId}-{row.id}" checked={$selectedRows.has(row.id)} on:change={onSelectRow(row)}>
+              <input id="{listId}-select-{row.id}" type="checkbox" class:bx--checkbox={true} aria-describedby="{listId}-{row.id}" checked={$selectedRows.has(row.id)} disabled={!isSelectable} on:change={onSelectRow(row)}>
               <label for="{listId}-select-{row.id}" class:bx--checkbox-label={true}><ScreenReaderOnly>select row</ScreenReaderOnly></label>
             </div>
           </div>

@@ -24,9 +24,10 @@
   ]}
   rows={[
     { id: '5', name: 'Blue' },
-    { id: '6', name: 'Green' },
+    { id: '6', name: 'Green', disabled: true },
     { id: '7', name: 'Red' }
   ]}
+  selectable={row => !row.disabled}
   actions={row => [{ label: 'Edit', icon: Edit }, { label: 'Delete', icon: TrashCan }]}
   selectedActions={rows => [{ label: 'Edit' }]}
   responsiveColumns={() => ['id', 'name']}

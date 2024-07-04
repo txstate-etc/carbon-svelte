@@ -1,11 +1,13 @@
 <script lang="ts">
   import { eq, modifierKey } from '@txstate-mws/svelte-components'
   import { Store } from '@txstate-mws/svelte-store'
-  import { Button, Tag } from 'carbon-components-svelte'
+  import { Button } from 'carbon-components-svelte'
   import { ChevronRight } from 'carbon-icons-svelte'
   import { afterUpdate } from 'svelte'
   import { randomid } from 'txstate-utils'
-  import { ActionSet, type ActionItem, type NavigationItem, type TagItem, TagSet } from './index.js'
+  import { type ActionItem, type NavigationItem, type TagItem } from './util.js'
+  import ActionSet from './ActionSet.svelte'
+  import TagSet from './TagSet.svelte'
 
   export let title: string
   export let subhead: string | undefined = undefined

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { type ActionItem, ActionSet } from './index.js'
+  import { type ActionItem } from './util.js'
+  import ActionSet from './ActionSet.svelte'
 
   export let actions: ActionItem[] = []
   export let noPrimaryAction = false

@@ -1,5 +1,5 @@
 import { deflateSync, inflateSync } from 'fflate'
-import { base64ToBase64Url, base64urlTobase64, isEmpty, isNotEmpty, stringify } from 'txstate-utils'
+import { base64ToBase64Url, base64urlTobase64, isEmpty, stringify } from 'txstate-utils'
 import { deleteEmpty } from './util.js'
 
 export function compactStringify (payload: Record<string, any>) {

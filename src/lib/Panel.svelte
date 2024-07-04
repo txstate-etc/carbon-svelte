@@ -3,7 +3,9 @@
   import { Store } from '@txstate-mws/svelte-store'
   import { Tab, TabContent, Tabs } from 'carbon-components-svelte'
   import { randomid } from 'txstate-utils'
-  import { ActionSet, BadgeNumber, type ActionItem } from './index.js'
+  import { type ActionItem } from './util.js'
+  import ActionSet from './ActionSet.svelte'
+  import BadgeNumber from './BadgeNumber.svelte'
 
   export let title: string
   export let actions: ActionItem[] = []

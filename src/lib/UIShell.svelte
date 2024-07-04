@@ -7,7 +7,9 @@
   import { browser } from '$app/environment'
   import { base } from '$app/paths'
   import { page } from '$app/stores'
-  import { type LayoutStructureNode, type LayoutStructureNodeRoot, LayoutBase, LayoutStore, type ShellItem } from '$lib/index.js'
+  import { type ShellItem } from './util.js'
+  import { type LayoutStructureNode, type LayoutStructureNodeRoot, LayoutStore } from '$lib/stores/index.js'
+  import LayoutBase from './LayoutBase.svelte'
 
   export let companyName = 'TXST'
   export let appName: string

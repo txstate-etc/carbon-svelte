@@ -3,8 +3,13 @@
   import { ActiveStore } from '@txstate-mws/svelte-store'
   import { Button } from 'carbon-components-svelte'
   import { ChevronDown, ChevronUp, Filter } from 'carbon-icons-svelte'
-  import { isNotNull, keyby, pluralize, randomid, roundTo } from 'txstate-utils'
-  import { type ActionItem, type ColumnDefinition, ActionSet, OptionalLink, PanelFormDialog, TagSet } from '$lib/index.js'
+  import { isNotNull, keyby, pluralize, randomid } from 'txstate-utils'
+  import { type ActionItem, type ColumnDefinition } from '$lib/util.js'
+  import ActionSet from './ActionSet.svelte'
+  import OptionalLink from './OptionalLink.svelte'
+  import PanelFormDialog from './form/PanelFormDialog.svelte'
+  import TagSet from './TagSet.svelte'
+
 
   type T = $$Generic<{ id: string }>
 

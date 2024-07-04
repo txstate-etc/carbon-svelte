@@ -8,8 +8,10 @@
   import { browser } from '$app/environment'
   import { replaceState } from '$app/navigation'
   import { page } from '$app/stores'
-  import { Form, PanelFormDialog, addFilters, TabRadio, extractFilters, type TabRadioItem } from './index.js'
-
+  import { addFilters, extractFilters, type TabRadioItem } from './util.js'
+  import Form from './form/Form.svelte'
+  import PanelFormDialog from './form/PanelFormDialog.svelte'
+  import TabRadio from './TabRadio.svelte'
   type T = $$Generic<Record<string, any>>
   type Q = $$Generic<Record<string, any>>
 

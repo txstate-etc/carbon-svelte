@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Theme } from 'carbon-components-svelte'
-  import { Toasts } from '$lib/index.js'
+  import Toasts from './Toasts.svelte'
   import 'carbon-components-svelte/css/all.css'
   import '@fontsource/roboto/300.css'
   import '@fontsource/roboto/400.css'

@@ -96,7 +96,7 @@
   function onSearchInput (e: Event) {
     clearTimeout(searchTimer)
     searchTimer = setTimeout(() => {
-      searchStr = (e.target as HTMLInputElement).value
+      searchStr = (e.target as HTMLInputElement)?.value ?? ''
       updateFilters()
     }, searchDebounceMs)
   }
@@ -107,7 +107,7 @@
       dialogData = params.f
       quickData = params.q
       tabIndex = findIndex(tabs, t => equal(t.value, params.t)) ?? 0
-      tabData = tabs[tabIndex].value
+      tabData = tabs?.[tabIndex]?.value ?? undefined
       searchStr = params.search
       void quickStore?.setData(quickData)
       dispatch('mount', { ...tabData, ...dialogData, ...quickData, search: searchStr })
@@ -121,7 +121,7 @@
   {/if}
   {#if search}
     <div class="filter-ui-search-container">
-      <Search on:input={onSearchInput} value={searchStr} size="lg" />
+      <Search on:input={onSearchInput} value={searchStr} size="lg" on:clear={onSearchInput}/>
     </div>
   {/if}
   {#if $$slots.quickfilters && !hideQuickFilters}

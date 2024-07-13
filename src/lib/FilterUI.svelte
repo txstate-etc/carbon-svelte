@@ -4,7 +4,7 @@
   import { Button, Search } from 'carbon-components-svelte'
   import { Filter } from 'carbon-icons-svelte'
   import { createEventDispatcher, onMount } from 'svelte'
-  import { equal, findIndex } from 'txstate-utils'
+  import { findIndex, toQuery } from 'txstate-utils'
   import { browser } from '$app/environment'
   import { replaceState } from '$app/navigation'
   import { page } from '$app/stores'
@@ -106,7 +106,7 @@
       const params = extractFilters($page.url)
       dialogData = params.f
       quickData = params.q
-      tabIndex = findIndex(tabs, t => equal(t.value, params.t)) ?? 0
+      tabIndex = findIndex(tabs, t => toQuery(t.value) === toQuery(params.t)) ?? 0
       tabData = tabs?.[tabIndex]?.value ?? undefined
       searchStr = params.search
       void quickStore?.setData(quickData)

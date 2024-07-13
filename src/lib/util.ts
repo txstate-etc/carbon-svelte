@@ -1,6 +1,6 @@
 import type { Tag } from 'carbon-components-svelte'
 import type { ComponentProps, SvelteComponent } from 'svelte'
-import { fromQuery, isEmpty, isNotBlank, isNotEmpty, toQuery } from 'txstate-utils'
+import { fromQuery, isNotEmpty, isNotBlank, toQuery } from 'txstate-utils'
 
 export interface ActionItem {
   label: string
@@ -123,12 +123,21 @@ export interface ColumnDefinition<T> {
   class?: string | ((row?: T) => undefined | string | string[])
 }
 
+function shouldKeep (payload: any) {
+  if (payload == null) return false
+  if (typeof payload === 'string') return isNotBlank(payload)
+  if (typeof payload === 'boolean') return true
+  if (typeof payload === 'number') return true
+  if (payload instanceof Date) return true
+  return isNotEmpty(payload)
+}
+
 export function deleteEmpty (payload: any): any {
   if (typeof payload === 'object') {
     if (Array.isArray(payload)) {
-      return payload.map(deleteEmpty).filter(isNotEmpty)
+      return payload.map(deleteEmpty).filter(shouldKeep)
     } else {
-      return Object.fromEntries(Object.entries(payload).map(([key, val]) => [key, deleteEmpty(val)]).filter(([key, val]) => [key, !isEmpty(val)]))
+      return Object.fromEntries(Object.entries(payload).map(([key, val]) => [key, deleteEmpty(val)]).filter(([key, val]) => shouldKeep(val)))
     }
   }
   return payload
@@ -153,6 +162,7 @@ export function extractMergedFilters (url: URL) {
 export function addFilters (url: URL, filters: FilterUIFilters) {
   const ret = new URL(url)
   const str = toQuery(deleteEmpty(filters))
+  console.log(filters, deleteEmpty(filters), str)
   const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t.') && !entry.startsWith('search='))
   ret.search = [str, ...restofquery].join('&')
   return ret

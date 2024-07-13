@@ -1,6 +1,6 @@
 {
 	"name": "@txstate-mws/carbon-svelte",
-	"version": "1.1.4",
+	"version": "1.1.5",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -46,7 +46,7 @@
 		"fflate": "^0.8.2",
 		"luxon": "^3.4.4",
 		"tailwindcss": "^3.4.3",
-		"txstate-utils": "^1.9.11"
+		"txstate-utils": "^1.9.12"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

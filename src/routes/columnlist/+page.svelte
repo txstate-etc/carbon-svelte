@@ -6,7 +6,7 @@
   }
 </script>
 
-<FilterUI on:apply={onFilter} search tabs={[{ label: 'Open', value: { open: true } }, { label: 'Approved', value: { approved: true } }, { label: 'Closed', value: { closed: true } }]}>
+<FilterUI on:apply={onFilter} search tabs={[{ label: 'Open', value: { open: true } }, { label: 'Approved', value: { approved: true } }, { label: 'Closed', value: { open: false } }]}>
   <FieldMultiselect path="color" label="Filter By Color" items={[
     { value: 'Blue' }, { value: 'Green' }, { value: 'Red' }, { value: 'Yellow' }, { value: 'Purple' }, { value: 'Orange' }
   ]} />

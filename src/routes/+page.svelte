@@ -16,6 +16,7 @@
     fruits: string[]
     combobox?: string
     datetime?: string
+    dates: { test: string }[]
   }
 
   async function onValidate (data: FormData): Promise<Feedback[]> {
@@ -34,7 +35,7 @@
 </script>
 
 <!--<button type="button" on:click={() => toasts.add('Oh my!')}>Toast!</button>-->
-<Form bind:store submit={onSubmit} validate={onValidate} preload={{ fruits: ['orange'], combobox: 'Dragonfruit', datetime: '2024-03-21T20:34:00.000Z' }} let:data>
+<Form bind:store submit={onSubmit} validate={onValidate} unsavedWarning preload={{ fruits: ['orange'], combobox: 'Dragonfruit', datetime: '2024-03-21T20:34:00.000Z', dates: [{ test: '2024-07-13T14:30:00.000-05:00' }] }} let:data>
   <FieldTextInput path="textInput" labelText='Text Field' required />
   <FieldTextInput path="numberTextInput" labelText='Number in regular TextInput' number helperText="This is really a text field but it accepts numbers." />
   <FieldNumber path="numberInput" labelText='Number in NumberInput' step={0.01} />
@@ -75,6 +76,7 @@
     <FieldTime path="time" labelText="Time only" use12hourclock includeTz />
   </div>
   <FieldDateTime path="datetime" labelText="Date and Time" />
+  <FieldDate path="dates.0.test" labelText="Date in array" />
   <FieldTextArea path="textarea" labelText="Text Area" />
   <br>
   TODO: FieldDateRange, FieldDateTimeRange, FieldPassword,

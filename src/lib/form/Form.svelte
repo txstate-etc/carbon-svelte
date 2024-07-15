@@ -1,9 +1,12 @@
 <script lang="ts">
+  import type { NavigationTarget } from '@sveltejs/kit'
   import { Form, type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
-  import { Button, InlineNotification } from 'carbon-components-svelte'
-  import { feedbackTypeToKind } from './util.js'
+  import { Button, InlineNotification, Modal } from 'carbon-components-svelte'
   import { Save } from 'carbon-icons-svelte'
-  import type { SvelteComponent } from 'svelte'
+  import { type SvelteComponent, tick } from 'svelte'
+  import { clone, equal } from 'txstate-utils'
+  import { beforeNavigate, goto } from '$app/navigation'
+  import { feedbackTypeToKind } from './util.js'
 
   type T = $$Generic<Record<string, any>>
   interface $$Events {
@@ -44,14 +47,55 @@
   export let submitText = 'Submit'
   export let hideFallbackMessage = false
   export let submitIcon: typeof SvelteComponent<any> = Save
+  export let unsavedWarning = false
 
   let formelement: HTMLFormElement
   function validationFail () {
     formelement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
   }
+
+  let unsavedDialogOpen = false
+  let lastSavedState: Partial<T> | undefined
+  function onSaved (e: CustomEvent<T>) {
+    lastSavedState = clone(e.detail)
+  }
+
+  function onConfirmUnsaved () {
+    unsavedDialogOpen = false
+    if (pendingNavigate) {
+      allowNavigate = true
+      void goto(pendingNavigate.url)
+    }
+  }
+
+  function cancelUnsaved () {
+    unsavedDialogOpen = false
+  }
+
+  let pendingNavigate: NavigationTarget | undefined
+  let allowNavigate = false
+  beforeNavigate(({ cancel, type, to }) => {
+    if (unsavedWarning && !equal(lastSavedState, $store?.data)) {
+      if (type !== 'leave' && to != null) {
+        unsavedDialogOpen = true
+        pendingNavigate = to
+      }
+      if (!allowNavigate) cancel()
+    }
+  })
+
+  async function reactToStore (..._: any[]) {
+    lastSavedState = undefined
+    if (typeof document === 'undefined' || !store) return
+    await tick() // wait a tick to let the form preload or get default values
+    lastSavedState = clone($store!.data)
+  }
+
+  $: void reactToStore(store)
+
 </script>
 
-<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved={onSaved} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
   <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
   {@const errorMessages = messages.filter(m => m.type === 'error' || m.type === 'system')}
   {@const warningMessages = messages.filter(m => m.type === 'warning')}
@@ -80,6 +124,9 @@
     </div>
   </slot>
 </Form>
+<Modal bind:open={unsavedDialogOpen} on:click:button--primary={onConfirmUnsaved} on:click:button--secondary={cancelUnsaved} modalHeading="Unsaved Changes" primaryButtonText="Leave" secondaryButtonText="Stay">
+  You have unsaved changes. Are you sure you want to leave?
+</Modal>
 
 <style>
   .form-submit {

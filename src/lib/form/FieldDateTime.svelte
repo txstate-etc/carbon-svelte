@@ -6,6 +6,7 @@
   import { isBlank } from 'txstate-utils'
   import { luxonDateTimeDeserialize } from './luxon.js'
   import { feedbackTypeToKind, to24Hour } from './util.js'
+  import DatePickerValueSetter from './DatePickerValueSetter.svelte'
 
   const dispatch = createEventDispatcher()
 
@@ -98,9 +99,9 @@
   {@const restMsgs = messages.filter(m => m.message !== firstError && m.message !== firstWarn)}
   <div on:focusin={() => { dispatch('focus') }} on:focusout={() => { onBlur(); dispatch('blur') }} on:change={onChange(setVal)}>
     <DatePicker {...$$restProps} datePickerType="single"
-      value={value?.dateStr ?? ''}
       on:change={onChange(setVal)}
     >
+      <DatePickerValueSetter value={value?.dateStr ?? ''} />
       <DatePickerInput name={fullpath} {labelText} {helperText} {size}
         bind:ref={dateinputelement}
         {invalid} invalidText={firstError}

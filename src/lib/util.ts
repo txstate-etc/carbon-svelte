@@ -12,7 +12,7 @@ export interface ActionItem {
 
 export interface TagItem {
   label: string
-  type?: ComponentProps<Tag>['type']
+  type?: ComponentProps<Tag>['type'] | 'yellow'
   icon?: typeof SvelteComponent<any>
   onClick?: () => void
 }

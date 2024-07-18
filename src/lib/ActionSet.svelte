@@ -160,6 +160,5 @@
   .bx--overflow-menu-options {
     left: unset;
     right: 0px;
-    top: 3em;
   }
 </style>

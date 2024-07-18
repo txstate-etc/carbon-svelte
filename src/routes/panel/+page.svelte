@@ -51,7 +51,7 @@
         subhead="Subhead"
         actions={[{ label: 'Edit', icon: Edit }, { label: 'Delete', icon: TrashCan, disabled: true, onClick: () => { alert('oops!') } }, { label: 'Manage Users', icon: User }]}
         navigations={[{ label: 'See More', href: '#', icon: View }]}
-        tags={[{ label: 'Important' }]}
+        tags={[{ label: 'Important', type: 'yellow' }]}
       >
         <ul>
           <li>Some</li>

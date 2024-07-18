@@ -14,7 +14,7 @@
     <FieldSelect path="quick" labelText="Fruit" items={[{ value: 'Apple' }, { value: 'Banana' }, { value: 'Plum' }]} />
   </svelte:fragment>
 </FilterUI>
-<PageActions actions={[{ label: 'Create' }]}/>
+<PageActions actions={[{ label: 'Create' }]} />
 <ColumnList
   title="Tests"
   columns={[

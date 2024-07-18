@@ -66,9 +66,9 @@
 {#if dTags?.length}
   <div bind:this={tagcontainer} class="tag-set {$$restProps.class ?? ''}" class:small role="list" aria-label="tags">
     {#each tagsWithIdx as tag}
-      <Tag type={tag.type ?? 'cyan'} icon={tag.icon} interactive={tag.onClick != null} size={small ? 'sm' : undefined}
+      <Tag type={tag.type === 'yellow' ? 'cyan' : tag.type ?? 'cyan'} icon={tag.icon} interactive={tag.onClick != null} size={small ? 'sm' : undefined}
         tabindex={tag.idx === activeTag ? 0 : -1} on:click={tagClick(tag)}
-        role="listitem" aria-describedby={describedById}
+        role="listitem" aria-describedby={describedById} class={tag.type === 'yellow' ? 'bg-tagyellow-200 border-tagyellow-900 text-tagyellow-900' : undefined}
       >{tag.label}</Tag>
     {/each}
   </div>

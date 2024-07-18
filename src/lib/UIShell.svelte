@@ -97,7 +97,7 @@
         {#each ($nav ?? []).filter(n => n.group == null) as pg}
           {#await pg.title then title}
             {#await pg.href then href}
-              {#if isBlank(pg.group)}<SideNavLink text={title} href="{base}{href}" />{/if}
+              {#if isBlank(pg.group)}<SideNavLink text={title} href="{base}{href}" on:click={() => { isOpen = false }} />{/if}
             {/await}
           {/await}
         {/each}
@@ -106,7 +106,7 @@
             {#each pgs as pg}
               {#await pg.title then title}
                 {#await pg.href then href}
-                  <SideNavMenuItem text={title} href="{base}{href}" />
+                  <SideNavMenuItem text={title} href="{base}{href}" on:click={() => { isOpen = false }} />
                 {/await}
               {/await}
             {/each}

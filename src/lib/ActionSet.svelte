@@ -72,6 +72,7 @@
 
   function overflowClick (e: MouseEvent) {
     e.preventDefault()
+    e.stopPropagation()
     if (overflowOpen) closeMenu()
     else activate(overflowActions[0].idx)
   }

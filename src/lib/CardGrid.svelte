@@ -3,7 +3,7 @@
   export let gap: string | undefined = undefined
 </script>
 
-<div role="list" aria-label="cards" class="card-list" style:--grid-min-item-size={cardSize} style:--grid-gap={gap}>
+<div {...$$restProps} role="list" aria-label="cards" class="card-list ${$$restProps.class}" style:--grid-min-item-size={cardSize} style:--grid-gap={gap}>
   <slot />
 </div>
 

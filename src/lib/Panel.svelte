@@ -15,12 +15,14 @@
   export let tabsContainer = false
   export let selectedTab: number | undefined = tabs.length > 1 ? 0 : undefined
   export let headerLevel = 2
+  export let indentLevel = 0
   export let expandable = false
   export let expanded = !expandable
 
   const store = new Store({ width: 1000 })
   $: maxButtons = Math.ceil($store.width / 400.0)
   $: headerTag = 'h' + headerLevel
+  $: indentWidth = $store.width >= 800 ? 20 : 15
 
   const titleId = randomid()
 
@@ -30,7 +32,7 @@
   }
 </script>
 
-<section use:eq={{ store }} class="panel [ mx-auto ]" aria-labelledby={titleId} class:mb-4={expanded} class:expanded>
+<section use:eq={{ store }} class="panel [ mx-auto ]" aria-labelledby={titleId} class:mb-4={expanded} class:expanded style:padding-left="{indentLevel * indentWidth}px">
   <header class="panel-header [ flex justify-between gap-[2px] border-neutral-300 border-solid ]" class:border-y={!expanded}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->

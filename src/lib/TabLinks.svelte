@@ -7,8 +7,8 @@
 </script>
 
 {#if tabs.length}
-  <div role="navigation" class="[ w-full ]" class:bx--tabs={true}><div class:bx--tabs__nav={true}>
-    {#each tabs as tab, i}
+  <div {...$$restProps} role="navigation" class="[ w-full ] {$$restProps.class}" class:bx--tabs={true}><div class:bx--tabs__nav={true}>
+    {#each tabs as tab}
       {@const selected = browser && tab.href === $page.url.pathname}
       <div
         class:bx--tabs__nav-item={true}

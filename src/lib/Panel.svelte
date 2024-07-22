@@ -48,7 +48,7 @@
       </svelte:element>
     </div>
 
-    <ActionSet includeLabels large={headerLevel <= 2} {actions} {noPrimaryAction} describedById={titleId} {maxButtons} forceOverflow={!expanded} />
+    <ActionSet includeLabels {actions} {noPrimaryAction} describedById={titleId} {maxButtons} forceOverflow={!expanded} />
   </header>
   {#if expanded}
     {#if tabs.length > 1}

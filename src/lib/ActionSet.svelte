@@ -92,7 +92,7 @@
       e.stopPropagation()
       if (action.disabled) e.preventDefault()
       else {
-        action.onClick?.()
+        void action.onClick?.()
         closeMenu()
       }
     }

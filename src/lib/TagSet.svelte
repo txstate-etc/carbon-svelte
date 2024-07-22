@@ -41,7 +41,7 @@
   function tagClick (tag: TagItem) {
     return (e: MouseEvent) => {
       e.preventDefault()
-      tag.onClick?.()
+      void tag.onClick?.()
     }
   }
 

@@ -6,7 +6,7 @@ export interface ActionItem {
   label: string
   icon?: typeof SvelteComponent<any>
   href?: string
-  onClick?: () => void
+  onClick?: () => void | Promise<void>
   disabled?: boolean
 }
 
@@ -14,7 +14,7 @@ export interface TagItem {
   label: string
   type?: ComponentProps<Tag>['type'] | 'yellow'
   icon?: typeof SvelteComponent<any>
-  onClick?: () => void
+  onClick?: () => void | Promise<void>
 }
 
 export interface TabRadioItem {

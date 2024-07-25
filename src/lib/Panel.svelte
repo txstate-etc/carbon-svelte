@@ -3,6 +3,7 @@
   import { Store } from '@txstate-mws/svelte-store'
   import { Tab, TabContent, Tabs } from 'carbon-components-svelte'
   import { ChevronDown, ChevronUp } from 'carbon-icons-svelte'
+  import { createEventDispatcher } from 'svelte'
   import { randomid } from 'txstate-utils'
   import { type ActionItem } from './util.js'
   import ActionSet from './ActionSet.svelte'
@@ -25,10 +26,12 @@
   $: indentWidth = $store.width >= 800 ? 20 : 15
 
   const titleId = randomid()
+  const dispatch = createEventDispatcher()
 
   function onClick (e: MouseEvent) {
     if (!expandable) return
     expanded = !expanded
+    dispatch(expanded ? 'expand' : 'collapse')
   }
 </script>
 

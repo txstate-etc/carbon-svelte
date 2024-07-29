@@ -12,18 +12,22 @@
   export let title: string
   export let actions: ActionItem[] = []
   export let noPrimaryAction = false
+  export let maxButtons = 4
+  export let forceOverflow = false
+  export let hideActionsWhenCollapsed = false
   export let tabs: { label?: string, value: string, disabled?: boolean, badge?: number }[] = []
   export let tabsContainer = false
   export let selectedTab: number | undefined = tabs.length > 1 ? 0 : undefined
   export let headerLevel = 2
   export let indentLevel = 0
   export let expandable = false
-  export let expanded = !expandable
+  export let expanded = false
 
   const store = new Store({ width: 1000 })
-  $: maxButtons = Math.ceil($store.width / 400.0)
+  $: resolvedMaxButtons = Math.min(maxButtons, Math.ceil($store.width / 400.0))
   $: headerTag = 'h' + headerLevel
   $: indentWidth = $store.width >= 800 ? 20 : 15
+  $: resolvedExpanded = !expandable || expanded
 
   const titleId = randomid()
   const dispatch = createEventDispatcher()
@@ -35,25 +39,25 @@
   }
 </script>
 
-<section use:eq={{ store }} class="panel [ mx-auto ]" aria-labelledby={titleId} class:mb-4={expanded} class:expanded style:padding-left="{indentLevel * indentWidth}px">
-  <header class="panel-header [ flex justify-between gap-[2px] border-neutral-300 border-solid ]" class:border-y={!expanded}>
+<section use:eq={{ store }} class="panel [ mx-auto ]" aria-labelledby={titleId} class:mb-4={resolvedExpanded} class:expanded={resolvedExpanded} style:padding-left="{indentLevel * indentWidth}px">
+  <header class="panel-header [ flex justify-between gap-[2px] border-neutral-300 border-solid ]" class:border-y={!resolvedExpanded}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="panel-header-left [ flex-grow flex gap-4 items-center px-[16px] py-[8px] text-base cursor-pointer ]"
-      class:bg-neutral-700={expanded && headerLevel === 2} class:bg-neutral-600={expanded && headerLevel === 3}
-      class:bg-neutral-500={expanded && headerLevel >= 4}
-      class:text-sm={headerLevel > 2} class:text-white={expanded}
+      class:bg-neutral-700={resolvedExpanded && headerLevel === 2} class:bg-neutral-600={resolvedExpanded && headerLevel === 3}
+      class:bg-neutral-500={resolvedExpanded && headerLevel >= 4}
+      class:text-sm={headerLevel > 2} class:text-white={resolvedExpanded}
       on:click={onClick}
     >
-      {#if expandable}<button type="button" aria-expanded={expanded} aria-controls="{titleId}-content">{#if expanded}<ChevronUp />{:else}<ChevronDown />{/if}</button>{/if}
-      <svelte:element this={headerTag} id={titleId} class="panel-title" class:font-bold={expanded} class:font-medium={!expanded}>
+      {#if expandable}<button type="button" aria-expanded={resolvedExpanded} aria-controls="{titleId}-content">{#if resolvedExpanded}<ChevronUp />{:else}<ChevronDown />{/if}</button>{/if}
+      <svelte:element this={headerTag} id={titleId} class="panel-title" class:font-bold={resolvedExpanded} class:font-medium={!resolvedExpanded}>
         {title}
       </svelte:element>
     </div>
 
-    <ActionSet includeLabels {actions} {noPrimaryAction} describedById={titleId} {maxButtons} forceOverflow={!expanded} />
+    {#if !hideActionsWhenCollapsed}<ActionSet includeLabels {actions} {noPrimaryAction} describedById={titleId} maxButtons={resolvedMaxButtons} forceOverflow={forceOverflow || !resolvedExpanded} />{/if}
   </header>
-  {#if expanded}
+  {#if resolvedExpanded}
     {#if tabs.length > 1}
       <Tabs bind:selected={selectedTab} type={tabsContainer ? 'container' : undefined} autoWidth class="panel-tabs">
         {#each tabs as tab (tab.value)}

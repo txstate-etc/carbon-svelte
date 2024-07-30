@@ -21,7 +21,7 @@
   const nav = layoutStore.nav
   const layoutInfo = browser ? layoutStore.layoutInfo(page) : writable({ title: '', breadcrumbs: [] })
   let isOpen = false
-  let sidenavelements: HTMLAnchorElement[]
+  const sidenavelements: HTMLAnchorElement[] = []
   let sidenavcontainer: HTMLElement | undefined
   let hamburgerelement: HTMLElement | undefined
 

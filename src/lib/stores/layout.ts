@@ -18,6 +18,7 @@ export interface LayoutStructureNode extends LayoutStructureNodeBase {
 
 export interface LayoutStructureNodeRoot<Next extends LayoutStructureNodeBase = LayoutStructureNodeBase> extends LayoutStructureNodeBase {
   __type?: 'root'
+  hideFromSideNav?: boolean
   cacheKey?: (params: Record<string, string>) => any
   title: string | ((params: Record<string, string>) => string | Promise<string>)
   href?: string | ((params: Record<string, string>) => string | Promise<string>)
@@ -117,8 +118,8 @@ export class LayoutStore extends Store<ILayoutStore> {
   }
 
   async generateNav (root: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNodeBase>>) {
-    const nav: LayoutStructureNodeResolved[] = []
-    await Promise.all((root.children ?? []).map(async n => {
+    const nav: LayoutStructureNodeResolved[] = root.hideFromSideNav ? [] : [{ title: root.title as string, href: root.routeId }]
+    await Promise.all((root.children?.filter(c => !c.hideFromSideNav) ?? []).map(async n => {
       if (n.preloadParams) {
         const paramsList = await n.preloadParams()
         const promisesLoaded = await Promise.all(paramsList.map(async params => ({ ...n, href: typeof n.href === 'string' ? n.href : await n.href!(params), title: typeof n.title === 'string' ? n.title : await n.title(params) })))

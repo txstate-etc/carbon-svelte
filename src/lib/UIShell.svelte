@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { modifierKey } from '@txstate-mws/svelte-components'
   import { Breadcrumb, BreadcrumbItem, HeaderAction, HeaderPanelDivider, HeaderPanelLink, HeaderPanelLinks, HeaderUtilities, SideNav, SideNavItems, SideNavLink, SideNavMenu, SideNavMenuItem, SkipToContent } from 'carbon-components-svelte'
   import { Close, Menu, UserAvatar } from 'carbon-icons-svelte'
   import { tick } from 'svelte'
@@ -20,13 +21,30 @@
   const nav = layoutStore.nav
   const layoutInfo = browser ? layoutStore.layoutInfo(page) : writable({ title: '', breadcrumbs: [] })
   let isOpen = false
-  let rootnavelement: HTMLAnchorElement
+  let sidenavelements: HTMLAnchorElement[]
+  let sidenavcontainer: HTMLElement | undefined
+  let hamburgerelement: HTMLElement | undefined
+
+  function closeNav () {
+    isOpen = false
+    hamburgerelement?.focus()
+  }
   function hamburgerClick () {
-    if (isOpen) isOpen = false
+    if (isOpen) closeNav()
     else {
       isOpen = true
-      void tick().then(() => { rootnavelement?.focus() })
+      void tick().then(() => { sidenavelements[0]?.focus() })
     }
+  }
+  function onSideNavKeydown (e: KeyboardEvent) {
+    if (!modifierKey(e) && e.key === 'Escape') {
+      e.stopPropagation()
+      e.preventDefault()
+      closeNav()
+    }
+  }
+  function bodyClick (e: MouseEvent) {
+    if (!sidenavcontainer?.contains(e.target as HTMLElement)) isOpen = false
   }
 
   $: navGroups = mapgroupby($nav?.filter(c => isNotBlank(c.group)), 'group')
@@ -34,6 +52,7 @@
   $: groupedlinkentries = Object.entries(groupedlinks)
 </script>
 
+<svelte:body on:click={bodyClick} />
 <LayoutBase>
   <SkipToContent />
   <header class:bx--header={true} class="[ flex-wrap ]">
@@ -41,6 +60,7 @@
       type="button"
       aria-label="Hamburger Menu"
       class:bx--header__action={true} class:bx--header__menu-trigger={true} class:bx--header__menu-toggle={true}
+      bind:this={hamburgerelement}
       on:click={hamburgerClick}
     >
       <svelte:component this={isOpen ? Close : Menu} size={20} />
@@ -91,13 +111,14 @@
       {/if}
     {/await}
   </header>
-  <div style:display={isOpen ? 'block' : 'none'}>
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div style:display={isOpen ? 'block' : 'none'} bind:this={sidenavcontainer} on:keydown={onSideNavKeydown}>
     <SideNav {isOpen} class={!isOpen ? 'sideNavHidden' : ''}>
       <SideNavItems>
-        {#each ($nav ?? []).filter(n => n.group == null) as pg}
+        {#each ($nav ?? []).filter(n => n.group == null) as pg, i}
           {#await pg.title then title}
             {#await pg.href then href}
-              {#if isBlank(pg.group)}<SideNavLink text={title} href="{base}{href}" on:click={() => { isOpen = false }} />{/if}
+              {#if isBlank(pg.group)}<SideNavLink text={title} href="{base}{href}" on:click={() => { isOpen = false }} bind:ref={sidenavelements[i]} />{/if}
             {/await}
           {/await}
         {/each}

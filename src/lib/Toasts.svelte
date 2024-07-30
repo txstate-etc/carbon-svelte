@@ -5,7 +5,7 @@
 
 <div class="toast-container">
   {#each $toasts as toast}
-    <ToastNotification subtitle={toast.message} kind={toast.type ?? 'error'} on:close={() => { toasts.close(toast.id) }}></ToastNotification>
+    <ToastNotification subtitle={toast.message} kind={toast.type ?? 'error'} on:close={() => { toasts.close(toast.id) }} on:mouseenter={() => { toasts.suspend(toast.id) }} on:mouseleave={() => { toasts.resume(toast.id) }}></ToastNotification>
   {/each}
 </div>
 <slot />

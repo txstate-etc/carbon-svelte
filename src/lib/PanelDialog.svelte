@@ -3,6 +3,7 @@
   import Close from 'carbon-icons-svelte/lib/Close.svelte'
   import { createEventDispatcher } from 'svelte'
   import { isNotBlank, randomid } from 'txstate-utils'
+  import Toasts from './Toasts.svelte'
 
   export let title: string
   export let open = false
@@ -81,6 +82,7 @@
         </footer>
       {/if}
     </section>
+    <Toasts />
   {/if}
 </dialog>
 

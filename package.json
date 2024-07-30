@@ -1,6 +1,6 @@
 {
 	"name": "@txstate-mws/carbon-svelte",
-	"version": "1.1.15",
+	"version": "1.1.16",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",

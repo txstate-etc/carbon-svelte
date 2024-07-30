@@ -46,6 +46,7 @@
   function bodyClick (e: MouseEvent) {
     if (sidenavcontainer?.contains(e.target as HTMLElement)) return
     if (hamburgerelement?.contains(e.target as HTMLElement)) return
+    if (!document.body.contains(e.target as HTMLElement)) return
     isOpen = false
   }
 

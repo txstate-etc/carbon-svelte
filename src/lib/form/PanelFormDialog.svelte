@@ -2,8 +2,7 @@
   import type { NavigationTarget } from '@sveltejs/kit'
   import { type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import { Modal } from 'carbon-components-svelte'
-  import { createEventDispatcher, tick } from 'svelte'
-  import { clone, equal } from 'txstate-utils'
+  import { createEventDispatcher } from 'svelte'
   import { beforeNavigate, goto } from '$app/navigation'
   import Form from './Form.svelte'
   import PanelDialog from '../PanelDialog.svelte'
@@ -67,7 +66,6 @@
     if (!store) return
     const resp = await store.submit()
     if (resp.success) {
-      lastSavedState = clone(resp.data)
       dispatch('saved', resp.data)
     } else {
       dialogelement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
@@ -76,13 +74,9 @@
   }
 
   let unsavedDialogOpen = false
-  let lastSavedState: Partial<T> | undefined
-  function onSaved (e: CustomEvent<T>) {
-    lastSavedState = clone(e.detail)
-  }
 
   function onCancel () {
-    if (unsavedWarning && !equal(lastSavedState, $store?.data)) unsavedDialogOpen = true
+    if (unsavedWarning && $store?.hasUnsavedChanges) unsavedDialogOpen = true
     else dispatch('cancel')
   }
 
@@ -98,17 +92,10 @@
     unsavedDialogOpen = false
   }
 
-  async function reactToStore (..._: any[]) {
-    lastSavedState = undefined
-    if (typeof document === 'undefined' || !store) return
-    await tick() // wait a tick to let the form preload or get default values
-    lastSavedState = clone($store!.data)
-  }
-
   let pendingNavigate: NavigationTarget | undefined
   let allowNavigate = false
   beforeNavigate(({ cancel, type, to }) => {
-    if (open && unsavedWarning && !equal(lastSavedState, $store?.data)) {
+    if (open && unsavedWarning && $store?.hasUnsavedChanges) {
       if (type !== 'leave' && to != null) {
         unsavedDialogOpen = true
         pendingNavigate = to
@@ -117,13 +104,12 @@
     }
   })
 
-  $: if (!open) store = undefined
-  $: void reactToStore(store)
+  $: if (!open) store?.reset()
 </script>
 
 <PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>
   <slot name="beforeform" />
-  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:saved={onSaved} on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}
     <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
     <svelte:fragment slot="submit">&nbsp;</svelte:fragment>

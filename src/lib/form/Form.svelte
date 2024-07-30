@@ -55,10 +55,6 @@
   }
 
   let unsavedDialogOpen = false
-  let lastSavedState: Partial<T> | undefined
-  function onSaved (e: CustomEvent<T>) {
-    lastSavedState = clone(e.detail)
-  }
 
   function onConfirmUnsaved () {
     unsavedDialogOpen = false
@@ -75,7 +71,7 @@
   let pendingNavigate: NavigationTarget | undefined
   let allowNavigate = false
   beforeNavigate(({ cancel, type, to }) => {
-    if (unsavedWarning && !equal(lastSavedState, $store?.data)) {
+    if (unsavedWarning && $store.hasUnsavedChanges) {
       if (type !== 'leave' && to != null) {
         unsavedDialogOpen = true
         pendingNavigate = to
@@ -83,19 +79,9 @@
       if (!allowNavigate) cancel()
     }
   })
-
-  async function reactToStore (..._: any[]) {
-    lastSavedState = undefined
-    if (typeof document === 'undefined' || !store) return
-    await tick() // wait a tick to let the form preload or get default values
-    lastSavedState = clone($store!.data)
-  }
-
-  $: void reactToStore(store)
-
 </script>
 
-<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved={onSaved} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
   <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
   {@const errorMessages = messages.filter(m => m.type === 'error' || m.type === 'system')}
   {@const warningMessages = messages.filter(m => m.type === 'warning')}

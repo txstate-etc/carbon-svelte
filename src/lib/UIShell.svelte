@@ -44,7 +44,9 @@
     }
   }
   function bodyClick (e: MouseEvent) {
-    if (!sidenavcontainer?.contains(e.target as HTMLElement)) isOpen = false
+    if (sidenavcontainer?.contains(e.target as HTMLElement)) return
+    if (hamburgerelement?.contains(e.target as HTMLElement)) return
+    isOpen = false
   }
 
   $: navGroups = mapgroupby($nav?.filter(c => isNotBlank(c.group)), 'group')

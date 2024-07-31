@@ -8,14 +8,20 @@
   routeId: '/',
   children: [
     {
-      title: 'Panel Demo',
-      routeId: '/panel',
-      // preloadParams: async () => api.getStuff() [{ id: 'blah', catId: 'blah' }],
-      children: [
-        { routeId: '/panel/[id]', title: $page => $page.params.id, children: [] }
-      ]
+      group: 'Demos',
+      title: 'Forms',
+      routeId: '/demo/form'
     },
-    { title: 'Another', routeId: '/another', children: [], group: 'Group' }
+    {
+      group: 'Demos',
+      title: 'Panel',
+      routeId: '/demo/panel'
+    },
+    {
+      group: 'Components',
+      title: 'ActionSet',
+      routeId: '/component/ActionSet'
+    }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>
   <slot/>

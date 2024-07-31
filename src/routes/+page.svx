@@ -1,0 +1,9 @@
+<script>
+    import BasicStyledArea from '$lib/docs/BasicStyledArea.svelte'
+</script>
+
+<BasicStyledArea>
+
+  ## Carbon Svelte
+
+</BasicStyledArea>

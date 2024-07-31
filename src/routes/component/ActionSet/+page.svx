@@ -1,0 +1,53 @@
+<script lang="ts">
+  import ActionSet from '$lib/ActionSet.svelte'
+  import { Edit, TrashCan, User } from 'carbon-icons-svelte'
+  import BasicStyledArea from '$lib/docs/BasicStyledArea.svelte'
+  import ExampleBox from '$lib/docs/ExampleBox.svelte'
+</script>
+
+<BasicStyledArea>
+
+  ## ActionSet
+
+  An ActionSet is the set of buttons at the top of a [Card](card), [Panel](panel), or [ColumnList](columnlist). Typically this component will not be used by itself but instead used indirectly by using one of the other components. Rather than repeating the same options in those other components it is documented here.
+
+  ### Basic Example
+
+  At a minimum, the `actions` property must be defined.
+
+  ```svelte
+  <script lang="ts">
+    import ActionSet from '$lib/ActionSet.svelte'
+    import { Edit, TrashCan, User } from 'carbon-icons-svelte'
+  </script>
+
+  <ActionSet actions={
+  [
+    {
+      label: 'Edit',
+      icon: Edit
+    }, {
+      label: 'Delete',
+      icon: TrashCan,
+      disabled: true
+    }, {
+      label: 'Manage Users',
+      icon: User
+    }
+  ]
+  }/>
+  ```
+
+  <ExampleBox>
+    <ActionSet actions={[{ label: 'Edit', icon: Edit }, { label: 'Delete', icon: TrashCan, disabled: true }, { label: 'Manage Users', icon: User }]}/>
+  </ExampleBox>
+
+  ---
+
+  ### Properties
+
+  - ***action*** `ActionItem[]` *required* -- An array of actions to include. These will be rendered differently depending on the context and on other properties provided.
+    - ***label*** `String` *required* -- A text label to describe the action. This will be shown unless an icon is also provided, in which case it becomes the label to remain accessible.
+    - ***icon*** `CarbonIcon` *optional* -- An icon as exported by [carbon-icons-svelte](https://carbon-icons-svelte.onrender.com/).
+
+</BasicStyledArea>

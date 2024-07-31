@@ -7,7 +7,7 @@ import { mdsvex } from 'mdsvex'
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
-	preprocess: [vitePreprocess(), optimizeImports(), mdsvex({ extension: '.svx' })],
+	preprocess: [mdsvex({ extension: '.svx' }), vitePreprocess(), optimizeImports()],
   extensions: ['.svelte', '.svx'],
 	compilerOptions: { enableSourcemap: true },
 	kit: {

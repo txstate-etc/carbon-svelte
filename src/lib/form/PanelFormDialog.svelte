@@ -61,6 +61,8 @@
     return ''
   }
 
+  $: resolvedValidate = async (state: T) => open ? await validate?.(state) ?? [] : []
+
   const dispatch = createEventDispatcher()
   async function onSubmit () {
     if (!store) return
@@ -109,7 +111,7 @@
 
 <PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>
   <slot name="beforeform" />
-  <Form bind:store class={className} {submit} {validate} {autocomplete} {name} {preload} hideFallbackMessage on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
+  <Form bind:store class={className} {submit} validate={resolvedValidate} {autocomplete} {name} {preload} hideFallbackMessage on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}
     <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
     <svelte:fragment slot="submit">&nbsp;</svelte:fragment>

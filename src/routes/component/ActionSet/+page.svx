@@ -1,8 +1,8 @@
 <script lang="ts">
   import ActionSet from '$lib/ActionSet.svelte'
   import { Edit, TrashCan, User } from 'carbon-icons-svelte'
-  import BasicStyledArea from '$lib/docs/BasicStyledArea.svelte'
-  import ExampleBox from '$lib/docs/ExampleBox.svelte'
+  import BasicStyledArea from '../../lib/BasicStyledArea.svelte'
+  import ExampleBox from '../../lib/ExampleBox.svelte'
 </script>
 
 <BasicStyledArea>

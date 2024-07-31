@@ -1,5 +1,5 @@
 <script>
-    import BasicStyledArea from '$lib/docs/BasicStyledArea.svelte'
+    import BasicStyledArea from './lib/BasicStyledArea.svelte'
 </script>
 
 <BasicStyledArea>

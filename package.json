@@ -27,7 +27,6 @@
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/docs",
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {

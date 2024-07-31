@@ -46,8 +46,11 @@
 
   ### Properties
 
-  - ***action*** `ActionItem[]` *required* -- An array of actions to include. These will be rendered differently depending on the context and on other properties provided.
+  - ***actions*** `ActionItem[]` *required* -- An array of actions to include. These will be rendered differently depending on the context and on other properties provided.
     - ***label*** `String` *required* -- A text label to describe the action. This will be shown unless an icon is also provided, in which case it becomes the label to remain accessible.
     - ***icon*** `CarbonIcon` *optional* -- An icon as exported by [carbon-icons-svelte](https://carbon-icons-svelte.onrender.com/).
+    - ***href*** `String` *optional* -- URL to navigate to after activating this action.
+    - ***onClick*** `() => void | Promise<void>` *optional* -- Handler function to call when this action is activated.
+    - ***disabled*** `Boolean` *optional, default `false`* -- If `true` this action will be visually greyed out, aria-disabled, unactivatable, and the cursor will change on rollover to indicate it is unusable. It will however still be able to receive focus, so that screen readers will still read it while also indicating it is not usable.
 
 </BasicStyledArea>

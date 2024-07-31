@@ -5,7 +5,6 @@
   import { isBlank } from 'txstate-utils'
   import { luxonDateDeserialize } from './luxon.js'
   import { feedbackTypeToKind } from './util.js'
-  import DatePickerValueSetter from './DatePickerValueSetter.svelte'
 
   const dispatch = createEventDispatcher()
 
@@ -90,9 +89,8 @@
   {@const firstWarn = firstError ? '' : messages.filter(m => m.type === 'warning').map(m => m.message).slice(0, 1).join('\n')}
   {@const restMsgs = messages.filter(m => m.message !== firstError && m.message !== firstWarn)}
   <DatePicker {...$$restProps} datePickerType="single"
-    on:change={onChange(setVal)}
+    {value} on:change={onChange(setVal)}
   >
-    <DatePickerValueSetter {value} />
     <DatePickerInput name={fullpath} {labelText} {helperText} {size}
       {invalid} invalidText={firstError}
       warn={!!firstWarn} warnText={firstWarn}

@@ -84,6 +84,7 @@
                 <HeaderPanelLink
                   aria-disabled={nav.disabled}
                   href={nav.href}
+                  on:click={nav.onClick}
                 >
                   {#if nav.icon}
                     <svelte:component this={nav.icon} class="inline align-text-bottom mr-[16px]" />

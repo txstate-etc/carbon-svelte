@@ -38,7 +38,9 @@ export interface NavigationItem {
   disabled?: boolean
 }
 
-export interface ShellItem extends NavigationItem {
+export interface ShellItem extends Omit<NavigationItem, 'href'> {
+  href?: string
+  onClick?: () => void | Promise<void>
   group?: string
 }
 

@@ -14,6 +14,6 @@
     margin-bottom: 1em;
   }
   .examplebox.small {
-    width: 200px;
+    width: 400px;
   }
 </style>

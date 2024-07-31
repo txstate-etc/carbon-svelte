@@ -49,12 +49,14 @@
   }
   .basicstyledarea :global(ul) {
     list-style-type: disc;
+    font-size: var(--cds-body-long-02-font-size, 1rem);
+    font-weight: var(--cds-body-long-02-font-weight, 400);
+    line-height: var(--cds-body-long-02-line-height, 1.5);
+    letter-spacing: var(--cds-body-long-02-letter-spacing, 0);
   }
   .basicstyledarea {
     margin: 0 1em;
   }
-
-
 
   .basicstyledarea :global(.token.tag),
   .basicstyledarea :global(.token.operator) {

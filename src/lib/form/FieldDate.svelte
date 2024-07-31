@@ -75,8 +75,8 @@
     return notNoon ? dt8601 : luxonDateDeserialize(dt8601, timeZone)
   }
 
-  function serialize (val: any) {
-    if (isBlank(val)) return ''
+  function serialize (val: Date | string) {
+    if (!(val instanceof Date) && isBlank(val)) return ''
     const dt = new Date(val)
     const dt8601 = notNoon ? `${String(dt.getUTCFullYear()).padStart(4, '0')}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}-${String(dt.getUTCDate()).padStart(2, '0')}` : dateSerialize(val)
     const [year, month, day] = dt8601.split('-')

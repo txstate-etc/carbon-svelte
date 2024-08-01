@@ -11,6 +11,7 @@
 This displays a set of cards in a responsive and accessible way.
 
   - [Basic Example](#basicexample)
+  - [Custom Card Size and Gap](#customsizeandgap)
   - [Props](#props)
 
 ---
@@ -19,46 +20,11 @@ This displays a set of cards in a responsive and accessible way.
 
 <ExampleBox single>
   <CardGrid>
-    <Card
-      title="Hello"
-      subhead="Sub Hello"
-      actions={ [{ label: 'Go', icon: Play }] }
-      tags={ [{ label: 'I\'m a Tag' }] }
-      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
-      Content for the main area of the card at the bottom goes here.
-    </Card>
-    <Card
-      title="Hello"
-      subhead="Sub Hello"
-      actions={ [{ label: 'Go', icon: Play }] }
-      tags={ [{ label: 'I\'m a Tag' }] }
-      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
-      Content for the main area of the card at the bottom goes here.
-    </Card>
-    <Card
-      title="Hello"
-      subhead="Sub Hello"
-      actions={ [{ label: 'Go', icon: Play }] }
-      tags={ [{ label: 'I\'m a Tag' }] }
-      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
-      Content for the main area of the card at the bottom goes here.
-    </Card>
-    <Card
-      title="Hello"
-      subhead="Sub Hello"
-      actions={ [{ label: 'Go', icon: Play }] }
-      tags={ [{ label: 'I\'m a Tag' }] }
-      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
-      Content for the main area of the card at the bottom goes here.
-    </Card>
-    <Card
-      title="Hello"
-      subhead="Sub Hello"
-      actions={ [{ label: 'Go', icon: Play }] }
-      tags={ [{ label: 'I\'m a Tag' }] }
-      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
-      Content for the main area of the card at the bottom goes here.
-    </Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
   </CardGrid>
 </ExampleBox>
 
@@ -83,7 +49,25 @@ This displays a set of cards in a responsive and accessible way.
 
 ---
 
+### <a id="customsizeandgap"></a> Custom Card Size and Gap
+
+<ExampleBox single>
+  <CardGrid cardSize="30rem" gap="5px">
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+    <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
+  </CardGrid>
+</ExampleBox>
+
+```svelte
+<CardGrid cardSize="30rem" gap="5px">... cards</CardGrid>
+```
+
+---
+
 ### <a id="props"></a> Props
 
-  - ***cardSize*** `String` *optional, default `'20rem'`* --
-  - ***gap*** `String` *optional, default `'16px'`* --
+  - ***cardSize*** `String` *optional, default `'20rem'`* -- Defines the minimum size of each card before breaking to fewer columns. This is ignored once a single column is reached.
+  - ***gap*** `String` *optional, default `'16px'`* -- The space between the cards both horizontally and vertically.

@@ -18,6 +18,26 @@ An ActionSet is the set of buttons at the top of a [Card](card), [Panel](panel),
 
 At a minimum, the `actions` property must be defined.
 
+<ExampleBox>
+  <ActionSet actions={
+    [
+      {
+        label: 'Edit',
+        icon: Edit,
+        href: '#basicexample'
+      }, {
+        label: 'Delete',
+        icon: TrashCan,
+        disabled: true
+      }, {
+        label: 'Manage Users',
+        icon: User,
+        onClick: () => { alert('Manage Users') }
+      }
+    ]
+  }/>
+</ExampleBox>
+
 ```svelte
 <script lang="ts">
   import { ActionSet } from '@txstate-mws/carbon-svelte'
@@ -43,26 +63,6 @@ At a minimum, the `actions` property must be defined.
 }/>
 ```
 
-<ExampleBox>
-  <ActionSet actions={
-    [
-      {
-        label: 'Edit',
-        icon: Edit,
-        href: '#basicexample'
-      }, {
-        label: 'Delete',
-        icon: TrashCan,
-        disabled: true
-      }, {
-        label: 'Manage Users',
-        icon: User,
-        onClick: () => { alert('Manage Users') }
-      }
-    ]
-  }/>
-</ExampleBox>
-
 ---
 
 ### <a id="maxbuttons"></a> Max Buttons Setting
@@ -70,10 +70,6 @@ At a minimum, the `actions` property must be defined.
 More of the actions can be displayed before a ... menu is created by using maxButtons. Be aware that this needs to be a number and not a string so if you hard-code a value use `{}` to keep TypeScript happy.
 
 **NOTE: Typically this will be the responsibility of the component enclosing the ActionSet and is not expected to be set during typical app development. If you find youself needing to set it when a parent component does not, consult the maintainer of this library.**
-
-```svelte
-<ActionSet maxButtons={3} actions={[...]}/>
-```
 
 <ExampleBox>
   <ActionSet maxButtons={3} actions={
@@ -94,6 +90,10 @@ More of the actions can be displayed before a ... menu is created by using maxBu
     ]
   }/>
 </ExampleBox>
+
+```svelte
+<ActionSet maxButtons={3} actions={[...]}/>
+```
 
 ---
 

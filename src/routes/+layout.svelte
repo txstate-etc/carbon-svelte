@@ -26,6 +26,11 @@
       group: 'Components',
       title: 'Card',
       routeId: '/component/Card'
+    },
+    {
+      group: 'Components',
+      title: 'CardGrid',
+      routeId: '/component/CardGrid'
     }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>

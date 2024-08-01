@@ -1,0 +1,89 @@
+<script lang="ts">
+  import Card from '$lib/Card.svelte'
+  import CardGrid from '$lib/CardGrid.svelte'
+  import ExampleBox from '../../lib/ExampleBox.svelte'
+  import { Play } from 'carbon-icons-svelte'
+</script>
+
+
+## CardGrid
+
+This displays a set of cards in a responsive and accessible way.
+
+  - [Basic Example](#basicexample)
+  - [Props](#props)
+
+---
+
+### <a id="basicexample"></a> Basic Example
+
+<ExampleBox single>
+  <CardGrid>
+    <Card
+      title="Hello"
+      subhead="Sub Hello"
+      actions={ [{ label: 'Go', icon: Play }] }
+      tags={ [{ label: 'I\'m a Tag' }] }
+      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+      Content for the main area of the card at the bottom goes here.
+    </Card>
+    <Card
+      title="Hello"
+      subhead="Sub Hello"
+      actions={ [{ label: 'Go', icon: Play }] }
+      tags={ [{ label: 'I\'m a Tag' }] }
+      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+      Content for the main area of the card at the bottom goes here.
+    </Card>
+    <Card
+      title="Hello"
+      subhead="Sub Hello"
+      actions={ [{ label: 'Go', icon: Play }] }
+      tags={ [{ label: 'I\'m a Tag' }] }
+      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+      Content for the main area of the card at the bottom goes here.
+    </Card>
+    <Card
+      title="Hello"
+      subhead="Sub Hello"
+      actions={ [{ label: 'Go', icon: Play }] }
+      tags={ [{ label: 'I\'m a Tag' }] }
+      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+      Content for the main area of the card at the bottom goes here.
+    </Card>
+    <Card
+      title="Hello"
+      subhead="Sub Hello"
+      actions={ [{ label: 'Go', icon: Play }] }
+      tags={ [{ label: 'I\'m a Tag' }] }
+      navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+      Content for the main area of the card at the bottom goes here.
+    </Card>
+  </CardGrid>
+</ExampleBox>
+
+```svelte
+<script lang="ts">
+  import { Card, CardGrid } from '@txstate-mws/carbon-svelte'
+  import { Play } from 'carbon-icons-svelte'
+</script>
+
+<CardGrid>
+  <Card
+    title="Hello"
+    subhead="Sub Hello"
+    actions={ [{ label: 'Go', icon: Play }] }
+    tags={ [{ label: 'I\'m a Tag' }] }
+    navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+    Content for the main area of the card at the bottom goes here.
+  </Card>
+  ... more cards
+</CardGrid>
+```
+
+---
+
+### <a id="props"></a> Props
+
+  - ***cardSize*** `String` *optional, default `'20rem'`* --
+  - ***gap*** `String` *optional, default `'16px'`* --

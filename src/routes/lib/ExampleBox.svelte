@@ -1,8 +1,14 @@
+<script lang="ts">
+  export let single = false
+</script>
+
+
 <div class="exampleboxcontainer">
   <div class="examplebox full">
     <slot />
   </div>
 
+  {#if !single}
   <div class="examplebox half light">
     <slot />
   </div>
@@ -10,6 +16,7 @@
   <div class="examplebox half dark">
     <slot />
   </div>
+  {/if}
 </div>
 
 <style>

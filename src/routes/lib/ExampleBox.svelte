@@ -11,10 +11,17 @@
 <style>
   .examplebox {
     border: 1px dashed black;
-    margin-bottom: 1em;
+    margin: 0 1em 1em 1em;
   }
+
   .examplebox.small {
     max-width: 400px;
     margin: auto;
+  }
+
+  h4 {
+    font-weight: bold;
+    margin-bottom: .5em;
+    margin-left: 1em;
   }
 </style>

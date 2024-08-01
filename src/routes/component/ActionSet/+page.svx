@@ -31,36 +31,44 @@ At a minimum, the `actions` property must be defined.
   [
     {
       label: 'Edit',
-      icon: Edit
+      icon: Edit,
+      href: '#basicexample'
     }, {
       label: 'Delete',
       icon: TrashCan,
       disabled: true
     }, {
       label: 'Manage Users',
-      icon: User
+      icon: User,
+      onClick: () => { alert('Manage Users') }
     }
   ]
 }/>
 ```
+
+</BasicStyledArea>
 
 <ExampleBox>
   <ActionSet actions={
     [
       {
         label: 'Edit',
-        icon: Edit
+        icon: Edit,
+        href: '#basicexample'
       }, {
         label: 'Delete',
         icon: TrashCan,
         disabled: true
       }, {
         label: 'Manage Users',
-        icon: User
+        icon: User,
+        onClick: () => { alert('Manage Users') }
       }
     ]
   }/>
 </ExampleBox>
+
+<BasicStyledArea>
 
 ---
 
@@ -74,23 +82,29 @@ More of the actions can be displayed before a ... menu is created by using maxBu
 <ActionSet maxButtons={3} actions={[...]}/>
 ```
 
+</BasicStyledArea>
+
 <ExampleBox>
   <ActionSet maxButtons={3} actions={
     [
       {
         label: 'Edit',
-        icon: Edit
+        icon: Edit,
+        href: '#basicexample'
       }, {
         label: 'Delete',
         icon: TrashCan,
         disabled: true
       }, {
         label: 'Manage Users',
-        icon: User
+        icon: User,
+        onClick: () => { alert('Manage Users') }
       }
     ]
   }/>
 </ExampleBox>
+
+<BasicStyledArea>
 
 ---
 

@@ -39,7 +39,21 @@
   ```
 
   <ExampleBox>
-    <ActionSet actions={[{ label: 'Edit', icon: Edit }, { label: 'Delete', icon: TrashCan, disabled: true }, { label: 'Manage Users', icon: User }]}/>
+    <ActionSet actions={
+      [
+        {
+          label: 'Edit',
+          icon: Edit
+        }, {
+          label: 'Delete',
+          icon: TrashCan,
+          disabled: true
+        }, {
+          label: 'Manage Users',
+          icon: User
+        }
+      ]
+    }/>
   </ExampleBox>
 
   ---
@@ -47,10 +61,19 @@
   ### Properties
 
   - ***actions*** `ActionItem[]` *required* -- An array of actions to include. These will be rendered differently depending on the context and on other properties provided.
-    - ***label*** `String` *required* -- A text label to describe the action. This will be shown unless an icon is also provided, in which case it becomes the label to remain accessible.
+    - ***label*** `String` *required* -- A text label to describe the action. This will be shown unless an icon is also provided or ***includeLabels*** is `true`, in which case it becomes the label to remain accessible.
     - ***icon*** `CarbonIcon` *optional* -- An icon as exported by [carbon-icons-svelte](https://carbon-icons-svelte.onrender.com/).
     - ***href*** `String` *optional* -- URL to navigate to after activating this action.
     - ***onClick*** `() => void | Promise<void>` *optional* -- Handler function to call when this action is activated.
     - ***disabled*** `Boolean` *optional, default `false`* -- If `true` this action will be visually greyed out, aria-disabled, unactivatable, and the cursor will change on rollover to indicate it is unusable. It will however still be able to receive focus, so that screen readers will still read it while also indicating it is not usable.
+  - ***noPrimaryAction*** `Boolean` *optional, default `false`* -- If `true` none of the actions will be highlighted with the primary color.
+  - ***forceOverflow*** `Boolean` *optional, default `false`* -- If `true` the ... button containing the menu of actions will be shown and contain all actions, regardless of how many actions are present or what the setting of ***maxButtons*** is. This is similar to `maxButtons={1}` except that even if only one action is present it will still be placed in a ... menu.
+  - ***maxButtons*** `Number` *optional, default `2`* -- The most buttons to show before collapsing additional actions into a ... menu. This number includes the ... menu itself.
+  - ***light*** `Boolean` *optional, default `false`* --
+  - ***includeLabels*** `Boolean` *optional, default `false`* --
+  - ***small*** `Boolean` *optional, default `false`* --
+  - ***large*** `Boolean` *optional, default `false`* --
+  - ***describedById*** `String` *optional* --
+
 
 </BasicStyledArea>

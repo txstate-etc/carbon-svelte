@@ -47,6 +47,10 @@
     margin-left: 3em;
     margin-bottom: 1em;
   }
+  .basicstyledarea :global(li > ul),
+  .basicstyledarea :global(li > ol) {
+    margin-bottom: 0;
+  }
   .basicstyledarea :global(ul) {
     list-style-type: disc;
     font-size: var(--cds-body-long-02-font-size, 1rem);

@@ -14,6 +14,7 @@
     margin-bottom: 1em;
   }
   .examplebox.small {
-    width: 400px;
+    max-width: 400px;
+    margin: auto;
   }
 </style>

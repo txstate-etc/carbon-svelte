@@ -1,11 +1,8 @@
 <script lang="ts">
   import ActionSet from '$lib/ActionSet.svelte'
   import { Edit, TrashCan, User } from 'carbon-icons-svelte'
-  import BasicStyledArea from '../../lib/BasicStyledArea.svelte'
   import ExampleBox from '../../lib/ExampleBox.svelte'
 </script>
-
-<BasicStyledArea>
 
 ## ActionSet
 
@@ -46,7 +43,6 @@ At a minimum, the `actions` property must be defined.
 }/>
 ```
 
-</BasicStyledArea>
 
 <ExampleBox>
   <ActionSet actions={
@@ -68,7 +64,6 @@ At a minimum, the `actions` property must be defined.
   }/>
 </ExampleBox>
 
-<BasicStyledArea>
 
 ---
 
@@ -82,7 +77,6 @@ More of the actions can be displayed before a ... menu is created by using maxBu
 <ActionSet maxButtons={3} actions={[...]}/>
 ```
 
-</BasicStyledArea>
 
 <ExampleBox>
   <ActionSet maxButtons={3} actions={
@@ -104,7 +98,6 @@ More of the actions can be displayed before a ... menu is created by using maxBu
   }/>
 </ExampleBox>
 
-<BasicStyledArea>
 
 ---
 
@@ -124,5 +117,3 @@ More of the actions can be displayed before a ... menu is created by using maxBu
   - ***small*** `Boolean` *optional, default `false`* --
   - ***large*** `Boolean` *optional, default `false`* --
   - ***describedById*** `String` *optional* --
-
-</BasicStyledArea>

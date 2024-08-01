@@ -1,4 +1,7 @@
 <script context="module">
+  // If you add another tag, fully restart. Vite doesn't quite
+  // pick up these module context blocks
+
   import p from './md_tags/p.svelte'
   import h2 from './md_tags/h2.svelte'
   import h3 from './md_tags/h3.svelte'

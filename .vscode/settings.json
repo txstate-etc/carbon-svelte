@@ -1,6 +1,6 @@
 {
   "files.associations": {
-    "*.svx": "svelte"
+    "*.svx": "markdown"
   },
   "files.exclude": {
     ".svelte-kit/": true,

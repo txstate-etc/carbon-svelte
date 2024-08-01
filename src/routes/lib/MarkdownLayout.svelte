@@ -1,111 +1,70 @@
-<div class="basicstyledarea">
+<script context="module">
+  import p from './md_tags/p.svelte'
+  import h2 from './md_tags/h2.svelte'
+  import h3 from './md_tags/h3.svelte'
+  import h4 from './md_tags/h4.svelte'
+  import hr from './md_tags/hr.svelte'
+  import ul from './md_tags/ul.svelte'
+  import ol from './md_tags/ol.svelte'
+  export { p, h2, h3, h4, hr, ul, ol }
+</script>
+
+<div class="markdownlayout">
   <slot />
 </div>
 
 <style>
-  .basicstyledarea :global(h2) {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: .5em;
-  }
-  .basicstyledarea :global(h3) {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: .5em;
-  }
-  .basicstyledarea :global(h4) {
-    font-weight: bold;
-    margin-bottom: .5em;
-  }
-  .basicstyledarea :global(code) {
-    background-color: #EEE;
-    padding: 0 .2em;
-  }
-  .basicstyledarea :global(pre code) {
-    background-color: inherit;
-  }
-  .basicstyledarea :global(p) {
-    margin-bottom: 1em;
-  }
-  .basicstyledarea :global(pre) {
+  /*
+   * The code blocks can't be made to use custom components like the others,
+   * see https://github.com/pngwn/MDsveX/issues/100
+  */
+
+  .markdownlayout :global(pre) {
     background-color: #222;
     padding: .5em 1em;
     color: lightcyan;
-    margin-bottom: 1em;
-  }
-  .basicstyledarea :global(hr) {
-    margin: 1em;
-  }
-  .basicstyledarea :global(a) {
-    color: #00F;
-  }
-  .basicstyledarea :global(a:hover) {
-    text-decoration: underline;
-  }
-  .basicstyledarea :global(ul),
-  .basicstyledarea :global(ol) {
-    margin-left: 3em;
-    margin-bottom: 1em;
-  }
-  .basicstyledarea :global(li > ul),
-  .basicstyledarea :global(li > ol) {
-    margin-bottom: 0;
-  }
-  .basicstyledarea :global(ul) {
-    list-style-type: disc;
-    font-size: var(--cds-body-long-02-font-size, 1rem);
-    font-weight: var(--cds-body-long-02-font-weight, 400);
-    line-height: var(--cds-body-long-02-line-height, 1.5);
-    letter-spacing: var(--cds-body-long-02-letter-spacing, 0);
-  }
-  .basicstyledarea {
-    margin: 0 1em;
+    margin: 0 1em 1em 1em;
   }
 
-  .basicstyledarea :global(.token.tag),
-  .basicstyledarea :global(.token.operator) {
+  .markdownlayout :global(pre .token.tag),
+  .markdownlayout :global(pre .token.operator) {
       color: #6ea6ff
   }
 
-  .basicstyledarea :global(.token.attr-name),
-  .basicstyledarea :global(.token.property) {
+  .markdownlayout :global(pre .token.attr-name),
+  .markdownlayout :global(pre .token.property) {
       color: #3ddbd9
   }
 
-  .basicstyledarea :global(.token.function) {
+  .markdownlayout :global(pre .token.function) {
       color: #9ef0f0
   }
 
-  .basicstyledarea :global(.token.token.language-javascript),
-  .basicstyledarea :global(.token.attr-value) {
+  .markdownlayout :global(pre .token.attr-value) {
       color: #d4bbff
   }
 
-  .basicstyledarea :global(.token.keyword) {
+  .markdownlayout :global(pre .token.keyword) {
       color: #bb8eff
   }
 
-  .basicstyledarea :global(.token.punctuation) {
+  .markdownlayout :global(pre .token.punctuation) {
       color: #a8a8a8
   }
 
-  .basicstyledarea :global(.token.script .token.language-javascript) {
-      color: #3ddbd9
-  }
-
-  .basicstyledarea :global(.token.string) {
+  .markdownlayout :global(pre .token.string) {
       color: #fa75a6
   }
 
-  .basicstyledarea :global(.token.boolean) {
+  .markdownlayout :global(pre .token.boolean) {
       color: #bb8eff
   }
 
-  .basicstyledarea :global(.token.number) {
+  .markdownlayout :global(pre .token.number) {
       color: #a7f0ba
   }
 
-  .basicstyledarea :global(.token.comment) {
+  .markdownlayout :global(pre .token.comment) {
       color: #bebebe
   }
 

@@ -43,7 +43,6 @@ At a minimum, the `actions` property must be defined.
 }/>
 ```
 
-
 <ExampleBox>
   <ActionSet actions={
     [
@@ -64,7 +63,6 @@ At a minimum, the `actions` property must be defined.
   }/>
 </ExampleBox>
 
-
 ---
 
 ### <a id="maxbuttons"></a> Max Buttons Setting
@@ -76,7 +74,6 @@ More of the actions can be displayed before a ... menu is created by using maxBu
 ```svelte
 <ActionSet maxButtons={3} actions={[...]}/>
 ```
-
 
 <ExampleBox>
   <ActionSet maxButtons={3} actions={
@@ -97,7 +94,6 @@ More of the actions can be displayed before a ... menu is created by using maxBu
     ]
   }/>
 </ExampleBox>
-
 
 ---
 

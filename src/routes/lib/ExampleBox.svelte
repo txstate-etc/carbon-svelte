@@ -1,5 +1,3 @@
-<h4>Examples</h4>
-
 <div class="examplebox">
   <slot />
 </div>
@@ -17,11 +15,5 @@
   .examplebox.small {
     max-width: 400px;
     margin: auto;
-  }
-
-  h4 {
-    font-weight: bold;
-    margin-bottom: .5em;
-    margin-left: 1em;
   }
 </style>

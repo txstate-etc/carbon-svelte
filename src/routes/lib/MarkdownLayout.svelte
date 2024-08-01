@@ -27,6 +27,7 @@
     padding: .5em 1em;
     color: lightcyan;
     margin: 0 1em 1em 1em;
+    overflow-x: scroll;
   }
 
   .markdownlayout :global(pre .token.tag),

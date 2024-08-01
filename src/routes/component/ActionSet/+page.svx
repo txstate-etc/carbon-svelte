@@ -7,21 +7,27 @@
 
 <BasicStyledArea>
 
-  ## ActionSet
+## ActionSet
 
-  An ActionSet is the set of buttons at the top of a [Card](card), [Panel](panel), or [ColumnList](columnlist). Typically this component will not be used by itself but instead used indirectly by using one of the other components. Rather than repeating the same options in those other components it is documented here.
+An ActionSet is the set of buttons at the top of a [Card](card), [Panel](panel), or [ColumnList](columnlist). Typically this component will not be used by itself but instead used indirectly by using one of the other components. Rather than repeating the same options in those other components it is documented here.
 
-  ### Basic Example
+  - [Basic Example](#basicexample)
+  - [Max Buttons Setting](#maxbuttons)
+  - [Props](#props)
 
-  At a minimum, the `actions` property must be defined.
+---
 
-  ```svelte
-  <script lang="ts">
-    import ActionSet from '$lib/ActionSet.svelte'
-    import { Edit, TrashCan, User } from 'carbon-icons-svelte'
-  </script>
+### <a id="basicexample"></a> Basic Example
 
-  <ActionSet actions={
+At a minimum, the `actions` property must be defined.
+
+```svelte
+<script lang="ts">
+  import { ActionSet } from '@txstate-mws/carbon-svelte'
+  import { Edit, TrashCan, User } from 'carbon-icons-svelte'
+</script>
+
+<ActionSet actions={
   [
     {
       label: 'Edit',
@@ -35,33 +41,63 @@
       icon: User
     }
   ]
+}/>
+```
+
+<ExampleBox>
+  <ActionSet actions={
+    [
+      {
+        label: 'Edit',
+        icon: Edit
+      }, {
+        label: 'Delete',
+        icon: TrashCan,
+        disabled: true
+      }, {
+        label: 'Manage Users',
+        icon: User
+      }
+    ]
   }/>
-  ```
+</ExampleBox>
 
-  <ExampleBox>
-    <ActionSet actions={
-      [
-        {
-          label: 'Edit',
-          icon: Edit
-        }, {
-          label: 'Delete',
-          icon: TrashCan,
-          disabled: true
-        }, {
-          label: 'Manage Users',
-          icon: User
-        }
-      ]
-    }/>
-  </ExampleBox>
+---
 
-  ---
+### <a id="maxbuttons"></a> Max Buttons Setting
 
-  ### Properties
+More of the actions can be displayed before a ... menu is created by using maxButtons. Be aware that this needs to be a number and not a string so if you hard-code a value use `{}` to keep TypeScript happy.
+
+**NOTE: Typically this will be the responsibility of the component enclosing the ActionSet and is not expected to be set during typical app development. If you find youself needing to set it when a parent component does not, consult the maintainer of this library.**
+
+```svelte
+<ActionSet maxButtons={3} actions={[...]}/>
+```
+
+<ExampleBox>
+  <ActionSet maxButtons={3} actions={
+    [
+      {
+        label: 'Edit',
+        icon: Edit
+      }, {
+        label: 'Delete',
+        icon: TrashCan,
+        disabled: true
+      }, {
+        label: 'Manage Users',
+        icon: User
+      }
+    ]
+  }/>
+</ExampleBox>
+
+---
+
+### <a id="props"></a> Props
 
   - ***actions*** `ActionItem[]` *required* -- An array of actions to include. These will be rendered differently depending on the context and on other properties provided.
-    - ***label*** `String` *required* -- A text label to describe the action. This will be shown unless an icon is also provided or ***includeLabels*** is `true`, in which case it becomes the label to remain accessible.
+    - ***label*** `String` *required* -- A text label to describe the action. This will be shown unless an icon is also provided or ***includeLabels*** is `true`, in which case it becomes a pop-under label on hover.
     - ***icon*** `CarbonIcon` *optional* -- An icon as exported by [carbon-icons-svelte](https://carbon-icons-svelte.onrender.com/).
     - ***href*** `String` *optional* -- URL to navigate to after activating this action.
     - ***onClick*** `() => void | Promise<void>` *optional* -- Handler function to call when this action is activated.
@@ -74,6 +110,5 @@
   - ***small*** `Boolean` *optional, default `false`* --
   - ***large*** `Boolean` *optional, default `false`* --
   - ***describedById*** `String` *optional* --
-
 
 </BasicStyledArea>

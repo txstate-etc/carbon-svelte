@@ -21,6 +21,11 @@
       group: 'Components',
       title: 'ActionSet',
       routeId: '/component/ActionSet'
+    },
+    {
+      group: 'Components',
+      title: 'Card',
+      routeId: '/component/Card'
     }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>

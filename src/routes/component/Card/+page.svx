@@ -1,0 +1,59 @@
+<script lang="ts">
+  import Card from '$lib/Card.svelte'
+  import ExampleBox from '../../lib/ExampleBox.svelte'
+  import { Play } from 'carbon-icons-svelte'
+</script>
+
+
+## Card
+
+What is it
+
+  - [Basic Example](#basicexample)
+  - [Props](#props)
+
+---
+
+### <a id="basicexample"></a> Basic Example
+
+<ExampleBox>
+  <Card
+    title="Hello"
+    subhead="Sub Hello"
+    actions={ [{ label: 'Go', icon: Play }] }
+    tags={ [{ label: 'I\'m a Tag' }] }
+    navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+    Content for the main area of the card at the bottom goes here.
+  </Card>
+</ExampleBox>
+
+```svelte
+<script lang="ts">
+  import { Card } from '@txstate-mws/carbon-svelte'
+  import { Play } from 'carbon-icons-svelte'
+</script>
+
+<Card
+  title="Hello"
+  subhead="Sub Hello"
+  actions={ [{ label: 'Go', icon: Play }] }
+  tags={ [{ label: 'I\'m a Tag' }] }
+  navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>
+  Content for the main area of the card at the bottom goes here.
+</Card>
+```
+
+---
+
+### <a id="props"></a> Props
+
+  - ***title*** `String` *required* -- 
+  - ***subhead*** `String` *optional* -- 
+  - ***emphasizeTitle*** `Boolean` *optional, default `false`* -- 
+  - ***actions*** `ActionItem[]` *optional* -- See the ***actions*** prop in [ActionSet](ActionSet#props) for available options.
+  - ***noPrimaryAction*** `Boolean` *optional, default `false`* -- 
+  - ***forceOverflow*** `Boolean` *optional, default `false`* -- 
+  - ***tags*** `TagItem[]` *optional* -- 
+  - ***tagsInBody*** `Boolean` *optional, default `false`* -- 
+  - ***navigations*** `NavigationItem[]` *optional* -- Similar to an ActionItem, but does not have an onClick handler. As the name implies, these are only for navigation.
+  - ***noPrimaryNavigation*** `Boolean` *optional, default `false`* -- 

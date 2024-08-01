@@ -16,7 +16,7 @@
   .exampleboxcontainer {
     margin: 0 1em 1em 1em;
     padding: 1em;
-    background-color: #F8F8F8;
+    background-color: #EEE;
     display: flex;
     flex-wrap: wrap;
     gap: 1em;

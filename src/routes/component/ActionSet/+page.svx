@@ -6,7 +6,7 @@
 
 ## ActionSet
 
-An ActionSet is the set of buttons at the top of a [Card](card), [Panel](panel), or [ColumnList](columnlist). Typically this component will not be used by itself but instead used indirectly by using one of the other components. Rather than repeating the same options in those other components it is documented here.
+An ActionSet is the set of buttons at the top of a [Card](Card), [Panel](Panel), or [ColumnList](ColumnList). Typically this component will not be used by itself but instead used indirectly by using one of the other components. Rather than repeating the same options in those other components it is documented here.
 
   - [Basic Example](#basicexample)
   - [Max Buttons Setting](#maxbuttons)
@@ -24,7 +24,7 @@ At a minimum, the `actions` property must be defined.
       {
         label: 'Edit',
         icon: Edit,
-        href: '#basicexample'
+        href: 'https://www.txst.edu/'
       }, {
         label: 'Delete',
         icon: TrashCan,
@@ -49,7 +49,7 @@ At a minimum, the `actions` property must be defined.
     {
       label: 'Edit',
       icon: Edit,
-      href: '#basicexample'
+      href: 'https://www.txst.edu/'
     }, {
       label: 'Delete',
       icon: TrashCan,
@@ -77,7 +77,7 @@ More of the actions can be displayed before a ... menu is created by using maxBu
       {
         label: 'Edit',
         icon: Edit,
-        href: '#basicexample'
+        href: 'https://www.txst.edu/'
       }, {
         label: 'Delete',
         icon: TrashCan,

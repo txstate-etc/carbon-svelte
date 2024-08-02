@@ -1,7 +1,7 @@
 <script lang="ts">
   import { type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import { Modal } from 'carbon-components-svelte'
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, tick } from 'svelte'
   import { beforeNavigate, goto } from '$app/navigation'
   import { unsavedDialogOpen, warnunsaved } from '../stores/warnunsaved.js'
   import Form from './Form.svelte'
@@ -75,6 +75,11 @@
     }
   }
 
+  async function resetStore () {
+    await tick()
+    store?.reset()
+  }
+
   function onCancel () {
     if (unsavedWarning && $store?.hasUnsavedChanges) $unsavedDialogOpen = true
     else dispatch('cancel')
@@ -101,8 +106,7 @@
       if (!warnunsaved.allowNavigate) cancel()
     }
   })
-
-  $: if (!open) store?.reset()
+  $: if (!open) void resetStore()
 </script>
 
 <PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>

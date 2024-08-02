@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { NavigationTarget } from '@sveltejs/kit'
   import { type Feedback, type FormStore, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import { Modal } from 'carbon-components-svelte'
   import { createEventDispatcher } from 'svelte'
   import { beforeNavigate, goto } from '$app/navigation'
+  import { unsavedDialogOpen, warnunsaved } from '../stores/warnunsaved.js'
   import Form from './Form.svelte'
   import PanelDialog from '../PanelDialog.svelte'
 
@@ -75,34 +75,30 @@
     }
   }
 
-  let unsavedDialogOpen = false
-
   function onCancel () {
-    if (unsavedWarning && $store?.hasUnsavedChanges) unsavedDialogOpen = true
+    if (unsavedWarning && $store?.hasUnsavedChanges) $unsavedDialogOpen = true
     else dispatch('cancel')
   }
 
   function onConfirmUnsaved () {
-    unsavedDialogOpen = false
-    if (pendingNavigate) {
-      allowNavigate = true
-      void goto(pendingNavigate.url)
+    $unsavedDialogOpen = false
+    if (warnunsaved.pendingNavigate) {
+      warnunsaved.allowNavigate = true
+      void goto(warnunsaved.pendingNavigate.url)
     } else dispatch('cancel')
   }
 
   function cancelUnsaved () {
-    unsavedDialogOpen = false
+    $unsavedDialogOpen = false
   }
 
-  let pendingNavigate: NavigationTarget | undefined
-  let allowNavigate = false
   beforeNavigate(({ cancel, type, to }) => {
     if (open && unsavedWarning && $store?.hasUnsavedChanges) {
       if (type !== 'leave' && to != null) {
-        unsavedDialogOpen = true
-        pendingNavigate = to
+        $unsavedDialogOpen = true
+        warnunsaved.pendingNavigate = to
       }
-      if (!allowNavigate) cancel()
+      if (!warnunsaved.allowNavigate) cancel()
     }
   })
 
@@ -117,7 +113,7 @@
     <svelte:fragment slot="submit">&nbsp;</svelte:fragment>
   </Form>
   <slot name="afterform" />
-  <Modal bind:open={unsavedDialogOpen} on:click:button--primary={onConfirmUnsaved} on:click:button--secondary={cancelUnsaved} modalHeading="Unsaved Changes" primaryButtonText="Leave" secondaryButtonText="Stay">
+  <Modal bind:open={$unsavedDialogOpen} on:click:button--primary={onConfirmUnsaved} on:click:button--secondary={cancelUnsaved} modalHeading="Unsaved Changes" primaryButtonText="Leave" secondaryButtonText="Stay">
     You have unsaved changes. Are you sure you want to leave?
   </Modal>
 </PanelDialog>

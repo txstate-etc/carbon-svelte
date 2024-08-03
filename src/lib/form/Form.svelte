@@ -23,6 +23,7 @@
       invalid: boolean
       showingInlineErrors: boolean
       data: Partial<T>
+      hasUnsavedChanges: boolean
     }
     submit: {
       saved: boolean
@@ -32,6 +33,8 @@
       valid: boolean
       invalid: boolean
       showingInlineErrors: boolean
+      hasUnsavedChanges: boolean
+      saveDisabled: boolean
     }
   }
 
@@ -47,6 +50,7 @@
   export let hideFallbackMessage = false
   export let submitIcon: typeof SvelteComponent<any> = Save
   export let unsavedWarning = false
+  export let disableSaveUntilChanged = false
 
   let formelement: HTMLFormElement
   function validationFail () {
@@ -76,8 +80,8 @@
   })
 </script>
 
-<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
-  <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} />
+<Form bind:store bind:formelement class="{className} flow" {submit} {validate} {autocomplete} {name} {preload} on:saved on:validationfail on:validationfail={validationFail} let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data let:hasUnsavedChanges>
+  <slot {messages} {saved} {validating} {submitting} {valid} {invalid} {data} {allMessages} {showingInlineErrors} {hasUnsavedChanges} />
   {@const errorMessages = messages.filter(m => m.type === 'error' || m.type === 'system')}
   {@const warningMessages = messages.filter(m => m.type === 'warning')}
   {@const successMessages = messages.filter(m => m.type === 'success')}
@@ -99,9 +103,9 @@
       <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
     {/each}
   {/if}
-  <slot name="submit" {saved} {validating} {submitting} {valid} {invalid} {allMessages} {showingInlineErrors}>
+  <slot name="submit" {saved} {validating} {submitting} {valid} {invalid} {allMessages} {showingInlineErrors} {hasUnsavedChanges} saveDisabled={disableSaveUntilChanged && !hasUnsavedChanges}>
     <div class='form-submit'>
-      <Button icon={submitIcon} type="submit">{submitText}</Button>
+      <Button icon={submitIcon} type="submit" disabled={disableSaveUntilChanged && !hasUnsavedChanges}>{submitText}</Button>
     </div>
   </slot>
 </Form>

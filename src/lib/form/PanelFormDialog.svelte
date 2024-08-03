@@ -51,6 +51,8 @@
   export let title: string
   export let open = false
   export let unsavedWarning = false
+  export let centered = false
+  export let disableSaveUntilChanged = false
 
   let dialogelement: HTMLDialogElement
 
@@ -109,7 +111,7 @@
   $: if (!open) void resetStore()
 </script>
 
-<PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} on:cancel={onCancel} on:submit={onSubmit}>
+<PanelDialog bind:dialogelement {open} {title} {cancelText} {submitText} {errorText} {centered} disableSubmit={disableSaveUntilChanged && !$store?.hasUnsavedChanges} on:cancel={onCancel} on:submit={onSubmit}>
   <slot name="beforeform" />
   <Form bind:store class={className} {submit} validate={resolvedValidate} {autocomplete} {name} {preload} hideFallbackMessage on:validationfail let:messages let:allMessages let:showingInlineErrors let:saved let:valid let:invalid let:validating let:submitting let:data>
     {@const _ = setErrorText(showingInlineErrors)}

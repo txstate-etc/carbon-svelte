@@ -11,6 +11,8 @@
   export let submitText = 'Submit'
   export let errorText = ''
   export let dialogelement: HTMLDialogElement | undefined = undefined
+  export let centered = false
+  export let disableSubmit = false
 
   let closebutton: HTMLButtonElement | undefined
   let closing = false
@@ -53,7 +55,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<dialog bind:this={dialogelement} class:closing
+<dialog bind:this={dialogelement} class:closing class:centered
   class="tcbs-dialog shadow bg-neutral-200-background fixed m-0 ml-auto top-0 right-0 h-full transition-transform transform-none"
   on:keydown={onKeyDown}
 >
@@ -71,12 +73,12 @@
       {/if}
       {#if isNotBlank(cancelText) || isNotBlank(submitText) || $$slots.buttons}
         <footer class="[ flex flex-wrap justify-end items-center ]">
-          <slot name="buttons">
+          <slot name="buttons" {disableSubmit}>
             {#if isNotBlank(cancelText)}
               <Button kind="secondary" size="small" class="ml-[8px]" on:click={cancel} aria-describedby={titleId}>{cancelText}</Button>
             {/if}
             {#if isNotBlank(submitText)}
-              <Button size="small" class="ml-[8px]" on:click={submit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
+              <Button size="small" class="ml-[8px]" on:click={submit} disabled={disableSubmit} aria-describedby="{errorId} {titleId}">{submitText}</Button>
             {/if}
           </slot>
         </footer>
@@ -91,6 +93,13 @@
     width: min(32rem, 100%);
     max-width: 100%;
     max-height: 100%;
+  }
+  dialog.tcbs-dialog.centered {
+    margin-right: auto;
+    width: min(40rem, 100%);
+    height: fit-content;
+    max-height: 80%;
+    overflow: visible;
   }
   section {
     display: flex;
@@ -109,12 +118,18 @@
     animation: fadeIn 150ms ease-in-out;
   }
 
-  dialog[open] {
+  dialog[open]:not(.centered) {
     animation: slideInFromRight 150ms ease-in-out;
   }
+  dialog[open].centered {
+    animation: fadeIn 150ms ease-in-out;
+  }
 
-  dialog.closing {
+  dialog.closing:not(.centered) {
     animation: slideOutToRight 150ms ease-in-out;
+  }
+  dialog.closing.centered {
+    animation: fadeOut 150ms ease-in-out;
   }
   dialog.closing::backdrop {
     animation: fadeOut 150ms forwards;

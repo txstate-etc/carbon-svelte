@@ -1,18 +1,11 @@
-<script lang="ts" context="module">
-  import { equal } from 'txstate-utils'
-  export interface RadioMenuItem {
-    value: any
-    label?: string
-    disabled?: boolean
-  }
-</script>
 <script lang="ts">
   import { FORM_CONTEXT, FORM_INHERITED_PATH, Field, type FormStore } from '@txstate-mws/svelte-forms'
   import { Store } from '@txstate-mws/svelte-store'
   import { InlineNotification, TileGroup, RadioTile } from 'carbon-components-svelte'
   import { createEventDispatcher, type ComponentProps, getContext } from 'svelte'
-  import { get, isNotBlank } from 'txstate-utils'
+  import { get, isNotBlank, equal } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
+  import type { RadioMenuItem } from './FieldRadio.svelte'
 
   const dispatch = createEventDispatcher()
 

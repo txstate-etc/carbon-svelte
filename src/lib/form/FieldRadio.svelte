@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-  import { equal } from 'txstate-utils'
   export interface RadioMenuItem {
     value: any
     label?: string
@@ -11,7 +10,7 @@
   import { Store } from '@txstate-mws/svelte-store'
   import { RadioButtonGroup, RadioButton, InlineNotification } from 'carbon-components-svelte'
   import { createEventDispatcher, type ComponentProps, getContext } from 'svelte'
-  import { get, isNotBlank } from 'txstate-utils'
+  import { get, isNotBlank, equal } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
 
   const dispatch = createEventDispatcher()

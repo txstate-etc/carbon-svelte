@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  interface CarbonMultiItem {
+  export interface CarbonMultiItem {
     id: string
     text: string
     disabled?: boolean

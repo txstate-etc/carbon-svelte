@@ -4,12 +4,6 @@
     label?: string
     disabled?: boolean
   }
-  interface CarbonComboItem {
-    id: string
-    text: string
-    disabled?: boolean
-    create?: boolean
-  }
 </script>
 <script lang="ts">
   import { FORM_CONTEXT, FORM_INHERITED_PATH, Field, type FormStore } from '@txstate-mws/svelte-forms'
@@ -19,6 +13,13 @@
   import { feedbackTypeToKind } from './util.js'
 
   const dispatch = createEventDispatcher()
+
+  interface CarbonComboItem {
+    id: string
+    text: string
+    disabled?: boolean
+    create?: boolean
+  }
 
   interface $$Props extends Omit<ComponentProps<ComboBox>, 'items'> {
     path: string

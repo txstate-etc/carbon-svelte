@@ -31,9 +31,9 @@
     return (pageSize > total ? total + ' ' : `${min}-${max} of ${total} `) + (total !== 1 ? nounPlural : noun)
   }
   function onUpdate (e: CustomEvent<{ page: number, pageSize: number }>) {
-    if (e.detail.page !== page || e.detail.pageSize !== pageSize) dispatch('update', e.detail)
+    dispatch('update', e.detail)
   }
 
 </script>
 
-<Pagination {...$$restProps} {page} {totalItems} itemsPerPageText="Per Page:" {pageSize} {pageSizes} {itemText} {itemRangeText} pageSizeInputDisabled={!chooseSize || totalItems === 0} pageInputDisabled={!totalItems} on:update={onUpdate} />
+<Pagination {...$$restProps} bind:page {totalItems} itemsPerPageText="Per Page:" bind:pageSize {pageSizes} {itemText} {itemRangeText} pageSizeInputDisabled={!chooseSize || totalItems === 0} pageInputDisabled={!totalItems} on:update={onUpdate} />

@@ -18,7 +18,7 @@ This displays a set of cards in a responsive and accessible way.
 
 ### <a id="basicexample"></a> Basic Example
 
-<ExampleBox single>
+<ExampleBox>
   <CardGrid>
     <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
     <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
@@ -51,7 +51,7 @@ This displays a set of cards in a responsive and accessible way.
 
 ### <a id="customsizeandgap"></a> Custom Card Size and Gap
 
-<ExampleBox single>
+<ExampleBox>
   <CardGrid cardSize="30rem" gap="5px">
     <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>
     <Card title="Hello" subhead="Sub Hello" actions={ [{ label: 'Go', icon: Play }] } tags={ [{ label: 'I\'m a Tag' }] } navigations={ [{ label: 'Beam up' }, { label: 'Beam down' }] }>Content for the main area of the card at the bottom goes here.</Card>

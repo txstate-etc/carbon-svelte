@@ -47,7 +47,7 @@ This component has two ways for you to receive updates when the user changes pag
 
 If you want the user to be able to adjust the page size, add ***chooseSize*** to the `Pagination` component.
 
-<ExampleBox single>
+<ExampleBox>
   <Pagination
     page={1}
     totalItems={1063}

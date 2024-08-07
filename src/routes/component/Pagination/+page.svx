@@ -23,7 +23,7 @@ This component has two ways for you to receive updates when the user changes pag
 
 <ExampleBox>
   <Pagination
-    page={1}
+    page={2}
     totalItems={1063}
     noun="goose"
     nounPlural="geese" />
@@ -49,7 +49,7 @@ If you want the user to be able to adjust the page size, add ***chooseSize*** to
 
 <ExampleBox>
   <Pagination
-    page={1}
+    page={2}
     totalItems={1063}
     pageSize={25}
     chooseSize

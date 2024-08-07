@@ -1,0 +1,170 @@
+.ck-content figure.table, .ck-content figure.table table {
+  width: 100%;
+  overflow-x: auto;
+}
+.ck-content figure.table.header-color-none th {
+  background: transparent;
+  color: #3e3e3e;
+}
+.ck-content figure.table.header-color-none th a {
+  color: #3e3e3e;
+}
+.ck-content figure.table.header-color-none th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-gold th {
+  background: #c4a77d;
+  color: #000000;
+}
+.ck-content figure.table.header-color-gold th a {
+  color: #000000;
+}
+.ck-content figure.table.header-color-gold th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-maroon th {
+  background: #501214;
+  color: #ffffff;
+}
+.ck-content figure.table.header-color-maroon th a {
+  color: #ffffff;
+}
+.ck-content figure.table.header-color-maroon th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-sandstone th {
+  background: #f5f1ee;
+  color: #222222;
+}
+.ck-content figure.table.header-color-sandstone th a {
+  color: #222222;
+}
+.ck-content figure.table.header-color-sandstone th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-charcoal th {
+  background: #363534;
+  color: #ffffff;
+}
+.ck-content figure.table.header-color-charcoal th a {
+  color: #ffffff;
+}
+.ck-content figure.table.header-color-charcoal th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-blue th {
+  background: #00507A;
+  color: #ffffff;
+}
+.ck-content figure.table.header-color-blue th a {
+  color: #ffffff;
+}
+.ck-content figure.table.header-color-blue th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-river th {
+  background: #6EA095;
+  color: #111111;
+}
+.ck-content figure.table.header-color-river th a {
+  color: #111111;
+}
+.ck-content figure.table.header-color-river th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table.header-color-oldgold th {
+  background: #EBBA45;
+  color: #222222;
+}
+.ck-content figure.table.header-color-oldgold th a {
+  color: #222222;
+}
+.ck-content figure.table.header-color-oldgold th a:hover {
+  background: transparent;
+  text-decoration: none;
+}
+.ck-content figure.table table {
+  border: none;
+}
+.ck-content figure.table table td, .ck-content figure.table table th {
+  padding: 0.5rem 1rem;
+  border-color: #e4e4e4;
+}
+.ck-content figure.table table th {
+  background: #c4a77d;
+  color: #000000;
+}
+.ck-content figure.table table a {
+  color: #2c5271;
+}
+.ck-content figure.table table a:hover {
+  text-decoration: none;
+  background: transparent;
+}
+
+.ck-content figure.auto-width.table table {
+  width: auto;
+}
+
+.ck-content figure.full-width.table table {
+  width: 100%;
+}
+
+.ck-content figure.alternate-row-color.table tbody tr:nth-child(odd) {
+  background-color: #F4F1ED;
+}
+
+.ck-content figure.alternate-row-color.table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+i {
+  font-style: italic;
+}
+
+.ck-content h2 {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+.ck-content h3 {
+  font-size: 1.33em;
+  font-weight: bolder;
+}
+.ck-content h4 {
+  font-size: 1em;
+  font-weight: bolder;
+}
+
+/*# sourceMappingURL=richstyles.css.map */
+
+.ck-content ul { 
+  list-style-type: disc; 
+  list-style-position: inside; 
+}
+.ck-content ol { 
+  list-style-type: decimal; 
+  list-style-position: inside; 
+}
+.ck-content ul ul, .ck-content ol ul { 
+  list-style-type: circle; 
+  list-style-position: inside; 
+  margin-left: 15px; 
+}
+.ck-content ol ol, .ck-content ul ol { 
+  list-style-type: lower-latin; 
+  list-style-position: inside; 
+  margin-left: 15px; 
+}
+
+
+.ck-content a { text-decoration: underline; }
+.ck-content :link { color: #0000ff; }
+.ck-content :visited { color: #551A8B; }
+/* :link:active, :visited:active { color: #FF0000; } */

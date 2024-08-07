@@ -16,6 +16,7 @@
   export let appName: string
   export let navRoot: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNode>>
   export let profilelinks: ShellItem[] = []
+  export let stickyHeader = true
 
   const layoutStore = new LayoutStore({ root: navRoot })
   const nav = layoutStore.nav
@@ -57,8 +58,8 @@
 
 <svelte:body on:click={bodyClick} />
 <LayoutBase>
-  <SkipToContent />
-  <header class:bx--header={true} class="[ flex-wrap ]">
+  <SkipToContent id="skip" />
+  <header class:bx--header={true} class:fixed={stickyHeader} class:relative={!stickyHeader} class="[ flex-wrap ]">
     <button
       type="button"
       aria-label="Hamburger Menu"
@@ -146,16 +147,19 @@
 </LayoutBase>
 
 <style>
-  .bx--header {
-    position: relative;
-    height: auto;
+
+  header.fixed~.bx--content {
+    margin-top: var(--nav-height-offset, 7rem);
+  }
+
+  :global(html:has(header.fixed)) {
+    scroll-padding-top:var(--nav-height-offset, 7rem);
   }
 
   main.bx--content {
     margin-left: auto;
     margin-right: auto;
     max-width: 1400px;
-    margin-top: 0;
     padding: 16px 0;
   }
 </style>

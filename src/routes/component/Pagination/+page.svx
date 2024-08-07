@@ -1,0 +1,79 @@
+<script lang="ts">
+  import Pagination from '$lib/Pagination.svelte'
+  import { Button } from 'carbon-components-svelte'
+  import ExampleBox from '../../lib/ExampleBox.svelte'
+
+  let page = 2
+</script>
+
+## Pagination
+
+This component renders a bar to display information about pagination of things below it, and take user interactions to affect the results shown. Note that this component does not actually manage the display of items, only the UI specific to pagination. It is up to you to tie the control into the retrieval and display of items.
+
+This component has two ways for you to receive updates when the user changes pages or page size. One is the [***update***](#evnts) event which will contain an object in the detail property with the shape `{ pageSize: number, page: number }`. The other is to bind the ***page*** and ***pageSize*** props and use those in your other components.
+
+  - [Basic Example](#basicexample)
+  - [Adjustable Page Size](#pagesize)
+  - [Props](#props)
+  - [Events](#events)
+
+---
+
+### <a id="basicexample"></a> Basic Example
+
+<ExampleBox>
+  <Pagination
+    page={1}
+    totalItems={1063}
+    noun="goose"
+    nounPlural="geese" />
+</ExampleBox>
+
+```svelte
+<script lang="ts">
+  import { Pagination } from '@txstate-mws/carbon-svelte'
+</script>
+
+<Pagination
+  page={2}
+  totalItems={1063}
+  noun="goose"
+  nounPlural="geese" />
+```
+
+---
+
+### <a id="pagesize"></a> Adjustable Page Size
+
+If you want the user to be able to adjust the page size, add ***chooseSize*** to the `Pagination` component.
+
+<ExampleBox single>
+  <Pagination
+    page={1}
+    totalItems={1063}
+    pageSize={25}
+    chooseSize
+    noun="goose"
+    nounPlural="geese" />
+</ExampleBox>
+
+```svelte
+<Pagination pageSize={25} chooseSize />
+```
+
+---
+
+### <a id="props"></a> Props
+
+  - ***page*** `Number` *optional* -- Which page is being displayed currently, starting at `1`. If this is set past the end of the results set it will be implicitly set to the last page.
+  - ***totalItems*** `Number` *optional* -- How many total items in the current set. When setting this make sure to take into account any filters you may be using.
+  - ***pageSize*** `25 | 100 | 500` *optional, default `100`* -- The size of the pages. Can only be one of the three sizes defined in the type.
+  - ***chooseSize*** `Boolean` *optional, default `false`* -- Allow the user to change the page size.
+  - ***noun*** `String` *optional* -- The string to follow the total count if the total is 1.
+  - ***nounPlural*** `String` *optional* -- The string to follow the total count if the total is >1.
+
+---
+
+### <a id="events"></a> Events
+
+  - ***update*** `{ page: Number, pageSize: Number}` -- Triggered when the ***page*** or ***pageSize*** are updated, either by direct user action or by an update to a variable tied to the props.

@@ -31,6 +31,11 @@
       group: 'Components',
       title: 'CardGrid',
       routeId: '/component/CardGrid'
+    },
+    {
+      group: 'Components',
+      title: 'Pagination',
+      routeId: '/component/Pagination'
     }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>

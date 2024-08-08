@@ -49,6 +49,7 @@ If you want the user to be able to adjust the page size, add ***chooseSize*** to
 
 <ExampleBox>
   <Pagination
+    skipUrlState
     page={2}
     totalItems={1063}
     pageSize={25}
@@ -71,9 +72,11 @@ If you want the user to be able to adjust the page size, add ***chooseSize*** to
   - ***chooseSize*** `Boolean` *optional, default `false`* -- Allow the user to change the page size.
   - ***noun*** `String` *optional* -- The string to follow the total count if the total is 1.
   - ***nounPlural*** `String` *optional* -- The string to follow the total count if the total is >1.
+  - ***skipUrlState*** `Boolean` *optional, default `false`* -- If true this will disable the saving of the page and pageSize parameters to the url.
 
 ---
 
 ### <a id="events"></a> Events
 
-  - ***update*** `{ page: Number, pageSize: Number}` -- Triggered when the ***page*** or ***pageSize*** are updated, either by direct user action or by an update to a variable tied to the props.
+  - ***update*** `{ page: Number, pageSize: Number}` -- Triggered when the ***page*** or ***pageSize*** are updated, either by direct user action or by an update to a variable tied to the props. This event is ***not*** triggered during first page load.
+  - ***mount*** `{ page: Number, pageSize: Number}` -- Triggered at first load if you need it.

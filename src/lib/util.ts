@@ -152,6 +152,11 @@ export interface FilterUIFilters {
   search?: string
 }
 
+export interface PaginationParams {
+  page?: number
+  pagesize?: number
+}
+
 export function extractFilters (url: URL) {
   return fromQuery(url.search.substring(1)) as FilterUIFilters
 }
@@ -164,8 +169,19 @@ export function extractMergedFilters (url: URL) {
 export function addFilters (url: URL, filters: FilterUIFilters) {
   const ret = new URL(url)
   const str = toQuery(deleteEmpty(filters))
-  console.log(filters, deleteEmpty(filters), str)
   const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t.') && !entry.startsWith('search='))
+  ret.search = [str, ...restofquery].join('&')
+  return ret
+}
+
+export function extractPaginationParams (url: URL) {
+  return fromQuery(url.search.substring(1)) as PaginationParams
+}
+
+export function addPaginationParams (url: URL, params: PaginationParams) {
+  const ret = new URL(url)
+  const str = toQuery(deleteEmpty(params))
+  const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('page=') && !entry.startsWith('pagesize='))
   ret.search = [str, ...restofquery].join('&')
   return ret
 }

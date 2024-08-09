@@ -71,3 +71,7 @@ This displays a set of cards in a responsive and accessible way.
 
   - ***cardSize*** `String` *optional, default `'20rem'`* -- Defines the minimum size of each card before breaking to fewer columns. This is ignored once a single column is reached.
   - ***gap*** `String` *optional, default `'16px'`* -- The space between the cards both horizontally and vertically.
+
+---
+
+https://github.com/txstate-etc/carbon-svelte/blob/main/src/lib/CardGrid.svelte

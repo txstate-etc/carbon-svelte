@@ -1,1 +1,21 @@
 ## Carbon Svelte
+
+This package is an implemention of Mobile/Web's custom Carbon components. Install with your favorite node package manager and import in the `<script>` area of your components. Source code is located at https://github.com/txstate-etc/carbon-svelte.
+
+```bash
+npm i @txstate-mws/carbon-svelte
+```
+
+```svelte
+<script lang="ts">
+  import { UIShell, Panel, ... } from '@txstate-mws/carbon-svelte'
+</script>
+
+<UIShell appName="My App">
+  <Panel title="Hello World!">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pellentesque nunc non vestibulum semper.
+  </Panel>
+</UIShell>
+```
+
+Documentation on individual components as well as demos combining multiple components can be found in the menu at the top left of the page.

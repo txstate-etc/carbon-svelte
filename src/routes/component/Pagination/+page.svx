@@ -16,6 +16,7 @@ This component has two ways for you to receive updates when the user changes pag
   - [Adjustable Page Size](#pagesize)
   - [Props](#props)
   - [Events](#events)
+  - [State Persistence](#persistence)
 
 ---
 
@@ -80,3 +81,28 @@ If you want the user to be able to adjust the page size, add ***chooseSize*** to
 
   - ***update*** `{ page: Number, pageSize: Number}` -- Triggered when the ***page*** or ***pageSize*** are updated, either by direct user action or by an update to a variable tied to the props. This event is ***not*** triggered during first page load.
   - ***mount*** `{ page: Number, pageSize: Number}` -- Triggered at first load if you need it.
+
+---
+
+### <a id="persistence"></a> State Persistence
+
+This control is often used in a way where the user may navigate to another location and then back. To keep the user returning to where they were before this component persists the ***page*** and ***pageSize*** values to the url. If you have more than one of these on a page make sure to set ***skipUrlState*** on all but one of them, or they'll all be affected and the state may become inconsistent.
+
+If using a *+page.ts* file to load data before the page renders, you should utilize the `extractPaginationParams` function.
+
+```typescript
+import { extractPaginationParams } from '@txstate-mws/carbon-svelte'
+import type { PageLoad } from './$types'
+
+export const load: PageLoad = async (input) => {
+  const paginationParams = extractPaginationParams(input.url)
+
+  return await fetchData(paginationParams.page ?? 1, paginationParams.pagesize ?? 100)
+}
+```
+
+Alternatively, you can use the ***mount*** event described above.
+
+---
+
+https://github.com/txstate-etc/carbon-svelte/blob/main/src/lib/Pagination.svelte

@@ -57,3 +57,7 @@ What is it
   - ***tagsInBody*** `Boolean` *optional, default `false`* -- 
   - ***navigations*** `NavigationItem[]` *optional* -- Similar to an ActionItem, but does not have an onClick handler. As the name implies, these are only for navigation.
   - ***noPrimaryNavigation*** `Boolean` *optional, default `false`* -- 
+
+---
+
+https://github.com/txstate-etc/carbon-svelte/blob/main/src/lib/Card.svelte

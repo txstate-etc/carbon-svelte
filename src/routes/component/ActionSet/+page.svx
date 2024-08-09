@@ -113,3 +113,7 @@ More of the actions can be displayed before a ... menu is created by using maxBu
   - ***small*** `Boolean` *optional, default `false`* --
   - ***large*** `Boolean` *optional, default `false`* --
   - ***describedById*** `String` *optional* --
+
+---
+
+https://github.com/txstate-etc/carbon-svelte/blob/main/src/lib/ActionSet.svelte

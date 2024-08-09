@@ -6,9 +6,8 @@
   import { createEventDispatcher, onMount } from 'svelte'
   import { findIndex, toQuery } from 'txstate-utils'
   import { browser } from '$app/environment'
-  import { replaceState } from '$app/navigation'
   import { page } from '$app/stores'
-  import { addFilters, extractFilters, type TabRadioItem } from './util.js'
+  import { addFilters, extractFilters, getUrl, replaceState, type TabRadioItem } from './util.js'
   import Form from './form/Form.svelte'
   import PanelFormDialog from './form/PanelFormDialog.svelte'
   import TabRadio from './TabRadio.svelte'
@@ -57,10 +56,8 @@
     if (!browser) return
     const merged = { t: tabData, f: dialogData, q: quickData, search: searchStr }
     if (!skipUrlState) {
-      if ($page?.url) {
-        const url = addFilters($page.url, merged)
-        replaceState(url, $page.state)
-      }
+      const url = addFilters(getUrl(), merged)
+      replaceState(url)
     }
     dispatch('apply', { ...merged.t, ...merged.f, ...merged.q, search: merged.search })
   }

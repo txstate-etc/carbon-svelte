@@ -1,6 +1,10 @@
 import type { Tag } from 'carbon-components-svelte'
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import { fromQuery, isNotEmpty, isNotBlank, toQuery } from 'txstate-utils'
+import { page } from '$app/stores'
+import { replaceState as replaceStateSuper } from '$app/navigation'
+import { get } from 'svelte/store'
+import type { Page } from '@sveltejs/kit'
 
 export interface ActionItem {
   label: string
@@ -184,4 +188,32 @@ export function addPaginationParams (url: URL, params: PaginationParams) {
   const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('page=') && !entry.startsWith('pagesize='))
   ret.search = [str, ...restofquery].join('&')
   return ret
+}
+
+export function getUrl (pageStore?: Page) {
+  if (pageStore === undefined) pageStore = get(page)
+  const state = pageStore.state as { search: string, hash: string }
+
+  if (state.search === undefined || state.hash === undefined) {
+    state.search = pageStore.url.search
+    state.hash = pageStore.url.hash
+  }
+
+  const currentUrl = new URL(pageStore.url)
+  currentUrl.search = state.search
+  currentUrl.hash = state.hash
+
+  return currentUrl
+}
+
+export function replaceState (url: URL) {
+  const pageStore = get(page)
+  const state = pageStore.state as { search: string, hash: string }
+
+  const newUrl = getUrl(pageStore)
+  newUrl.search = state.search = url.search
+  newUrl.hash = state.hash = url.hash
+  replaceStateSuper(newUrl, state)
+
+  return newUrl
 }

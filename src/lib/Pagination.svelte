@@ -1,10 +1,9 @@
 <script lang="ts">
   import { Pagination } from 'carbon-components-svelte'
   import { createEventDispatcher, onMount, type ComponentProps } from 'svelte'
-  import { addPaginationParams, extractPaginationParams } from './util.js'
+  import { addPaginationParams, extractPaginationParams, getUrl, replaceState } from './util.js'
   import { browser } from '$app/environment'
   import { page as pageStore } from '$app/stores'
-  import { replaceState } from '$app/navigation'
 
   interface $$Props extends Omit<ComponentProps<Pagination>, 'pageInputDisabled' | 'pageSizeInputDisabled' | 'itemRangeText' | 'itemText' | 'itemsPerPageText' | 'pageSizes'> {
     page?: number
@@ -43,7 +42,10 @@
   function onChange (e: CustomEvent<{ page?: number, pageSize?: number }>) {
     if (e.detail.page !== undefined) page = e.detail.page
     if (e.detail.pageSize !== undefined) pageSize = e.detail.pageSize as typeof pageSize
-    if (!skipUrlState) replaceState(addPaginationParams($pageStore.url, { page, pagesize: pageSize }), $pageStore.state)
+    if (!skipUrlState) {
+      const url = addPaginationParams(getUrl(), { page, pagesize: pageSize })
+      replaceState(url)
+    }
     dispatch('update', { page, pageSize })
   }
 

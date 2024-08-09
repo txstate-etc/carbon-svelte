@@ -139,6 +139,10 @@ body {
 .ck-content figure.table table {
   border: none;
 }
+.ck-content figure.table.border td {
+  border-width: 1px;
+  border-style: solid; 
+}
 .ck-content figure.table table td, .ck-content figure.table table th {
   padding: 0.5rem 1rem;
   border-color: #e4e4e4;
@@ -187,8 +191,6 @@ i {
   font-size: 1em;
   font-weight: bolder;
 }
-
-/*# sourceMappingURL=richstyles.css.map */
 
 .ck-content ul { 
   list-style-type: disc; 

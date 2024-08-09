@@ -31,12 +31,14 @@
   const actionelements: (HTMLButtonElement | HTMLAnchorElement)[] = []
   let overflowButton: HTMLButtonElement
 
-  function activate (idx: number) {
+  function activate (idx: number, skipFocusUnlessNoFocus = false) {
     activeAction = idx
     overflowOpen = idx >= 0 && !outsideIndexes.has(idx)
     void tick().then(() => {
-      if (idx < 0) overflowButton?.focus()
-      else actionelements[idx]?.focus()
+      if (!skipFocusUnlessNoFocus || document.activeElement == null) {
+        if (idx < 0) overflowButton?.focus()
+        else actionelements[idx]?.focus()
+      }
     })
   }
 
@@ -50,9 +52,9 @@
     if (nextIdx < actions.length && nextIdx !== activeAction) activate(nextIdx)
   }
 
-  function closeMenu () {
-    if (outsideActions[0]) activate(outsideActions[0].idx)
-    else activate(-1)
+  function closeMenu (skipFocusUnlessNoFocus = false) {
+    if (outsideActions[0]) activate(outsideActions[0].idx, skipFocusUnlessNoFocus)
+    else activate(-1, skipFocusUnlessNoFocus)
   }
 
   function keyDown (e: KeyboardEvent) {
@@ -93,7 +95,7 @@
       if (action.disabled) e.preventDefault()
       else {
         void action.onClick?.()
-        closeMenu()
+        closeMenu(true)
       }
     }
   }

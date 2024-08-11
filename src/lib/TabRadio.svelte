@@ -90,4 +90,21 @@
     margin-right: 8px;
     vertical-align: text-bottom;
   }
+  @media (max-width: 42rem) {
+    .bx--tabs__nav {
+      position: relative !important;
+    }
+    .bx--tabs {
+      padding-bottom: 8px;
+    }
+    div.bx--tabs__nav-item--selected {
+      display: block;
+      background-color: var(--cds-hover-ui, #e5e5e5);
+      border-bottom: 2px solid var(--cds-interactive-04, #0f62fe);
+    }
+    div.bx--tabs__nav-item--selected a {
+      font-weight: bold;
+      border: 0;
+    }
+  }
 </style>

@@ -7,10 +7,10 @@
 </script>
 
 {#if tabs.length}
-  <div {...$$restProps} role="navigation" class="[ w-full ] {$$restProps.class}" class:bx--tabs={true}><div class:bx--tabs__nav={true}>
+  <div {...$$restProps} role="navigation" class="[ w-full ] {$$restProps.class ?? ''}" class:bx--tabs={true}><div role="list" class:bx--tabs__nav={true}>
     {#each tabs as tab}
       {@const selected = browser && tab.href === $page.url.pathname}
-      <div
+      <div role="listitem"
         class:bx--tabs__nav-item={true}
         class:bx--tabs__nav-item--disabled={tab.disabled}
         class:bx--tabs__nav-item--selected={selected}
@@ -37,5 +37,22 @@
     display: inline-block;
     margin-right: 8px;
     vertical-align: text-bottom;
+  }
+  @media (max-width: 42rem) {
+    .bx--tabs__nav {
+      position: relative !important;
+    }
+    .bx--tabs {
+      padding-bottom: 8px;
+    }
+    div.bx--tabs__nav-item--selected {
+      display: block;
+      background-color: var(--cds-hover-ui, #e5e5e5);
+      border-bottom: 2px solid var(--cds-interactive-04, #0f62fe);
+    }
+    div.bx--tabs__nav-item--selected a {
+      font-weight: bold;
+      border: 0;
+    }
   }
 </style>

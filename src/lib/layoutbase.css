@@ -139,7 +139,7 @@ body {
 .ck-content figure.table table {
   border: none;
 }
-.ck-content figure.table.border td {
+.ck-content figure.table.border td, .ck-content figure.table.border th {
   border-width: 1px;
   border-style: solid; 
 }
@@ -148,8 +148,8 @@ body {
   border-color: #e4e4e4;
 }
 .ck-content figure.table table th {
-  background: #c4a77d;
-  color: #000000;
+  background: #363534;
+  color: #fff;
 }
 .ck-content figure.table table a {
   color: #2c5271;

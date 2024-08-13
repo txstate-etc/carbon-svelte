@@ -41,6 +41,7 @@
   @media (max-width: 42rem) {
     .bx--tabs__nav {
       position: relative !important;
+      z-index: unset !important;
     }
     .bx--tabs {
       padding-bottom: 8px;

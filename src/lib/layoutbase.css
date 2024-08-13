@@ -210,8 +210,15 @@ i {
   list-style-position: inside; 
   margin-left: 15px; 
 }
-
-
-.ck-content a { text-decoration: underline; }
-.ck-content :link { color: #0000ff; }
-.ck-content :visited { color: #551A8B; }
+.ck-content li {
+  font-size: 16px;
+}
+.ck-content a {
+  text-decoration: underline;
+}
+.ck-content :link {
+  color: #0000ff;
+}
+.ck-content :visited {
+  color: #551A8B;
+}

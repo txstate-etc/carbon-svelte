@@ -162,4 +162,17 @@
     max-width: 1400px;
     padding: 16px 0;
   }
+
+  :global(.bx--header-panel) {
+    background-color: #fff;
+  }
+
+ :global(.bx--switcher__item-link),
+ :global(.bx--header-panel-divider) {
+    color: #525252;
+    font-size: var(--cds-productive-heading-01-font-size, 0.875rem);
+    font-weight: var(--cds-productive-heading-01-font-weight, 600);
+    line-height: var(--cds-productive-heading-01-line-height, 1.28572);
+    letter-spacing: var(--cds-productive-heading-01-letter-spacing, 0.16px);
+  }
 </style>

@@ -104,6 +104,6 @@
     on:blur={() => { onBlur(); dispatch('blur') }}
   />
   {#each restMsgs as message}
-    <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
   {/each}
 </Field>

@@ -40,6 +40,6 @@
   />
   {#if helperText}<div id="{id}-helper" class:bx--form__helper-text={true}>{helperText}</div>{/if}
   {#each messages as message}
-    <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
   {/each}
 </Field>

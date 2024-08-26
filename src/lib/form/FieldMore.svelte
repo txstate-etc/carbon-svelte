@@ -119,7 +119,7 @@
     </svelte:fragment>
   </AddMore>
   {#each $messageStore as message}
-    <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
   {/each}
 </FormGroup>
 <style>

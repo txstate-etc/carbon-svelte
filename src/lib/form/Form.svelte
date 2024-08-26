@@ -87,20 +87,20 @@
   {@const successMessages = messages.filter(m => m.type === 'success')}
   {#if errorMessages.length || showingInlineErrors}
     {#each messages as message}
-      <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
     {/each}
     {#if !hideFallbackMessage && showingInlineErrors && !errorMessages.length}
-      <InlineNotification kind="error" subtitle="This form contains errors. See inline messages for details." hideCloseButton />
+      <InlineNotification lowContrast kind="error" subtitle="This form contains errors. See inline messages for details." hideCloseButton />
     {/if}
   {/if}
   {#if warningMessages.length}
     {#each warningMessages as message}
-      <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
     {/each}
   {/if}
   {#if successMessages.length}
     {#each successMessages as message}
-      <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
     {/each}
   {/if}
   <slot name="submit" {saved} {validating} {submitting} {valid} {invalid} {allMessages} {showingInlineErrors} {hasUnsavedChanges} saveDisabled={disableSaveUntilChanged && !hasUnsavedChanges}>

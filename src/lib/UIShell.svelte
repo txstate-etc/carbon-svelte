@@ -55,7 +55,11 @@
   $: groupedlinks = groupby(profilelinks, l => l.group ?? 'undefined')
   $: groupedlinkentries = Object.entries(groupedlinks)
 </script>
-
+<svelte:head>
+  {#await $layoutInfo.title then layoutTitle}
+    <title>{layoutTitle ? `${layoutTitle} : ${appName}` : appName}</title>
+  {/await}
+</svelte:head>
 <svelte:body on:click={bodyClick} />
 <LayoutBase>
   <SkipToContent id="skip" />

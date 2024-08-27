@@ -36,6 +36,11 @@
       group: 'Components',
       title: 'Pagination',
       routeId: '/component/Pagination'
+    },
+    {
+      group: 'Components',
+      title: 'PanelFormDialog',
+      routeId: '/component/PanelFormDialog'
     }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>

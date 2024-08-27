@@ -1,0 +1,92 @@
+<script lang="ts">
+  import PanelFormDialog from '$lib/form/PanelFormDialog.svelte'
+  import FieldTextInput from '$lib/form/FieldTextInput.svelte'
+  import FieldRadio from '$lib/form/FieldRadio.svelte'
+  import FieldTextArea from '$lib/form/FieldTextArea.svelte'
+  import { Button } from 'carbon-components-svelte'
+  import ExampleBox from '../../lib/ExampleBox.svelte'
+
+  let panelOpen = false
+</script>
+
+## PanelFormDialog
+
+  - [Basic Example](#basicexample)
+  - [Props](#props)
+  - [Events](#events)
+  - [State Persistence](#persistence)
+
+---
+
+### <a id="basicexample"></a> Basic Example
+
+<ExampleBox>
+  <Button on:click={() => panelOpen = true}>Open Panel</Button>
+
+  <PanelFormDialog
+    title="Create Thing"
+    submit={(data) => { alert(JSON.stringify(data, null, 2)); panelOpen = false; return { success: true, data, messages: [] } }}
+    open={panelOpen}
+    on:cancel={() => panelOpen = false}
+    unsavedWarning
+    disableSaveUntilChanged
+    let:data>
+    <FieldTextInput path="name" labelText="Name" required defaultValue="Default name" autofocus />
+    <FieldRadio path="type" legendText="Type" orientation="vertical" items={[
+      { label: 'Animal', value: 'animal' },
+      { label: 'Vegetable', value: 'vegetable', disabled: true },
+      { label: 'Mineral', value: 'mineral' },
+      { label: 'Other', value: 'other' }
+    ]} defaultValue="animal" notNull required />
+    {#if data.type === "other"}<FieldTextInput path="othertype" labelText="Other Type" required />{/if}
+    <FieldTextArea path="additionalInfo" labelText="Additional information" maxCount={250} defaultValue="More details" />
+    <pre style="margin-top: 1em">{JSON.stringify({ data }, null, 2)}</pre>
+  </PanelFormDialog>
+</ExampleBox>
+
+```svelte
+<script lang="ts">
+  import { PanelFormDialog, FieldTextInput, FieldRadio, FieldTextArea } from '@txstate-mws/carbon-svelte'
+
+  let panelOpen = false
+</script>
+
+<Button on:click={() => panelOpen = true}>Open Panel</Button>
+
+<PanelFormDialog
+  title="Create Thing"
+  submit={(data) => { alert(JSON.stringify(data, null, 2)); panelOpen = false; return { success: true, data, messages: [] } }}
+  open={panelOpen}
+  on:cancel={() => panelOpen = false}
+  unsavedWarning
+  disableSaveUntilChanged
+  let:data>
+  <FieldTextInput path="name" labelText="Name" required defaultValue="Default name" autofocus />
+  <FieldRadio path="type" legendText="Type" orientation="vertical" items={[
+    { label: 'Animal', value: 'animal' },
+    { label: 'Vegetable', value: 'vegetable', disabled: true },
+    { label: 'Mineral', value: 'mineral' },
+    { label: 'Other', value: 'other' }
+  ]} defaultValue="animal" notNull required />
+  {#if data.type === "other"}<FieldTextInput path="othertype" labelText="Other Type" required />{/if}
+  <FieldTextArea path="additionalInfo" labelText="Additional information" maxCount={250} defaultValue="More details" />
+</PanelFormDialog>
+```
+
+---
+
+### <a id="props"></a> Props
+
+  - ***title*** `String` *required* -- The title at the top of the panel.
+
+---
+
+### <a id="events"></a> Events
+
+  - ***cancel*** `void` --
+  - ***validationfail*** `void` --
+  - ***saved*** `any` --
+
+---
+
+https://github.com/txstate-etc/carbon-svelte/blob/main/src/lib/form/PanelFormDialog.svelte

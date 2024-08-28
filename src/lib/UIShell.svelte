@@ -17,6 +17,7 @@
   export let navRoot: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNode>>
   export let profilelinks: ShellItem[] = []
   export let stickyHeader = true
+  export let profileMenuDescription = 'Open User Menu'
 
   const layoutStore = new LayoutStore({ root: navRoot })
   const nav = layoutStore.nav
@@ -81,7 +82,7 @@
     </a>
     {#if profilelinks.length}
       <HeaderUtilities>
-        <HeaderAction icon={UserAvatar}>
+        <HeaderAction icon={UserAvatar} text={profileMenuDescription}>
           <HeaderPanelLinks>
             {#each groupedlinkentries as [group, navs]}
               {#if isNotBlank(group) && group !== 'undefined'}<HeaderPanelDivider>{group}</HeaderPanelDivider>{/if}
@@ -178,5 +179,16 @@
     font-weight: var(--cds-productive-heading-01-font-weight, 600);
     line-height: var(--cds-productive-heading-01-line-height, 1.28572);
     letter-spacing: var(--cds-productive-heading-01-letter-spacing, 0.16px);
+  }
+  :global(.bx--header__action-text) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 </style>

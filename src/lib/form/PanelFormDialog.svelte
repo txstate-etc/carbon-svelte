@@ -95,7 +95,9 @@
     $unsavedDialogOpen = false
     if (warnunsaved.pendingNavigate) {
       warnunsaved.allowNavigate = true
-      void goto(warnunsaved.pendingNavigate.url)
+      const url = warnunsaved.pendingNavigate.url
+      delete warnunsaved.pendingNavigate
+      void goto(url)
     } else dispatch('cancel')
   }
 

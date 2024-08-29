@@ -71,11 +71,11 @@
 
   beforeNavigate(({ cancel, type, to }) => {
     if (unsavedWarning && $store.hasUnsavedChanges) {
-      if (type !== 'leave' && to != null) {
+      if (!warnunsaved.allowNavigate) cancel()
+      else if (type !== 'leave' && to != null) {
         $unsavedDialogOpen = true
         warnunsaved.pendingNavigate = to
       }
-      if (!warnunsaved.allowNavigate) cancel()
     }
   })
 </script>

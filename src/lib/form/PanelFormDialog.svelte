@@ -105,11 +105,11 @@
 
   beforeNavigate(({ cancel, type, to }) => {
     if (open && unsavedWarning && $store?.hasUnsavedChanges) {
-      if (type !== 'leave' && to != null) {
+      if (!warnunsaved.allowNavigate && type !== 'leave' && to != null) {
         $unsavedDialogOpen = true
         warnunsaved.pendingNavigate = to
+        cancel()
       }
-      if (!warnunsaved.allowNavigate) cancel()
     }
   })
   $: if (!open) void resetStore()

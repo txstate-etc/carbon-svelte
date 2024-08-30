@@ -40,7 +40,7 @@
 </script>
 
 <section use:eq={{ store }} class="panel [ mx-auto ]" aria-labelledby={titleId} class:mb-4={resolvedExpanded} class:expanded={resolvedExpanded} style:padding-left="{indentLevel * indentWidth}px">
-  <header class="panel-header [ flex justify-between gap-[2px] border-neutral-300 border-solid min-h-11 ]" class:border-y={!resolvedExpanded}>
+  <header class="panel-header [ flex justify-between gap-[2px] border-neutral-300 border-solid ]" class:border-y={!resolvedExpanded}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="panel-header-left [ flex-grow flex gap-4 items-center px-[16px] py-[8px] text-base cursor-pointer ]"
@@ -96,5 +96,12 @@
   }
   .panel-content {
     padding: 16px;
+  }
+
+  .panel-header :global(.bx--overflow-menu ){
+    height: 100%;
+  }
+  .panel-header :global([role=menu] > a){
+    min-height: 1.5rem;
   }
 </style>

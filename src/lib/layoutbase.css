@@ -1,3 +1,8 @@
+:root {
+  --cds-disabled-02: #939393;
+  --maroon: #501214;
+}
+
 /* https://piccalil.li/quick-tip/flow-utility/ */
 .flow>*+* {
   margin-top: var(--flow-space, 1em);
@@ -12,15 +17,16 @@ body {
 }
 
 .bx--header {
-  background-color: #501214;
+  background-color: var(--maroon);
 }
 
 .bx--btn--secondary {
-  border-color: #501214;
-  color: #501214;
+  border-color: var(--maroon);
+  color: var(--maroon);
 }
+
 .bx--btn--secondary:focus {
-  background-color: var(--cds-hover-secondary, #501214);
+  background-color: var(--cds-hover-secondary, var(--maroon));
 }
 
 .bx--btn--field {
@@ -42,118 +48,166 @@ body {
   padding-bottom: 2px;
 }
 
+/* Form Field Carbon Overrides */
+/* disabled radio buttons should clearly display active selections */
+
+.bx--radio-button:disabled:checked+.bx--radio-button__label .bx--radio-button__appearance {
+  --cds-disabled-02: var(--maroon);
+}
+
+.bx--radio-button:disabled:checked+.bx--radio-button__label {
+  --cds-disabled-02: #222;
+}
+
+.bx--radio-button:disabled+.bx--radio-button__label .bx--radio-button__appearance::before,
+.bx--radio-button:disabled:checked+.bx--radio-button__label .bx--radio-button__appearance::before {
+  --cds-disabled-02: var(--maroon);
+}
 
 /* CK EDITOR CLASSES TO REVERT TAILWIND */
-.ck-content figure.table, .ck-content figure.table table {
+.ck-content figure.table,
+.ck-content figure.table table {
   width: 100%;
   overflow-x: auto;
 }
+
 .ck-content figure.table.header-color-none th {
   background: transparent;
   color: #3e3e3e;
 }
+
 .ck-content figure.table.header-color-none th a {
   color: #3e3e3e;
 }
+
 .ck-content figure.table.header-color-none th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-gold th {
   background: #c4a77d;
   color: #000000;
 }
+
 .ck-content figure.table.header-color-gold th a {
   color: #000000;
 }
+
 .ck-content figure.table.header-color-gold th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-maroon th {
   background: #501214;
   color: #ffffff;
 }
+
 .ck-content figure.table.header-color-maroon th a {
   color: #ffffff;
 }
+
 .ck-content figure.table.header-color-maroon th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-sandstone th {
   background: #f5f1ee;
   color: #222222;
 }
+
 .ck-content figure.table.header-color-sandstone th a {
   color: #222222;
 }
+
 .ck-content figure.table.header-color-sandstone th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-charcoal th {
   background: #363534;
   color: #ffffff;
 }
+
 .ck-content figure.table.header-color-charcoal th a {
   color: #ffffff;
 }
+
 .ck-content figure.table.header-color-charcoal th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-blue th {
   background: #00507A;
   color: #ffffff;
 }
+
 .ck-content figure.table.header-color-blue th a {
   color: #ffffff;
 }
+
 .ck-content figure.table.header-color-blue th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-river th {
   background: #6EA095;
   color: #111111;
 }
+
 .ck-content figure.table.header-color-river th a {
   color: #111111;
 }
+
 .ck-content figure.table.header-color-river th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table.header-color-oldgold th {
   background: #EBBA45;
   color: #222222;
 }
+
 .ck-content figure.table.header-color-oldgold th a {
   color: #222222;
 }
+
 .ck-content figure.table.header-color-oldgold th a:hover {
   background: transparent;
   text-decoration: none;
 }
+
 .ck-content figure.table table {
   border: none;
 }
-.ck-content figure.table.border td, .ck-content figure.table.border th {
+
+.ck-content figure.table.border td,
+.ck-content figure.table.border th {
   border-width: 1px;
-  border-style: solid; 
+  border-style: solid;
 }
-.ck-content figure.table table td, .ck-content figure.table table th {
+
+.ck-content figure.table table td,
+.ck-content figure.table table th {
   padding: 0.5rem 1rem;
   border-color: #e4e4e4;
 }
+
 .ck-content figure.table table th {
   background: #363534;
   color: #fff;
 }
+
 .ck-content figure.table table a {
   color: #2c5271;
 }
+
 .ck-content figure.table table a:hover {
   text-decoration: none;
   background: transparent;
@@ -183,42 +237,53 @@ i {
   font-size: 1.5em;
   font-weight: bolder;
 }
+
 .ck-content h3 {
   font-size: 1.33em;
   font-weight: bolder;
 }
+
 .ck-content h4 {
   font-size: 1em;
   font-weight: bolder;
 }
 
-.ck-content ul { 
-  list-style-type: disc; 
-  list-style-position: inside; 
+.ck-content ul {
+  list-style-type: disc;
+  list-style-position: inside;
 }
-.ck-content ol { 
-  list-style-type: decimal; 
-  list-style-position: inside; 
+
+.ck-content ol {
+  list-style-type: decimal;
+  list-style-position: inside;
 }
-.ck-content ul ul, .ck-content ol ul { 
-  list-style-type: circle; 
-  list-style-position: inside; 
-  margin-left: 15px; 
+
+.ck-content ul ul,
+.ck-content ol ul {
+  list-style-type: circle;
+  list-style-position: inside;
+  margin-left: 15px;
 }
-.ck-content ol ol, .ck-content ul ol { 
-  list-style-type: lower-latin; 
-  list-style-position: inside; 
-  margin-left: 15px; 
+
+.ck-content ol ol,
+.ck-content ul ol {
+  list-style-type: lower-latin;
+  list-style-position: inside;
+  margin-left: 15px;
 }
+
 .ck-content li {
   font-size: 16px;
 }
+
 .ck-content a {
   text-decoration: underline;
 }
+
 .ck-content :link {
   color: #0000ff;
 }
+
 .ck-content :visited {
   color: #551A8B;
 }

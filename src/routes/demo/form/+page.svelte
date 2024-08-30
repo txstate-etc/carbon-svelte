@@ -12,6 +12,7 @@
 
   interface FormData {
     selectInput?: string
+    disabledRadio?: string[]
     selectInputNumber?: number
     fruits: string[]
     combobox?: string
@@ -35,7 +36,7 @@
 </script>
 
 <!--<button type="button" on:click={() => toasts.add('Oh my!')}>Toast!</button>-->
-<Form bind:store submit={onSubmit} validate={onValidate} unsavedWarning preload={{ fruits: ['orange'], combobox: 'Dragonfruit', datetime: '2024-03-21T20:34:00.000Z', dates: [{ test: '2024-07-13T14:30:00.000-05:00' }] }} let:data>
+<Form bind:store submit={onSubmit} validate={onValidate} unsavedWarning preload={{ disabledRadio: ['Persimmon'], fruits: ['orange'], combobox: 'Dragonfruit', datetime: '2024-03-21T20:34:00.000Z', dates: [{ test: '2024-07-13T14:30:00.000-05:00' }] }} let:data>
   <FieldTextInput path="textInput" labelText='Text Field' required />
   <FieldTextInput path="numberTextInput" labelText='Number in regular TextInput' number helperText="This is really a text field but it accepts numbers." />
   <FieldNumber path="numberInput" labelText='Number in NumberInput' step={0.01} />
@@ -44,6 +45,11 @@
     { value: 'two', label: 'Two' },
     { value: 'three', label: 'Three' },
     { value: 'four', label: 'Four', disabled: true }
+  ]} />
+  <FieldRadio path="disabledRadio" disabled legendText="Disabled Radio with preloaded selection." items={[
+    { value: 'Apricot', label: 'Apricot' },
+    { value: 'Persimmon', label: 'Persimmon' },
+    { value: 'Pineapple', label: 'Pineapple' }
   ]} />
   <FieldRadio path="radioBoolean" legendText="Does this start undefined?" boolean items={[
     { value: true, label: 'Yes' },

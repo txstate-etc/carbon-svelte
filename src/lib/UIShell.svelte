@@ -18,6 +18,7 @@
   export let profilelinks: ShellItem[] = []
   export let stickyHeader = true
   export let profileMenuDescription = 'Open User Menu'
+  export let overlayText: string | undefined = undefined
 
   const layoutStore = new LayoutStore({ root: navRoot })
   const nav = layoutStore.nav
@@ -65,6 +66,16 @@
 <LayoutBase>
   <SkipToContent id="skip" />
   <header class:bx--header={true} class:fixed={stickyHeader} class:relative={!stickyHeader} class="[ flex-wrap ]">
+    {#if overlayText}
+      <div class="overlayTextContainer">
+        <svg width="10000" height="3rem" role="img" aria-hidden="true">
+          {#each Array(100) as _, i}
+            {@const offset = i * 70}
+            <text x="{offset}" y="20" class="overlayText" fill="#723F3B" font-size="20" font-weight="bold" transform="rotate(30, {offset}, 0)">{overlayText}</text>
+          {/each}
+        </svg>
+      </div>
+    {/if}
     <button
       type="button"
       aria-label="Hamburger Menu"
@@ -190,5 +201,9 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+  }
+  .overlayTextContainer {
+    position: absolute;
+    z-index: -1;
   }
 </style>

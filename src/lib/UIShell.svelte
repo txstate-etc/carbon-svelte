@@ -185,11 +185,11 @@
 
  :global(.bx--switcher__item-link),
  :global(.bx--header-panel-divider) {
-    color: #525252;
-    font-size: var(--cds-productive-heading-01-font-size, 0.875rem);
-    font-weight: var(--cds-productive-heading-01-font-weight, 600);
-    line-height: var(--cds-productive-heading-01-line-height, 1.28572);
-    letter-spacing: var(--cds-productive-heading-01-letter-spacing, 0.16px);
+    color: #525252!important;
+    font-size: var(--cds-productive-heading-01-font-size, 0.875rem)!important;
+    font-weight: var(--cds-productive-heading-01-font-weight, 600)!important;
+    line-height: var(--cds-productive-heading-01-line-height, 1.28572)!important;
+    letter-spacing: var(--cds-productive-heading-01-letter-spacing, 0.16px)!important;
   }
   :global(.bx--header__action-text) {
     position: absolute;

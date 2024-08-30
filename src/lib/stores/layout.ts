@@ -1,4 +1,5 @@
 import type { Page } from '@sveltejs/kit'
+import type { SvelteComponent } from 'svelte'
 import { Store } from '@txstate-mws/svelte-store'
 import { Cache, keyby, pick } from 'txstate-utils'
 import { derived, writable, type Readable } from 'svelte/store'
@@ -23,6 +24,7 @@ export interface LayoutStructureNodeRoot<Next extends LayoutStructureNodeBase = 
   title: string | ((params: Record<string, string>) => string | Promise<string>)
   href?: string | ((params: Record<string, string>) => string | Promise<string>)
   group?: string
+  icon?: typeof SvelteComponent<any>
   divider?: boolean
   preloadParams?: () => Promise<Record<string, string>[]>
   children?: Next[]
@@ -32,6 +34,7 @@ export interface LayoutStructureNodeResolved {
   title: string
   href: string
   group?: string
+  icon?: typeof SvelteComponent<any>
   divider?: boolean
 }
 
@@ -123,7 +126,7 @@ export class LayoutStore extends Store<ILayoutStore> {
   }
 
   async generateNav (root: LayoutStructureNodeRoot<LayoutStructureNodeRoot<LayoutStructureNodeBase>>) {
-    const nav: LayoutStructureNodeResolved[] = root.hideFromSideNav ? [] : [{ title: root.title as string, href: root.routeId }]
+    const nav: LayoutStructureNodeResolved[] = root.hideFromSideNav ? [] : [{ title: root.title as string, href: root.routeId, icon: root.icon }]
     await Promise.all((root.children?.filter(c => !c.hideFromSideNav) ?? []).map(async n => {
       if (n.preloadParams) {
         const paramsList = await n.preloadParams()

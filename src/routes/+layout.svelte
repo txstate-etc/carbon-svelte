@@ -1,11 +1,13 @@
 <script lang="ts">
   import { UIShell } from '$lib/index.js'
   import '../app.css'
+  import { Report, Settings, ViewFilled } from 'carbon-icons-svelte'
 </script>
 
 <UIShell appName="Component Library" navRoot={{
   title: 'Carbon Components',
   routeId: '/',
+  icon: ViewFilled,
   children: [
     {
       group: 'Demos',
@@ -15,10 +17,12 @@
     {
       group: 'Demos',
       title: 'Panel',
-      routeId: '/demo/panel'
+      routeId: '/demo/panel',
+      icon: Report
     },
     {
       group: 'Components',
+      icon: Settings,
       title: 'ActionSet',
       routeId: '/component/ActionSet'
     },

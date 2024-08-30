@@ -1,16 +1,16 @@
 <script lang="ts">
+  import { browser } from '$app/environment'
+  import { base } from '$app/paths'
+  import { page } from '$app/stores'
+  import { type LayoutStructureNode, type LayoutStructureNodeRoot, LayoutStore } from '$lib/stores/index.js'
   import { modifierKey } from '@txstate-mws/svelte-components'
   import { Breadcrumb, BreadcrumbItem, HeaderAction, HeaderPanelDivider, HeaderPanelLink, HeaderPanelLinks, HeaderUtilities, SideNav, SideNavItems, SideNavLink, SideNavMenu, SideNavMenuItem, SkipToContent } from 'carbon-components-svelte'
   import { Close, Menu, UserAvatar } from 'carbon-icons-svelte'
   import { tick } from 'svelte'
   import { writable } from 'svelte/store'
   import { groupby, isBlank, isNotBlank, mapgroupby } from 'txstate-utils'
-  import { browser } from '$app/environment'
-  import { base } from '$app/paths'
-  import { page } from '$app/stores'
-  import { type ShellItem } from './util.js'
-  import { type LayoutStructureNode, type LayoutStructureNodeRoot, LayoutStore } from '$lib/stores/index.js'
   import LayoutBase from './LayoutBase.svelte'
+  import { type ShellItem } from './util.js'
 
   export let companyName = 'TXST'
   export let appName: string
@@ -139,12 +139,12 @@
         {#each ($nav ?? []).filter(n => n.group == null) as pg, i}
           {#await pg.title then title}
             {#await pg.href then href}
-              {#if isBlank(pg.group)}<SideNavLink text={title} href="{base}{href}" on:click={() => { isOpen = false }} bind:ref={sidenavelements[i]} />{/if}
+              {#if isBlank(pg.group)}<SideNavLink text={title} icon={pg.icon ?? undefined} href="{base}{href}" on:click={() => { isOpen = false }} bind:ref={sidenavelements[i]} />{/if}
             {/await}
           {/await}
         {/each}
         {#each navGroups.entries() as [name, pgs] (name)}
-          <SideNavMenu text={name} expanded={true}>
+          <SideNavMenu icon={pgs.find(pg => pg.icon)?.icon ?? undefined} text={name} expanded={true}>
             {#each pgs as pg}
               {#await pg.title then title}
                 {#await pg.href then href}

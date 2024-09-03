@@ -122,7 +122,7 @@
     </div>
   {/if}
   {#if $$slots.quickfilters && !hideQuickFilters}
-    <Form bind:store={quickStore} validate={onQuickValidate} submit={async data => ({ success: true, messages: [], data })} class="quickfilters [ flex ]">
+    <Form bind:store={quickStore} validate={onQuickValidate} submit={async data => ({ success: true, messages: [], data })} class="quickfilters-form [ flex ]">
       <slot name="quickfilters" />
       <svelte:fragment slot="submit">&nbsp;</svelte:fragment>
     </Form>
@@ -132,7 +132,7 @@
     <PanelFormDialog bind:open={dialogOpen} preload={dialogData} title="{noApply ? 'Choose' : 'Apply'} Filters" bind:store={dialogStore} submit={onDialogSubmit} validate={onDialogValidate} on:cancel={cancelDialog} cancelText={noApply ? '' : 'Cancel'} submitText={noApply ? '' : 'Apply'}>
       <svelte:fragment slot="beforeform">
         {#if hideQuickFilters}
-          <Form bind:store={quickStore} validate={onQuickValidate} submit={async data => ({ success: true, messages: [], data })}>
+          <Form bind:store={quickStore} validate={onQuickValidate} submit={async data => ({ success: true, messages: [], data })} class="quickfiltershidden-form">
             <slot name="quickfilters" />
             <svelte:fragment slot="submit">&nbsp;</svelte:fragment>
           </Form>
@@ -144,9 +144,16 @@
 </div>
 
 <style>
-  :global(.quickfilters > span[slot=quickfilters] > div) {
+  :global(.quickfilters-form > div:last-child) {
+    margin-right: 0;
+  }
+  :global(.quickfiltershidden-form ~ form) {
+    margin-top: 0;
+  }
+  :global(.quickfilters-form > div) {
     display: inline-block;
-    margin-right: .3rem;
+    margin-right: .5rem;
     width: 12rem;
+    margin-top: 0;
   }
 </style>

@@ -71,7 +71,7 @@
         <svg width="10000" height="3rem" role="img" aria-hidden="true">
           {#each Array(100) as _, i}
             {@const offset = i * 70}
-            <text x="{offset}" y="20" class="overlayText" fill="#723F3B" font-size="20" font-weight="bold" transform="rotate(30, {offset}, 0)">{overlayText}</text>
+            <text x="{offset}" y="33" class="overlayText" fill="#723F3B" font-size="20" font-weight="bold" text-anchor="middle" transform="rotate(30, {offset}, 0)">{overlayText}</text>
           {/each}
         </svg>
       </div>

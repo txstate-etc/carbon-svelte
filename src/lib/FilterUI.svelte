@@ -122,13 +122,13 @@
     </div>
   {/if}
   {#if $$slots.quickfilters && !hideQuickFilters}
-    <Form bind:store={quickStore} validate={onQuickValidate} submit={async data => ({ success: true, messages: [], data })} class="[ flex ]">
+    <Form bind:store={quickStore} validate={onQuickValidate} submit={async data => ({ success: true, messages: [], data })} class="quickfilters [ flex ]">
       <slot name="quickfilters" />
       <svelte:fragment slot="submit">&nbsp;</svelte:fragment>
     </Form>
   {/if}
-  {#if $$slots.default}
-    <Button kind="primary" size="field" icon={Filter} on:click={showDialog}>{$$slots.quickfilters && !hideQuickFilters ? 'More' : 'Show'} Filters</Button>
+  {#if $$slots.default || $$slots.quickfilters}
+    {#if $$slots.default || hideQuickFilters}<Button kind="primary" size="field" icon={Filter} on:click={showDialog}>{$$slots.quickfilters && !hideQuickFilters ? 'More' : 'Show'} Filters</Button>{/if}
     <PanelFormDialog bind:open={dialogOpen} preload={dialogData} title="{noApply ? 'Choose' : 'Apply'} Filters" bind:store={dialogStore} submit={onDialogSubmit} validate={onDialogValidate} on:cancel={cancelDialog} cancelText={noApply ? '' : 'Cancel'} submitText={noApply ? '' : 'Apply'}>
       <svelte:fragment slot="beforeform">
         {#if hideQuickFilters}
@@ -142,3 +142,11 @@
     </PanelFormDialog>
   {/if}
 </div>
+
+<style>
+  :global(.quickfilters > span[slot=quickfilters] > div) {
+    display: inline-block;
+    margin-right: .3rem;
+    width: 12rem;
+  }
+</style>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { InlineNotification } from 'carbon-components-svelte'
   import { type Feedback, type MessageType } from '@txstate-mws/svelte-forms'
-  import { feedbackTypeToKind } from '@txstate-mws/carbon-svelte'
+  import { feedbackTypeToKind } from './util.js'
   export let message: Feedback | undefined = undefined
   export let title: string | undefined = undefined
   export let subtitle: string | undefined = undefined

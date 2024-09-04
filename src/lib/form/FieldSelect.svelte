@@ -23,6 +23,7 @@
     path: string
     items: SelectMenuItem[]
     number?: boolean
+    json?: boolean
     notNull?: boolean
     conditional?: boolean
     defaultValue?: any
@@ -34,6 +35,7 @@
   export let path: string
   export let items: SelectMenuItem[]
   export let number = false
+  export let json = false
   export let notNull = false
   export let conditional = true
   export let defaultValue: any = undefined
@@ -81,7 +83,7 @@
   serializer and deserializer will be provided by default. However, mixing numbers and strings would not work.
   For that you should provide your own serialize and deserialize functions.
 -->
-<Field {path} {notNull} {conditional} {defaultValue} {number} {serialize} {deserialize} let:invalid let:messages let:value let:onBlur let:setVal let:deserialize={fDeserialize} let:path={fullpath}>
+<Field {path} {notNull} {conditional} {defaultValue} {number} {json} {serialize} {deserialize} let:invalid let:messages let:value let:onBlur let:setVal let:serialize={fSerialize} let:deserialize={fDeserialize} let:path={fullpath}>
   {init(fDeserialize)}
   {@const firstMsg = messages.filter(m => m.type === 'error').map(m => m.message).slice(0, 1)[0]}
   {@const restMsgs = messages.filter(m => m.message !== firstMsg)}
@@ -97,12 +99,12 @@
     {#each Object.entries(grouped) as [group, groupitems]}
       {#if group === defaultGroup}
         {#each groupitems as item (item.value)}
-          <SelectItem value={String(item.value)} text={item.label} disabled={!!item.disabled} />
+          <SelectItem value={fSerialize(item.value)} text={item.label} disabled={!!item.disabled} />
         {/each}
       {:else}
       <SelectItemGroup label={group}>
         {#each groupitems as item (item.value)}
-          <SelectItem value={String(item.value)} text={item.label} disabled={!!item.disabled} />
+          <SelectItem value={fSerialize(item.value)} text={item.label} disabled={!!item.disabled} />
         {/each}
       </SelectItemGroup>
       {/if}

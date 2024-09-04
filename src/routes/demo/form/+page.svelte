@@ -1,6 +1,7 @@
 <script lang="ts">
   import { type FormStore, type Feedback, type SubmitResponse } from '@txstate-mws/svelte-forms'
   import { Button } from 'carbon-components-svelte'
+  import { stringify } from 'txstate-utils'
   import { base } from '$app/paths'
   import {
     PanelFormDialog, FieldCheckboxList, FieldCombobox, FieldDate, FieldDateTime, FieldMore, FieldMultiselect, FieldNumber,
@@ -33,6 +34,20 @@
       data
     }
   }
+
+  function jsonSerialize (v: any) {
+    return stringify(v)
+  }
+
+  function jsonDeserialize (v: string) {
+    if (!v?.length) return undefined
+    try {
+      return JSON.parse(v)
+    } catch (e) {
+      console.error(e)
+      return undefined
+    }
+  }
 </script>
 
 <!--<button type="button" on:click={() => toasts.add('Oh my!')}>Toast!</button>-->
@@ -46,6 +61,11 @@
     { value: 'three', label: 'Three' },
     { value: 'four', label: 'Four', disabled: true }
   ]} />
+  <FieldSelect path="jsonSelect" labelText="JSON Select" items={[
+    { value: { id: 1, name: 'Banana' }, label: 'Banana' },
+    { value: { id: 1, name: 'Orange' }, label: 'Orange' },
+    { value: { id: 1, name: 'Pear' }, label: 'Pear' }
+  ]} serialize={jsonSerialize} deserialize={jsonDeserialize} />
   <FieldRadio path="disabledRadio" disabled legendText="Disabled Radio with preloaded selection." items={[
     { value: 'Apricot', label: 'Apricot' },
     { value: 'Persimmon', label: 'Persimmon' },

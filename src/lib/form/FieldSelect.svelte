@@ -15,7 +15,7 @@
   import { createEventDispatcher, type ComponentProps, getContext } from 'svelte'
   import { get, groupby, isNotBlank } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
-  import { FormInlineNotification } from './index.js'
+  import FormInlineNotification from './FormInlineNotification.svelte'
 
   const dispatch = createEventDispatcher()
 

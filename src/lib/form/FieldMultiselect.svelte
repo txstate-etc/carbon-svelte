@@ -13,7 +13,7 @@
   import { equal, isNotBlank } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
   import type { ComboMenuItem } from './FieldCombobox.svelte'
-  import { FormInlineNotification } from './index.js'
+  import FormInlineNotification from './FormInlineNotification.svelte'
 
   const dispatch = createEventDispatcher()
 

@@ -3,7 +3,7 @@
   import { InlineNotification, Slider } from 'carbon-components-svelte'
   import { createEventDispatcher, type ComponentProps } from 'svelte'
   import { feedbackTypeToKind } from './util.js'
-  import { FormInlineNotification } from './index.js'
+  import FormInlineNotification from './FormInlineNotification.svelte'
 
   const dispatch = createEventDispatcher()
 

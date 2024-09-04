@@ -6,7 +6,7 @@
   import { beforeNavigate, goto } from '$app/navigation'
   import { unsavedDialogOpen, warnunsaved } from '../stores/warnunsaved.js'
   import { feedbackTypeToKind } from './util.js'
-  import { FormInlineNotification } from './index.js'
+  import FormInlineNotification from './FormInlineNotification.svelte'
 
   type T = $$Generic<Record<string, any>>
   interface $$Events {

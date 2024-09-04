@@ -208,9 +208,6 @@
     position: absolute;
     z-index: -1;
   }
-  :global(.bx--header__action) {
-    background-color: var(--maroon);
-  }
   .companyname-reverseweight {
     font-weight: bold;
   }

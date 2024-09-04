@@ -13,7 +13,7 @@
   import { getContext, setContext } from 'svelte'
   import { isNotNull } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
-  import { FormInlineNotification } from './index.js'
+  import FormInlineNotification from './FormInlineNotification.svelte'
 
   export let path: string
   export let legendText: string | undefined = undefined

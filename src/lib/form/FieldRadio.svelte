@@ -12,7 +12,7 @@
   import { createEventDispatcher, type ComponentProps, getContext } from 'svelte'
   import { get, isNotBlank, equal } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
-  import { FormInlineNotification } from './index.js'
+  import FormInlineNotification from './FormInlineNotification.svelte'
 
   const dispatch = createEventDispatcher()
 

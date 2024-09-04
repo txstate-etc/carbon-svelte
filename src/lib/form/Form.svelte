@@ -6,6 +6,7 @@
   import { beforeNavigate, goto } from '$app/navigation'
   import { unsavedDialogOpen, warnunsaved } from '../stores/warnunsaved.js'
   import { feedbackTypeToKind } from './util.js'
+  import { FormInlineNotification } from './index.js'
 
   type T = $$Generic<Record<string, any>>
   interface $$Events {
@@ -89,20 +90,20 @@
   {@const successMessages = messages.filter(m => m.type === 'success')}
   {#if errorMessages.length || showingInlineErrors}
     {#each messages as message}
-      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <FormInlineNotification {message} lowContrast hideCloseButton />
     {/each}
     {#if !hideFallbackMessage && showingInlineErrors && !errorMessages.length}
-      <InlineNotification lowContrast kind="error" subtitle="This form contains errors. See inline messages for details." hideCloseButton />
+      <FormInlineNotification lowContrast kind="error" subtitle="This form contains errors. See inline messages for details." hideCloseButton />
     {/if}
   {/if}
   {#if warningMessages.length}
     {#each warningMessages as message}
-      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <FormInlineNotification {message} lowContrast hideCloseButton />
     {/each}
   {/if}
   {#if successMessages.length}
     {#each successMessages as message}
-      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <FormInlineNotification {message} lowContrast hideCloseButton />
     {/each}
   {/if}
   <slot name="submit" {saved} {validating} {submitting} {valid} {invalid} {allMessages} {showingInlineErrors} {hasUnsavedChanges} saveDisabled={disableSaveUntilChanged && !hasUnsavedChanges}>

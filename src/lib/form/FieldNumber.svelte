@@ -3,6 +3,7 @@
   import { InlineNotification, NumberInput } from 'carbon-components-svelte'
   import { createEventDispatcher, type ComponentProps } from 'svelte'
   import { feedbackTypeToKind } from './util.js'
+  import { FormInlineNotification } from './index.js'
 
   const dispatch = createEventDispatcher()
 
@@ -33,6 +34,6 @@
     }} on:change on:focus on:blur={() => { onBlur(); dispatch('blur') }}
   />
   {#each restMsgs as message}
-    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <FormInlineNotification {message} lowContrast hideCloseButton />
   {/each}
 </Field>

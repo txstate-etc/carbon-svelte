@@ -3,6 +3,7 @@
   import { InlineNotification, SelectItem, TimePicker, TimePickerSelect } from 'carbon-components-svelte'
   import { createEventDispatcher, type ComponentProps } from 'svelte'
   import { feedbackTypeToKind, to24Hour } from './util.js'
+  import { FormInlineNotification } from './index.js'
 
   const dispatch = createEventDispatcher()
 
@@ -107,7 +108,7 @@
     </TimePicker>
   </div>
   {#each restMsgs as message}
-    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <FormInlineNotification {message} lowContrast hideCloseButton />
   {/each}
 </Field>
 

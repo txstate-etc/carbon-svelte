@@ -16,6 +16,7 @@
   import { createEventDispatcher, getContext } from 'svelte'
   import { findIndex, groupby, isNotBlank, isNotNull } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
+  import { FormInlineNotification } from './index.js'
 
   const dispatch = createEventDispatcher()
 
@@ -219,7 +220,7 @@
       {/each}
     </div>
     {#each messages as message}
-      <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+      <FormInlineNotification lowContrast {message} hideCloseButton />
     {/each}
   </fieldset>
 </Field>

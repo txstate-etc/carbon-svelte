@@ -4,6 +4,7 @@
   import { createEventDispatcher, type ComponentProps } from 'svelte'
   import { randomid } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
+  import { FormInlineNotification } from './index.js'
 
   const dispatch = createEventDispatcher()
 
@@ -35,6 +36,6 @@
   />
   {#if helperText}<div id="{id}-helper" class:bx--form__helper-text={true}>{helperText}</div>{/if}
   {#each messages as message}
-    <InlineNotification kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <FormInlineNotification {message} hideCloseButton/>
   {/each}
 </Field>

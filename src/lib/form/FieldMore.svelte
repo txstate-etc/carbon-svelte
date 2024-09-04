@@ -13,6 +13,7 @@
   import { getContext, setContext } from 'svelte'
   import { isNotNull } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
+  import { FormInlineNotification } from './index.js'
 
   export let path: string
   export let legendText: string | undefined = undefined
@@ -119,7 +120,7 @@
     </svelte:fragment>
   </AddMore>
   {#each $messageStore as message}
-    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <FormInlineNotification {message} lowContrast hideCloseButton />
   {/each}
 </FormGroup>
 <style>

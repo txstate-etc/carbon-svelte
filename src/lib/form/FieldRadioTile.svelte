@@ -6,6 +6,7 @@
   import { get, isNotBlank, equal } from 'txstate-utils'
   import { feedbackTypeToKind } from './util.js'
   import type { RadioMenuItem } from './FieldRadio.svelte'
+  import { FormInlineNotification } from './index.js'
 
   const dispatch = createEventDispatcher()
 
@@ -92,6 +93,6 @@
     </TileGroup>
   </div>
   {#each messages as message}
-    <InlineNotification lowContrast kind={feedbackTypeToKind(message.type)} subtitle={message.message} hideCloseButton />
+    <FormInlineNotification {message} lowContrast hideCloseButton />
   {/each}
 </Field>

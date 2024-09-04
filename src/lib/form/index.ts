@@ -5,6 +5,7 @@ export { default as FieldCombobox, type ComboMenuItem } from './FieldCombobox.sv
 export { default as FieldDate } from './FieldDate.svelte'
 export { default as FieldDateTime } from './FieldDateTime.svelte'
 export { default as FieldHidden } from './FieldHidden.svelte'
+export { default as FormInlineNotification } from './FormInlineNotification.svelte'
 export { default as FieldTime } from './FieldTime.svelte'
 export { default as FieldMore } from './FieldMore.svelte'
 export { default as FieldMultiselect, type CarbonMultiItem } from './FieldMultiselect.svelte'

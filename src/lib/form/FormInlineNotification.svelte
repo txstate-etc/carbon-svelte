@@ -11,8 +11,8 @@
 </script>
 
 <InlineNotification
-  lowContrast={lowContrast || message?.extra.lowContrast}
+  lowContrast={lowContrast || message?.extra?.lowContrast}
   kind={feedbackTypeToKind(kind ?? message?.type)}
-  title={title ?? message?.extra.title}
+  title={title ?? message?.extra?.title}
   subtitle={subtitle ?? message?.message}
-  hideCloseButton={hideCloseButton || message?.extra.hideCloseButton} />
+  hideCloseButton={hideCloseButton || message?.extra?.hideCloseButton} />

@@ -19,6 +19,7 @@
   export let stickyHeader = true
   export let profileMenuDescription = 'Open User Menu'
   export let overlayText: string | undefined = undefined
+  export let reverseWeights: boolean = false
 
   const layoutStore = new LayoutStore({ root: navRoot })
   const nav = layoutStore.nav
@@ -70,7 +71,7 @@
       <div class="overlayTextContainer">
         <svg width="10000" height="3rem" role="img" aria-hidden="true">
           {#each Array(100) as _, i}
-            {@const offset = i * 70}
+            {@const offset = i * 65}
             <text x="{offset}" y="33" class="overlayText" fill="#723F3B" font-size="20" font-weight="bold" text-anchor="middle" transform="rotate(30, {offset}, 0)">{overlayText}</text>
           {/each}
         </svg>
@@ -87,9 +88,9 @@
     </button>
     <a href="{base}/" class:bx--header__name={true}>
       {#if companyName}
-        <span class:bx--header__name--prefix={true}>{companyName}&nbsp;</span>
+        <span class:bx--header__name--prefix={true} class:companyname-reverseweight={reverseWeights}>{companyName}&nbsp;</span>
       {/if}
-      {appName}
+      <span class:appname-reverseweight={reverseWeights}>{appName}</span>
     </a>
     {#if profilelinks.length}
       <HeaderUtilities>
@@ -202,8 +203,18 @@
     white-space: nowrap;
     border-width: 0;
   }
+
   .overlayTextContainer {
     position: absolute;
     z-index: -1;
+  }
+  :global(.bx--header__action) {
+    background-color: var(--maroon);
+  }
+  .companyname-reverseweight {
+    font-weight: bold;
+  }
+  .appname-reverseweight {
+    font-weight: normal;
   }
 </style>

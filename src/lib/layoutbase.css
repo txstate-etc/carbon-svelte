@@ -46,6 +46,11 @@ body {
   align-items: center;
   justify-content: center;
   padding-bottom: 2px;
+  background-color: var(--maroon);
+}
+
+.bx--header__action:hover {
+  background: #663032;
 }
 
 /* Form Field Carbon Overrides */

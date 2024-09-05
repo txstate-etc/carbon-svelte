@@ -121,6 +121,7 @@
       <button type="button" tabindex={$hasOutside ? -1 : activeAction === -1 ? 0 : -1} bind:this={overflowButton} class:bx--overflow-menu={true}
         class:bx--overflow-menu--sm={small} class:bx--overflow-menu--xl={large}
         class:bx--overflow-menu--light={light} class:bx--overflow-menu--open={overflowOpen}
+        role="menuitem"
         aria-expanded={overflowOpen} aria-haspopup="menu"
         on:click={overflowClick} on:keydown={keyDown} aria-describedby={describedById}
       >

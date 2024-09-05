@@ -21,7 +21,7 @@
   }
 
   let activeTag = 0
-  let tagcontainer: HTMLDivElement
+  let tagcontainer: HTMLUListElement
   let tagelements: HTMLElement[] = []
   function tagActivate (idx: number) {
     activeTag = idx
@@ -64,14 +64,16 @@
   })
 </script>
 {#if dTags?.length}
-  <div bind:this={tagcontainer} class="tag-set {$$restProps.class ?? ''}" class:small role="list" aria-label="tags">
+  <ul bind:this={tagcontainer} class="tag-set {$$restProps.class ?? ''}" class:small role="list" aria-label="tags">
     {#each tagsWithIdx as tag}
+    <li>
       <Tag type={tag.type === 'yellow' ? 'cyan' : tag.type ?? 'cyan'} icon={tag.icon} interactive={tag.onClick != null} size={small ? 'sm' : undefined}
         tabindex={tag.idx === activeTag ? 0 : -1} on:click={tagClick(tag)}
-        role="listitem" aria-describedby={describedById} class={tag.type === 'yellow' ? 'bg-tagyellow-200 border-tagyellow-900 text-tagyellow-900' : undefined}
+         aria-describedby={describedById} class={tag.type === 'yellow' ? 'bg-tagyellow-200 border-tagyellow-900 text-tagyellow-900' : undefined}
       >{tag.label}</Tag>
+    </li>
     {/each}
-  </div>
+  </ul>
 {/if}
 
 <style>

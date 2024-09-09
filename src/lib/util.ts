@@ -173,7 +173,7 @@ export function extractMergedFilters (url: URL) {
 export function addFilters (url: URL, filters: FilterUIFilters) {
   const ret = new URL(url)
   const str = toQuery(deleteEmpty(filters))
-  const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t.') && !entry.startsWith('search='))
+  const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t=') && !entry.startsWith('search='))
   ret.search = [str, ...restofquery].join('&')
   return ret
 }

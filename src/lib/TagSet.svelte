@@ -68,7 +68,7 @@
     {#each tagsWithIdx as tag}
       <Tag type={tag.type === 'yellow' ? 'cyan' : tag.type ?? 'cyan'} icon={tag.icon} role="listitem" interactive={tag.onClick != null} size={small ? 'sm' : undefined}
         tabindex={tag.idx === activeTag ? 0 : -1} on:click={tagClick(tag)}
-         aria-describedby={describedById} class={tag.type === 'yellow' ? 'bg-tagyellow-200 border-tagyellow-900 text-tagyellow-900' : undefined}
+         aria-describedby={describedById} class={`${tag.type === 'yellow' ? 'bg-tagyellow-200 border-tagyellow-900 text-tagyellow-900' : undefined} ${tag.emphasize ? 'emphasize_tag' : undefined}`}
       >{tag.label}</Tag>
     {/each}
   </div>
@@ -86,5 +86,8 @@
   }
   .tag-set :global(.bx--tag) {
     margin: 0;
+  }
+  .tag-set :global(.emphasize_tag) {
+    font-weight: bold;
   }
 </style>

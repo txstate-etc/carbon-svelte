@@ -19,6 +19,7 @@ export interface TagItem {
   type?: ComponentProps<Tag>['type'] | 'yellow'
   icon?: typeof SvelteComponent<any>
   onClick?: () => void | Promise<void>
+  emphasize?: boolean
 }
 
 export interface TabRadioItem {

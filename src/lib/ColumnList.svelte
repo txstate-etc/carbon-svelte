@@ -182,7 +182,7 @@
   <div hidden aria-hidden="true" id="{listId}-list-title">{title}</div>
   <div class="column-list-head [ flex items-center ]">
     {#if selectedActions != null}<div class="column-list-colhead select-all [ px-[8px] py-[6px] ]" style:flex-basis={checkboxColWidth}>{#if !noSelectAll}<div class:bx--checkbox-inline={true}><input id="{listId}-select-all" type="checkbox" bind:indeterminate={someSelected} checked={allSelected} class:bx--checkbox={true} on:change={onSelectAll}><label for="{listId}-select-all" class:bx--checkbox-label={true}><ScreenReaderOnly>{allSelected ? 'deselect' : 'select'} all</ScreenReaderOnly></label></div>{/if}</div>{/if}
-    {#if expandable}<div class="column-list-colhead expand" style:flex-basis={expandableColWidth}>&nbsp;</div>{/if}
+    {#if expandable && !expanded}<div class="column-list-colhead expand" style:flex-basis={expandableColWidth}>&nbsp;</div>{/if}
     {#each showingColumns as col}
       <div id="{listId}-{col.id}" class="column-list-colhead [ p-[8px] font-bold ]" style:flex-grow={col.grow ?? (col.fixed ? undefined : 1)} style:flex-basis={col.fixed ?? baseWidth}>{col.label}</div>
     {/each}
@@ -207,7 +207,7 @@
             </div>
           </div>
         {/if}
-        {#if isExpandable}
+        {#if isExpandable && !expanded}
           <div class="column-list-col expand" style:flex-basis={expandableColWidth}><button type="button" on:click={onExpandRow(row)}>
             {#if $expandedRows.has(row.id)}
               <ChevronUp size={24} />

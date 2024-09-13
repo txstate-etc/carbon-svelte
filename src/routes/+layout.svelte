@@ -5,7 +5,7 @@
 </script>
 
 <UIShell appName="Component Library" navRoot={{
-  title: 'Carbon Components',
+  title: 'Component Library',
   routeId: '/',
   icon: ViewFilled,
   children: [

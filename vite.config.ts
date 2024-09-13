@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import circleDependency from 'vite-plugin-circular-dependency'
 
 export default defineConfig({
-	plugins: [sveltekit(), optimizeCss(), circleDependency()],
+	plugins: [sveltekit()],
   build: { sourcemap: true },
   css: { devSourcemap: true },
   optimizeDeps: {

@@ -91,6 +91,14 @@
     margin: -16px 0 0 -16px;
     width: calc(100% + 32px);
   }
+  .panel :global(.column-list-header) {
+    margin: 0 0 0 -16px;
+    width: calc(100% + 32px);
+  }
+  .panel :global(.column-list) {
+    margin: 0 0 -16px -16px;
+    width: calc(100% + 32px);
+  }
   .panel:not(.expanded) :global(+ .panel header) {
     border-top-width: 0;
   }

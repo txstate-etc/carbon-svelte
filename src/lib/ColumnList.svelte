@@ -167,16 +167,18 @@
 </script>
 
 {#if selectedActions}
-  <div class="column-list-selections [ flex items-center min-h-8 ]">
-    <div id="{listId}-with-selected-desc" class="[ mr-[8px] ]">{pluralize('row', $selectedRows.size, true)} selected...</div>
-    <ActionSet actions={currentSelectedActions} describedById="{listId}-with-selected-desc" small maxButtons={4} />
-    <div class="[ flex-grow ]"></div>
+  <header class="column-list-header [ flex items-center min-h-8 gap-[2px] ]">
+    <div id="{listId}-with-selected-desc" class="flex flex-grow column-list-selections">
+      <div class="column-list-selection-text">{pluralize('row', $selectedRows.size, true)} selected...</div>
+      {#if currentSelectedActions.length > 0}<div class="column-list-selection-actions"><ActionSet includeLabels actions={currentSelectedActions} describedById="{listId}-with-selected-desc" small maxButtons={4} /></div>{/if}
+      <div class="column-list-selection-remainder flex-grow"></div>
+    </div>
     <!-- add a search UI here -->
     {#if $$slots.smallFilters || $$slots.filters}
       <Button bind:ref={filterbutton} size="small" icon={Filter} iconDescription="Filters" aria-describedby="{listId}-list-title" on:click={onFilterClick} />
     {/if}
-    <ActionSet actions={listActions} describedById="{listId}-list-title" small maxButtons={4} />
-  </div>
+    <ActionSet includeLabels actions={listActions} describedById="{listId}-list-title" small maxButtons={4} />
+  </header>
 {/if}
 <div use:resize={{ store }} class="column-list" role="list" aria-labelledby="{listId}-list-title">
   <div hidden aria-hidden="true" id="{listId}-list-title">{title}</div>
@@ -314,5 +316,18 @@
   }
   .column-list-smallfilters::backdrop {
     background: transparent;
+  }
+  .column-list-selection-text {
+    background-color: var(--maroon);
+    color: white;
+    padding: 6px 12px 5px 12px;
+  }
+  .column-list-selection-actions {
+    border-width: 0 2px;
+    border-style: solid;
+    border-color: white;
+  }
+  .column-list-selection-remainder {
+    background-color: var(--maroon);
   }
 </style>

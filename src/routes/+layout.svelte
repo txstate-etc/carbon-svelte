@@ -45,6 +45,11 @@
       group: 'Components',
       title: 'PanelFormDialog',
       routeId: '/component/PanelFormDialog'
+    },
+    {
+      group: 'Components',
+      title: 'FilterUI',
+      routeId: '/component/FilterUI'
     }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>

@@ -49,17 +49,17 @@
   let dialogData: T
   let quickData: Q
   let tabIndex = 0
-  let tabData: any
+  let selectedTab: string | undefined
   let searchStr: string | undefined
 
   function updateFilters () {
     if (!browser) return
-    const merged = { t: tabData, f: dialogData, q: quickData, search: searchStr }
+    const merged = { t: selectedTab, f: dialogData, q: quickData, search: searchStr }
     if (!skipUrlState) {
       const url = addFilters(getUrl(), merged)
       replaceState(url)
     }
-    dispatch('apply', { ...merged.t, ...merged.f, ...merged.q, search: merged.search })
+    dispatch('apply', { tab: merged.t, ...merged.f, ...merged.q, search: merged.search })
   }
   async function onQuickValidate (data: Q) {
     quickData = data
@@ -85,7 +85,7 @@
   }
 
   function onTabChange (e: CustomEvent<any>) {
-    tabData = e.detail.value
+    selectedTab = e.detail.value
     updateFilters()
   }
 
@@ -104,10 +104,10 @@
       dialogData = params.f
       quickData = params.q
       tabIndex = findIndex(tabs, t => toQuery(t.value) === toQuery(params.t)) ?? 0
-      tabData = tabs?.[tabIndex]?.value ?? undefined
+      selectedTab = tabs?.[tabIndex]?.value ?? undefined
       searchStr = params.search
       void quickStore?.setData(quickData)
-      dispatch('mount', { ...tabData, ...dialogData, ...quickData, search: searchStr })
+      dispatch('mount', { tab: selectedTab, ...dialogData, ...quickData, search: searchStr })
     }
   })
 </script>

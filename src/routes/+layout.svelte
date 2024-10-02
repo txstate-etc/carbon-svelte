@@ -5,7 +5,7 @@
 </script>
 
 <UIShell appName="Component Library" navRoot={{
-  title: 'Carbon Components',
+  title: 'Component Library',
   routeId: '/',
   icon: ViewFilled,
   children: [
@@ -45,6 +45,11 @@
       group: 'Components',
       title: 'PanelFormDialog',
       routeId: '/component/PanelFormDialog'
+    },
+    {
+      group: 'Components',
+      title: 'FilterUI',
+      routeId: '/component/FilterUI'
     }
   ]
 }} profilelinks={[{ label: 'Logout', href: '#' }]}>

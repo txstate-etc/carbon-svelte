@@ -19,6 +19,7 @@ export interface TagItem {
   type?: ComponentProps<Tag>['type'] | 'yellow'
   icon?: typeof SvelteComponent<any>
   onClick?: () => void | Promise<void>
+  emphasize?: boolean
 }
 
 export interface TabRadioItem {
@@ -167,13 +168,13 @@ export function extractFilters (url: URL) {
 
 export function extractMergedFilters (url: URL) {
   const params = extractFilters(url)
-  return { ...params.f, ...params.q, ...params.t, search: params.search }
+  return { ...params.f, ...params.q, t: params.t, search: params.search }
 }
 
 export function addFilters (url: URL, filters: FilterUIFilters) {
   const ret = new URL(url)
   const str = toQuery(deleteEmpty(filters))
-  const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t.') && !entry.startsWith('search='))
+  const restofquery = url.search.substring(1).split('&').filter(entry => isNotBlank(entry) && !entry.startsWith('f.') && !entry.startsWith('q.') && !entry.startsWith('t=') && !entry.startsWith('search='))
   ret.search = [str, ...restofquery].join('&')
   return ret
 }

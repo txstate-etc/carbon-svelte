@@ -76,7 +76,7 @@
   const titleId = randomid()
 </script>
 
-<article role="listitem" use:eq={{ store }} class="card shadow [ flex flex-col ]" aria-labelledby={titleId}>
+<div role="listitem" use:eq={{ store }} class="card shadow [ flex flex-col ]" aria-labelledby={titleId}>
   <header class="card-header [ flex items-start justify-between p-[8px] ]">
     <div class="card-header-left [ flex-grow flex-shrink ]">
       <div id={titleId} class="card-title [ text-lg font-bold ]" class:emphasizeTitle>{title}</div>
@@ -92,7 +92,7 @@
   </div>
   {#if !navToActions}
     <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
-    <footer class="card-footer [ flex flex-wrap flex-row-reverse ]" class:singular={navigations.length === 1} role="menubar">
+    <div class="card-footer [ flex flex-wrap flex-row-reverse ]" class:singular={navigations.length === 1} role="menubar">
       {#each navigations as nav, i}
         <Button bind:ref={navelements[i]} href={nav.href} size="field"
           role="menuitem" aria-disabled={nav.disabled} aria-describedby={titleId}
@@ -102,9 +102,9 @@
           on:click={navClick(nav)}
         >{nav.label}</Button>
       {/each}
-    </footer>
+    </div>
   {/if}
-</article>
+</div>
 
 <style>
   .card {

@@ -69,6 +69,21 @@ body {
   --cds-disabled-02: var(--maroon);
 }
 
+.bx--toggle-input:disabled+.bx--toggle-input__label>.bx--toggle__switch::before {
+  --cds-disabled-02: #c6c6c6;
+}
+
+/* Buttons */
+
+.bx--btn:disabled,
+.bx--btn:hover:disabled,
+.bx--btn:focus:disabled,
+.bx--btn.bx--btn--disabled,
+.bx--btn.bx--btn--disabled:hover,
+.bx--btn.bx--btn--disabled:focus {
+  --cds-disabled-02: #c6c6c6;
+}
+
 /* CK EDITOR CLASSES TO REVERT TAILWIND */
 .ck-content figure.table,
 .ck-content figure.table table {

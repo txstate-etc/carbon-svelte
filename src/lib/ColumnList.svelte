@@ -167,22 +167,24 @@
 </script>
 
 {#if selectedActions}
-  <div class="column-list-selections [ flex items-center min-h-8 ]">
-    <div id="{listId}-with-selected-desc" class="[ mr-[8px] ]">{pluralize('row', $selectedRows.size, true)} selected...</div>
-    <ActionSet actions={currentSelectedActions} describedById="{listId}-with-selected-desc" small maxButtons={4} />
-    <div class="[ flex-grow ]"></div>
+  <header class="column-list-header [ flex items-center min-h-8 gap-[2px] ]">
+    <div id="{listId}-with-selected-desc" class="flex flex-grow column-list-selections">
+      <div class="column-list-selection-text">{pluralize('row', $selectedRows.size, true)} selected...</div>
+      {#if currentSelectedActions.length > 0}<div class="column-list-selection-actions"><ActionSet includeLabels actions={currentSelectedActions} describedById="{listId}-with-selected-desc" small maxButtons={4} /></div>{/if}
+      <div class="column-list-selection-remainder flex-grow"></div>
+    </div>
     <!-- add a search UI here -->
     {#if $$slots.smallFilters || $$slots.filters}
       <Button bind:ref={filterbutton} size="small" icon={Filter} iconDescription="Filters" aria-describedby="{listId}-list-title" on:click={onFilterClick} />
     {/if}
-    <ActionSet actions={listActions} describedById="{listId}-list-title" small maxButtons={4} />
-  </div>
+    <ActionSet includeLabels actions={listActions} describedById="{listId}-list-title" small maxButtons={4} />
+  </header>
 {/if}
 <div use:resize={{ store }} class="column-list" role="list" aria-labelledby="{listId}-list-title">
   <div hidden aria-hidden="true" id="{listId}-list-title">{title}</div>
   <div class="column-list-head [ flex items-center ]">
     {#if selectedActions != null}<div class="column-list-colhead select-all [ px-[8px] py-[6px] ]" style:flex-basis={checkboxColWidth}>{#if !noSelectAll}<div class:bx--checkbox-inline={true}><input id="{listId}-select-all" type="checkbox" bind:indeterminate={someSelected} checked={allSelected} class:bx--checkbox={true} on:change={onSelectAll}><label for="{listId}-select-all" class:bx--checkbox-label={true}><ScreenReaderOnly>{allSelected ? 'deselect' : 'select'} all</ScreenReaderOnly></label></div>{/if}</div>{/if}
-    {#if expandable}<div class="column-list-colhead expand" style:flex-basis={expandableColWidth}>&nbsp;</div>{/if}
+    {#if expandable && !expanded}<div class="column-list-colhead expand" style:flex-basis={expandableColWidth}>&nbsp;</div>{/if}
     {#each showingColumns as col}
       <div id="{listId}-{col.id}" class="column-list-colhead [ p-[8px] font-bold ]" style:flex-grow={col.grow ?? (col.fixed ? undefined : 1)} style:flex-basis={col.fixed ?? baseWidth}>{col.label}</div>
     {/each}
@@ -207,7 +209,7 @@
             </div>
           </div>
         {/if}
-        {#if isExpandable}
+        {#if isExpandable && !expanded}
           <div class="column-list-col expand" style:flex-basis={expandableColWidth}><button type="button" on:click={onExpandRow(row)}>
             {#if $expandedRows.has(row.id)}
               <ChevronUp size={24} />
@@ -314,5 +316,18 @@
   }
   .column-list-smallfilters::backdrop {
     background: transparent;
+  }
+  .column-list-selection-text {
+    background-color: var(--maroon);
+    color: white;
+    padding: 6px 12px 5px 12px;
+  }
+  .column-list-selection-actions {
+    border-width: 0 2px;
+    border-style: solid;
+    border-color: white;
+  }
+  .column-list-selection-remainder {
+    background-color: var(--maroon);
   }
 </style>

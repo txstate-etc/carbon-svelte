@@ -1,4 +1,4 @@
-## Carbon Svelte
+## Component Library
 
 This package is an implemention of Mobile/Web's custom Carbon components. Install with your favorite node package manager and import in the `<script>` area of your components. Source code is located at https://github.com/txstate-etc/carbon-svelte.
 

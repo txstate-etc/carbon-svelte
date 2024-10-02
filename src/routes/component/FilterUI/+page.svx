@@ -1,0 +1,74 @@
+<script lang="ts">
+  import FilterUI from '$lib/FilterUI.svelte'
+  import ExampleBox from '../../lib/ExampleBox.svelte'
+  import FieldMultiselect from '$lib/form/FieldMultiselect.svelte'
+
+  let filterData
+</script>
+
+## FilterUI
+
+### <a id="basicexample"></a> Basic Example
+
+<ExampleBox>
+  <FilterUI
+    search
+    tabs={[
+      {
+        label: 'Batch pending',
+        value: 'pending'
+      }, {
+        label: 'Doc number pending',
+        value: 'numberpending'
+      }, {
+        label: 'Completed',
+        value: 'completed'
+      }
+    ]}
+    quickFilterWidth={1000}
+    on:apply={(e) => filterData = e.detail}
+    on:mount={(e) => filterData = e.detail}>
+    <svelte:fragment slot="quickfilters">
+      {#if filterData && filterData.tab === 'completed'}<FieldMultiselect path="awardyear" label="Award year(s)" items={[{ value: '2425', label: '2425' }, { value: '2526', label: '2526' }]} />{/if}
+      <FieldMultiselect path="paymenttype" label="Payment type" items={[{ value: 'touchnet', label: 'ACH TouchNet' }, { value: 'check', label: 'Check' }, { value: 'wire', label: 'Wire' }]} />
+    </svelte:fragment>
+    <FieldMultiselect path="foo" label="Foo" items={[{ value: '2425', label: '2425' }, { value: '2526', label: '2526' }]} />
+    <FieldMultiselect path="bar" label="Bar" items={[{ value: '2425', label: '2425' }, { value: '2526', label: '2526' }]} />
+  </FilterUI>
+</ExampleBox>
+
+#### Event Data
+
+<pre>{JSON.stringify(filterData, null, 2)}</pre>
+
+```svelte
+<script lang="ts">
+  import { FilterUI, FieldMultiselect } from '@txstate-mws/carbon-svelte'
+  let filterData
+</script>
+
+<FilterUI
+  search
+  tabs={[
+    {
+      label: 'Batch pending',
+      value: 'pending'
+    }, {
+      label: 'Doc number pending',
+      value: 'numberpending'
+    }, {
+      label: 'Completed',
+      value: 'completed'
+    }
+  ]}
+  quickFilterWidth={1000}
+  on:apply={(e) => filterData = e.detail}
+  on:mount={(e) => filterData = e.detail}>
+  <svelte:fragment slot="quickfilters">
+    {#if filterData && filterData.tab === 'completed'}<FieldMultiselect path="awardyear" label="Award year(s)" items={[{ value: '2425', label: '2425' }, { value: '2526', label: '2526' }]} />{/if}
+    <FieldMultiselect path="paymenttype" label="Payment type" items={[{ value: 'touchnet', label: 'ACH TouchNet' }, { value: 'check', label: 'Check' }, { value: 'wire', label: 'Wire' }]} />
+  </svelte:fragment>
+  <FieldMultiselect path="foo" label="Foo" items={[{ value: '2425', label: '2425' }, { value: '2526', label: '2526' }]} />
+  <FieldMultiselect path="bar" label="Bar" items={[{ value: '2425', label: '2425' }, { value: '2526', label: '2526' }]} />
+</FilterUI>
+```

@@ -237,7 +237,7 @@
               {:else if col.render}
                 {@html col.render(row)}
               {:else if col.get}
-                <span>{getByKey(row, col.get) || '&nbsp;'}</span>
+                <span>{getByKey(row, col.get) ?? '\u{A0}'}</span>
               {/if}
             </OptionalLink>
           </div>

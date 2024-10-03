@@ -163,8 +163,7 @@
   </main>
 </LayoutBase>
 
-<style>
-
+<style type="postcss">
   header.fixed~.bx--content {
     margin-top: var(--nav-height-offset, 7rem);
   }
@@ -174,19 +173,36 @@
   }
 
   main.bx--content {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1400px;
+    margin-inline: auto;
+    width: var(--content-max-width);
     padding: 16px 0;
   }
 
-  :global(.bx--header-panel) {
-    background-color: #fff;
+  :global(ul.bx--side-nav__items) {
+    background-color: var(--nav-menu-bg);
+    & .bx--side-nav__submenu-title,
+    & .bx--side-nav__link-text {
+      transition: color 0.125s var(--ease-1);
+    }
+
+  }
+
+  header :global(.bx--header-panel) {
+    background-color: var(--profile-menu-bg);
+
+    & a {
+      color:rgba(0,0,0,0.5);
+      transition: color 0.125s var(--ease-1);
+    }
+    & a:hover {
+      color:rgba(0,0,0,1);
+      background: transparent;
+    }
   }
 
  :global(.bx--switcher__item-link),
- :global(.bx--header-panel-divider) {
-    color: #525252!important;
+ header :global(.bx--header-panel-divider) {
+    color: #525252;
     font-size: var(--cds-productive-heading-01-font-size, 0.875rem)!important;
     font-weight: var(--cds-productive-heading-01-font-weight, 600)!important;
     line-height: var(--cds-productive-heading-01-line-height, 1.28572)!important;

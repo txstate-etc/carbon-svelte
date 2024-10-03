@@ -1,15 +1,21 @@
-:root {
-  --cds-disabled-02: #939393;
+:where(html) {
+  /* colors */
   --maroon: #501214;
+
+  /* assigned colors */
+  --cds-disabled-02: #939393;
+  --nav-menu-bg: #e3e3e3;
+  --profile-menu-bg: var(--nav-menu-bg, #cdcdcd);
+  /* sizing */
+  --content-max-width: min(1400px);
+
+  /* transitions */
+  --ease-1: cubic-bezier(.25, 0, .5, 1);
 }
 
 /* https://piccalil.li/quick-tip/flow-utility/ */
 .flow>*+* {
   margin-top: var(--flow-space, 1em);
-}
-
-.shadow {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
 
 body {

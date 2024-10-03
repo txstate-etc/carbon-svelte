@@ -11,7 +11,7 @@
   import TagSet from './TagSet.svelte'
 
 
-  type T = $$Generic<{ id: string }>
+  type T = $$Generic<{ id: string | number }>
 
   export let columns: ColumnDefinition<T>[]
   export let rows: T[]
@@ -77,8 +77,8 @@
   const listId = randomid()
   let filterbutton: HTMLButtonElement
 
-  const expandedRows = new ActiveStore(new Set<string>())
-  const selectedRows = new ActiveStore(new Set<string>())
+  const expandedRows = new ActiveStore(new Set<string | number>())
+  const selectedRows = new ActiveStore(new Set<string | number>())
   $: selectableRows = new Set(rows.filter(r => selectable(r)).map(r => r.id))
   $: selectedRows.update(v => {
     for (const id of v) if (!selectableRows.has(id)) v.delete(id)

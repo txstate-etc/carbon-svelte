@@ -7,7 +7,7 @@
   --nav-menu-bg: #e3e3e3;
   --profile-menu-bg: var(--nav-menu-bg, #cdcdcd);
   /* sizing */
-  --content-max-width: min(1400px);
+  --content-max-width: min(100%, 1400px);
 
   /* transitions */
   --ease-1: cubic-bezier(.25, 0, .5, 1);

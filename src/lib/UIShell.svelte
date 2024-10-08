@@ -187,17 +187,16 @@
 
   }
 
-  header :global(.bx--header-panel) {
+  :global(.bx--header-panel) {
     background-color: var(--profile-menu-bg);
-
-    & a {
-      color:rgba(0,0,0,0.5);
-      transition: color 0.125s var(--ease-1);
-    }
-    & a:hover {
-      color:rgba(0,0,0,1);
-      background: transparent;
-    }
+  }
+  :global(.bx--header-panel) a {
+    color:rgba(0,0,0,0.5);
+    transition: color 0.125s var(--ease-1);
+  }
+  :global(.bx--header-panel) a:hover {
+    color:rgba(0,0,0,1);
+    background: transparent;
   }
 
  :global(.bx--switcher__item-link),

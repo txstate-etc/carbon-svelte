@@ -109,7 +109,7 @@ export class LayoutStore extends Store<ILayoutStore> {
     }
     breadcrumbs.reverse()
     return {
-      title: title.then(title => title + ('group' in node && node.group ? ` (${node.group})` : '')),
+      title: title.then(title => title),
       breadcrumbs: breadcrumbs.map(bc => ({
         ...bc,
         href: hrefCache.get({ routeId: bc.routeId, cacheKey: bc.__type === 'root' ? bc.cacheKey?.($page.params) : (bc as LayoutStructureNode).cacheKey?.($page) }, { node: bc, $page }),

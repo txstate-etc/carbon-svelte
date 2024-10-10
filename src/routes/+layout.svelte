@@ -21,6 +21,12 @@
       icon: Report
     },
     {
+      group: 'Demos',
+      title: 'ColumnList',
+      routeId: '/demo/columnlist',
+      icon: Report
+    },
+    {
       group: 'Components',
       icon: Settings,
       title: 'ActionSet',

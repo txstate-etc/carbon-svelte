@@ -47,10 +47,10 @@
       closeNav()
     }
   }
-  function bodyClick (e: MouseEvent) {
+  function documentClick (e: MouseEvent) {
     if (sidenavcontainer?.contains(e.target as HTMLElement)) return
     if (hamburgerelement?.contains(e.target as HTMLElement)) return
-    if (!document.body.contains(e.target as HTMLElement)) return
+    if (!document.body.contains(e.target as HTMLElement) && e.target?.tagName !== 'HTML') return
     isOpen = false
   }
 
@@ -63,7 +63,7 @@
     <title>{layoutTitle ? `${layoutTitle} : ${appName}` : appName}</title>
   {/await}
 </svelte:head>
-<svelte:body on:click={bodyClick} />
+<svelte:document on:click={documentClick} />
 <LayoutBase>
   <SkipToContent id="skip" />
   <header class:bx--header={true} class:fixed={stickyHeader} class:relative={!stickyHeader} class="[ flex-wrap ]">

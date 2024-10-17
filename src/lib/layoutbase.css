@@ -4,7 +4,6 @@
 
   /* assigned colors */
   --cds-disabled-02: #939393;
-  --cds-inverse-02: var(--maroon);
   --cds-inverse-hover-ui: #2a0a0a;
   --nav-menu-bg: #e3e3e3;
   --profile-menu-bg: var(--nav-menu-bg, #cdcdcd);
@@ -14,6 +13,10 @@
 
   /* transitions */
   --ease-1: cubic-bezier(.25, 0, .5, 1);
+}
+
+form {
+  --cds-inverse-02: var(--maroon);
 }
 
 /* https://piccalil.li/quick-tip/flow-utility/ */
@@ -80,6 +83,11 @@ body {
 
 .bx--toggle-input:disabled+.bx--toggle-input__label>.bx--toggle__switch::before {
   --cds-disabled-02: #c6c6c6;
+}
+
+/* multiselect placeholders should match select */
+.bx--text-input::placeholder {
+  color: var(--cds-text-01, #161616);
 }
 
 /* Buttons */

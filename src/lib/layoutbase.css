@@ -1,11 +1,14 @@
-:where(html) {
+:root {
   /* colors */
   --maroon: #501214;
 
   /* assigned colors */
   --cds-disabled-02: #939393;
+  --cds-inverse-02: var(--maroon);
+  --cds-inverse-hover-ui: #2a0a0a;
   --nav-menu-bg: #e3e3e3;
   --profile-menu-bg: var(--nav-menu-bg, #cdcdcd);
+
   /* sizing */
   --content-max-width: min(100%, 1400px);
 
